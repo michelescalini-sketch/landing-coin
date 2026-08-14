@@ -23,7 +23,7 @@ const umi = createUmi('https://api.mainnet.solana.com')
 const secret = new Uint8Array(
   JSON.parse(
     fs.readFileSync(
-      '/home/mscal/.config/solana/landing-mainnet-admin.json',
+      `${process.env.HOME}/.config/solana/landing-mainnet-admin.json`,
       'utf8'
     )
   )

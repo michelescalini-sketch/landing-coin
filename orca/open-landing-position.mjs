@@ -13,7 +13,7 @@ await setRpc('https://api.mainnet.solana.com');
 const secret = new Uint8Array(
   JSON.parse(
     fs.readFileSync(
-      '/home/mscal/.config/solana/landing-liquidity.json',
+      `${process.env.HOME}/.config/solana/landing-liquidity.json`,
       'utf8'
     )
   )
