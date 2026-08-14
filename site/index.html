@@ -1,0 +1,852 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Landing Coin — $LANDING</title>
+
+<meta name="description" content="Everyone is going to the moon. We are landing. Landing Coin is an ironic, anti-hype memecoin on Solana.">
+
+<style>
+:root {
+  --bg: #05070d;
+  --panel: rgba(13,18,30,.72);
+  --line: rgba(255,255,255,.10);
+  --text: #f7f7f8;
+  --muted: #9aa3b5;
+  --cyan: #22e6c7;
+  --blue: #4da4ff;
+  --violet: #a855f7;
+  --orange: #ffad24;
+  --max: 1180px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--text);
+
+  background:
+    radial-gradient(circle at 85% 12%, rgba(122,58,237,.22), transparent 32%),
+    radial-gradient(circle at 8% 20%, rgba(0,210,190,.16), transparent 28%),
+    radial-gradient(circle at 50% 80%, rgba(40,90,200,.12), transparent 35%),
+    linear-gradient(145deg,#02040a,#080b16 45%,#080511);
+
+  min-height: 100vh;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .14;
+  background-image:
+    radial-gradient(circle at 20% 30%, #fff 0 1px, transparent 1.5px),
+    radial-gradient(circle at 80% 60%, #fff 0 1px, transparent 1.5px),
+    radial-gradient(circle at 60% 10%, #fff 0 1px, transparent 1.5px);
+  background-size: 190px 190px, 240px 240px, 310px 310px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.wrapper {
+  width: min(var(--max), calc(100% - 40px));
+  margin: 0 auto;
+}
+
+nav {
+  height: 86px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  font-weight: 900;
+  letter-spacing: -.02em;
+  font-size: 1.2rem;
+}
+
+.brand img {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 30px rgba(92,80,255,.28);
+}
+
+.brand span {
+  background: linear-gradient(90deg,var(--cyan),var(--blue),var(--violet));
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.navlinks {
+  display: flex;
+  gap: 30px;
+  font-size: .9rem;
+  color: #c4cad5;
+}
+
+.navlinks a:hover {
+  color: #fff;
+}
+
+.hero {
+  min-height: 660px;
+  display: grid;
+  grid-template-columns: 1.04fr .96fr;
+  align-items: center;
+  gap: 70px;
+  padding: 50px 0 90px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 13px;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  font-size: .78rem;
+  color: #b6bfce;
+  background: rgba(255,255,255,.035);
+  margin-bottom: 25px;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 15px var(--cyan);
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(3.8rem,8vw,7.4rem);
+  line-height: .88;
+  letter-spacing: -.07em;
+  font-weight: 950;
+}
+
+.gradient {
+  background: linear-gradient(90deg,var(--cyan),var(--blue),var(--violet));
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.tagline {
+  margin: 30px 0 0;
+  font-size: clamp(1.45rem,2.5vw,2.15rem);
+  line-height: 1.12;
+  font-weight: 800;
+  letter-spacing: -.035em;
+}
+
+.intro {
+  max-width: 570px;
+  line-height: 1.75;
+  color: var(--muted);
+  margin: 24px 0 0;
+  font-size: 1.05rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 13px;
+  margin-top: 32px;
+}
+
+.button {
+  padding: 15px 22px;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: .9rem;
+  border: 1px solid var(--line);
+}
+
+.primary {
+  background: linear-gradient(100deg,var(--cyan),var(--blue),var(--violet));
+  color: #05070d;
+  border: 0;
+}
+
+.secondary {
+  background: rgba(255,255,255,.04);
+}
+
+.hero-art {
+  min-height: 545px;
+  position: relative;
+  border-radius: 34px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.12);
+
+  background:
+    radial-gradient(circle at 75% 16%, rgba(255,170,72,.75), transparent 17%),
+    linear-gradient(180deg,#074677 0%,#0d8fc1 35%,#58d0d5 55%,#e5bb79 56%,#b77438 100%);
+
+  box-shadow:
+    0 50px 100px rgba(0,0,0,.45),
+    inset 0 0 90px rgba(3,8,20,.22);
+}
+
+.hero-art::before {
+  content: "";
+  position: absolute;
+  width: 540px;
+  height: 270px;
+  left: -70px;
+  bottom: -115px;
+  background: #e4b46f;
+  border-radius: 50%;
+  transform: rotate(-5deg);
+  opacity: .9;
+}
+
+.hero-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg,rgba(5,7,13,.32),transparent 40%),
+    linear-gradient(0deg,rgba(5,7,13,.28),transparent 40%);
+}
+
+.sun {
+  position: absolute;
+  right: 65px;
+  top: 57px;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: #ffca70;
+  box-shadow: 0 0 70px #ff9b51;
+}
+
+.coin-wrap {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  top: 47%;
+  transform: translate(-50%,-50%) rotate(-4deg);
+  text-align: center;
+}
+
+.coin-wrap img {
+  width: 285px;
+  height: 285px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow:
+    0 25px 60px rgba(0,0,0,.45),
+    0 0 60px rgba(93,75,255,.25);
+}
+
+.float {
+  animation: float 5s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,100% { transform: translate(-50%,-50%) rotate(-4deg); }
+  50% { transform: translate(-50%,-57%) rotate(2deg); }
+}
+
+.parachute {
+  position: absolute;
+  z-index: 4;
+  top: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 5rem;
+  filter: drop-shadow(0 12px 15px rgba(0,0,0,.25));
+}
+
+.beach-copy {
+  position: absolute;
+  z-index: 4;
+  left: 28px;
+  bottom: 26px;
+  right: 28px;
+  padding: 17px 20px;
+  border-radius: 17px;
+  background: rgba(3,7,15,.74);
+  border: 1px solid rgba(255,255,255,.13);
+  backdrop-filter: blur(12px);
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+section {
+  padding: 85px 0;
+}
+
+.section-title {
+  margin: 0 0 13px;
+  font-size: clamp(2.3rem,5vw,4rem);
+  letter-spacing: -.055em;
+}
+
+.section-intro {
+  max-width: 670px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 36px;
+}
+
+.two {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 20px;
+}
+
+.card {
+  padding: 34px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background:
+    linear-gradient(145deg,rgba(18,25,42,.82),rgba(7,10,18,.80));
+  box-shadow: inset 0 1px rgba(255,255,255,.03);
+}
+
+.card .icon {
+  font-size: 2rem;
+  margin-bottom: 23px;
+}
+
+.card h3 {
+  margin: 0 0 14px;
+  font-size: 1.8rem;
+  letter-spacing: -.04em;
+}
+
+.card .accent {
+  background: linear-gradient(90deg,var(--cyan),var(--violet));
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.card p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.quote {
+  font-size: 1.25rem;
+  color: #fff !important;
+  font-weight: 700;
+}
+
+.token-grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 14px;
+}
+
+.token {
+  padding: 26px 18px;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.035);
+}
+
+.token small {
+  display: block;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .09em;
+  font-size: .68rem;
+  margin-bottom: 10px;
+}
+
+.token strong {
+  font-size: 1.08rem;
+}
+
+.contract {
+  margin-top: 14px;
+  grid-column: 1 / -1;
+}
+
+.contract code {
+  font-size: .82rem;
+  color: #c6d0df;
+  word-break: break-all;
+}
+
+.distribution {
+  margin-top: 30px;
+  padding: 30px;
+  border-radius: 22px;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.025);
+}
+
+.bar {
+  height: 20px;
+  display: flex;
+  overflow: hidden;
+  border-radius: 100px;
+  margin: 22px 0;
+  background: #111;
+}
+
+.bar span:nth-child(1) { width:50%; background:#19dbc0; }
+.bar span:nth-child(2) { width:35%; background:#4c91ff; }
+.bar span:nth-child(3) { width:9.7525%; background:#9059f7; }
+.bar span:nth-child(4) { width:5%; background:#e064ff; }
+.bar span:nth-child(5) { width:.2475%; background:#ffb338; }
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 11px 23px;
+  color: var(--muted);
+  font-size: .84rem;
+}
+
+.warning {
+  border-color: rgba(255,180,60,.25);
+  background:
+    radial-gradient(circle at 90% 20%,rgba(255,160,40,.08),transparent 30%),
+    rgba(255,255,255,.025);
+}
+
+.manifesto {
+  text-align: center;
+  padding: 120px 0;
+}
+
+.manifesto h2 {
+  font-size: clamp(3rem,7vw,6.6rem);
+  letter-spacing: -.07em;
+  line-height: .95;
+  margin: 0;
+}
+
+.manifesto p {
+  margin: 30px auto 0;
+  color: var(--muted);
+  max-width: 620px;
+  line-height: 1.7;
+}
+
+footer {
+  padding: 35px 0 55px;
+  border-top: 1px solid var(--line);
+  color: #697386;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: .8rem;
+}
+
+footer strong {
+  color: #aeb6c5;
+}
+
+@media(max-width:900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+
+  .hero-art {
+    min-height: 480px;
+  }
+
+  .two {
+    grid-template-columns: 1fr;
+  }
+
+  .token-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .navlinks {
+    display: none;
+  }
+}
+
+@media(max-width:560px) {
+  .wrapper {
+    width: min(100% - 26px,var(--max));
+  }
+
+  nav {
+    height: 75px;
+  }
+
+  h1 {
+    font-size: 4.3rem;
+  }
+
+  .hero {
+    padding-top: 30px;
+  }
+
+  .hero-art {
+    min-height: 410px;
+  }
+
+  .coin-wrap img {
+    width: 215px;
+    height: 215px;
+  }
+
+  .parachute {
+    font-size: 4rem;
+  }
+
+  .token-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 25px;
+  }
+
+  footer {
+    flex-direction: column;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<nav>
+  <a href="#" class="brand">
+    <img src="landing-logo.jpg" alt="Landing Coin logo">
+    LANDING <span>COIN</span>
+  </a>
+
+  <div class="navlinks">
+    <a href="#story">Story</a>
+    <a href="#mission">Mission</a>
+    <a href="#token">Token</a>
+    <a href="#philosophy">Philosophy</a>
+  </div>
+</nav>
+
+<main>
+
+<section class="hero">
+
+  <div>
+    <div class="badge">
+      <span class="dot"></span>
+      LIVE ON SOLANA MAINNET
+    </div>
+
+    <h1>
+      LANDING<br>
+      <span class="gradient">COIN.</span>
+    </h1>
+
+    <div class="tagline">
+      Everyone is going to the moon.<br>
+      We are landing.
+    </div>
+
+    <p class="intro">
+      An ironic, anti-hype memecoin on Solana.
+      No fake revolution. No guaranteed destination.
+      Just a coin, a community and an unusually healthy relationship
+      with gravity.
+    </p>
+
+    <div class="actions">
+      <a class="button primary"
+         href="https://solscan.io/token/DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ"
+         target="_blank"
+         rel="noopener">
+        View on Solscan
+      </a>
+
+      <a class="button secondary" href="#story">
+        Why does this exist?
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-art">
+
+    <div class="sun"></div>
+    <div class="parachute">🪂</div>
+
+    <div class="coin-wrap float">
+      <img src="landing-logo.jpg" alt="Landing Coin">
+    </div>
+
+    <div class="beach-copy">
+      While everybody else is checking the moon charts,
+      we already found a chair on the beach.
+    </div>
+
+  </div>
+
+</section>
+
+
+<section id="story">
+
+  <h2 class="section-title">Our story.</h2>
+
+  <p class="section-intro">
+    Every serious crypto project needs an origin story.
+    Ours is refreshingly less impressive.
+  </p>
+
+  <div class="two">
+
+    <article class="card">
+      <div class="icon">🪂</div>
+
+      <h3 class="accent">
+        We had nothing to do.<br>
+        So we made a coin.
+      </h3>
+
+      <p class="quote">
+        No problem to solve. No industry to disrupt.
+        No whitepaper explaining why humanity needed another token.
+      </p>
+
+      <p>
+        Landing Coin started with an idea, some curiosity,
+        too much free time and the observation that apparently every
+        crypto project wants to go to the moon.
+      </p>
+
+      <p>
+        So we decided to go in the opposite direction.
+      </p>
+
+      <p>
+        Down.
+      </p>
+
+      <p>
+        Preferably with a parachute.
+      </p>
+    </article>
+
+
+    <article class="card" id="mission">
+      <div class="icon">🎯</div>
+
+      <h3>
+        A mission without the
+        <span class="accent">moon speech.</span>
+      </h3>
+
+      <p class="quote">
+        Landing Coin intends to support future experiments
+        and projects connected to the blockchain world.
+      </p>
+
+      <p>
+        Part of the project's resources may be used over time
+        to explore ideas, prototypes, tools and initiatives
+        we believe are worth building.
+      </p>
+
+      <p>
+        That does not mean guaranteed funding,
+        guaranteed projects or guaranteed returns.
+      </p>
+
+      <p>
+        We prefer experiments over promises.
+      </p>
+    </article>
+
+  </div>
+
+</section>
+
+
+<section id="token">
+
+  <h2 class="section-title">The token.</h2>
+
+  <p class="section-intro">
+    The important part is intentionally simple.
+    Fixed supply. No ability to print more LANDING.
+    No freeze authority.
+  </p>
+
+  <div class="token-grid">
+
+    <div class="token">
+      <small>Total supply</small>
+      <strong>404,000,000 LANDING</strong>
+    </div>
+
+    <div class="token">
+      <small>Decimals</small>
+      <strong>6</strong>
+    </div>
+
+    <div class="token">
+      <small>Mint authority</small>
+      <strong>Disabled</strong>
+    </div>
+
+    <div class="token">
+      <small>Freeze authority</small>
+      <strong>Disabled</strong>
+    </div>
+
+    <div class="token contract">
+      <small>Official mint address</small>
+      <code>DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ</code>
+    </div>
+
+  </div>
+
+
+  <div class="distribution">
+
+    <strong>Initial allocation</strong>
+
+    <div class="bar">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <div class="legend">
+      <span>Community — 50%</span>
+      <span>Treasury — 35%</span>
+      <span>Liquidity Reserve — 9.7525%</span>
+      <span>Creator — 5%</span>
+      <span>Initial Orca Pool — ~0.2475%</span>
+    </div>
+
+  </div>
+
+</section>
+
+
+<section id="philosophy">
+
+  <div class="two">
+
+    <article class="card warning">
+
+      <div class="icon">🚫</div>
+
+      <h3>What LANDING is not.</h3>
+
+      <p>
+        It is not a promise of profit.
+      </p>
+
+      <p>
+        It is not a guaranteed investment.
+      </p>
+
+      <p>
+        It does not have a magical algorithm,
+        secret AI technology or a revolutionary
+        roadmap to Mars.
+      </p>
+
+      <p>
+        If someone promises you guaranteed returns
+        using LANDING, that person is not speaking for us.
+      </p>
+
+    </article>
+
+
+    <article class="card">
+
+      <div class="icon">🌴</div>
+
+      <h3>What LANDING <span class="accent">is.</span></h3>
+
+      <p>
+        A memecoin.
+      </p>
+
+      <p>
+        An experiment.
+      </p>
+
+      <p>
+        A reason to build something without pretending
+        we are redesigning civilization.
+      </p>
+
+      <p>
+        And perhaps, eventually, a way to help fund
+        other interesting blockchain experiments.
+      </p>
+
+    </article>
+
+  </div>
+
+</section>
+
+
+<section class="manifesto">
+
+  <h2>
+    NO MOON.<br>
+    NO PROMISES.<br>
+    <span class="gradient">JUST LANDING.</span>
+  </h2>
+
+  <p>
+    Maybe the most revolutionary thing a crypto project
+    can do is stop pretending everything is revolutionary.
+  </p>
+
+</section>
+
+</main>
+
+
+<footer>
+
+  <div>
+    <strong>Landing Coin — $LANDING</strong><br>
+    Solana Mainnet
+  </div>
+
+  <div>
+    © 2026 Landing Coin.<br>
+    Gravity still works.
+  </div>
+
+</footer>
+
+</div>
+
+</body>
+</html>
