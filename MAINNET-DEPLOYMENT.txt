@@ -1,0 +1,10 @@
+LANDING COIN — MAINNET DEPLOYMENT
+Mint: DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ
+Orca Pool: GyCQYByuUEMEWErDX6xFSpKC3stsfXJRDsFy4fQb1prq
+LP Position Mint: 3cwkJ9T33bUDMaRcPtbTWJSeoruqodTAi5Ps3cyR1LYF
+Admin: 125kgmJxWnzFTvxtapngumyQiqbEdDqgZ8DMbby6sivw
+Creator: 4fUtkW2LEZxLt2tgPJ9BitViNBqR3AUy58hyG81Q41hg
+Treasury: 3JA9uuNqr5tqBxGP9sQTRTPtwmPAR2KxmJyXyietrQwS
+Community: CBPwvUZrDQThyM6a54shKPpywvpTyYQQ2Ng7FWPZPM88
+Liquidity: Gnn2h1gpQUwUg2so5Zy2boo9MPZJ3FZrbY8eYgidWDy7
+Liquidity Reserve: 34hUkC1XVGMHX64txhfTh7rDBMhtScK8cpCcP54u17vZ

@@ -1,0 +1,18 @@
+node_modules/
+orca/node_modules/
+.env
+.env.*
+*.log
+.DS_Store
+
+# Solana / LANDING private keypairs — NEVER COMMIT
+landing-mainnet-admin.json
+landing-creator.json
+landing-liquidity.json
+landing-treasury.json
+landing-community.json
+landing-liquidity-reserve.json
+landing-mint-final.json
+landing-mint.json
+*-keypair.json
+*-secret.json
