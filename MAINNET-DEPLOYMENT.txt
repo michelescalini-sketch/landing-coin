@@ -10,3 +10,6 @@ Liquidity: Gnn2h1gpQUwUg2so5Zy2boo9MPZJ3FZrbY8eYgidWDy7
 Liquidity Reserve: 34hUkC1XVGMHX64txhfTh7rDBMhtScK8cpCcP54u17vZ
 
 Website: https://landingcoin.fun
+
+Metadata URI: https://gateway.irys.xyz/HMjDFXazvaWKVaGciDCkXymf5t66RrpS8XbVEvKVrhHp
+Metadata update tx: 7CyFSxjgRgFNYTwe7F9HBbbbLKaw1j7aKBjHBqDS4kfoTeiLcBSmieFJKnE8jXBhzwzbQcneReKfCpQ5aH19dsV
