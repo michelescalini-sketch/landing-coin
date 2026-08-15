@@ -13,3 +13,4 @@ Website: https://landingcoin.fun
 
 Metadata URI: https://gateway.irys.xyz/HMjDFXazvaWKVaGciDCkXymf5t66RrpS8XbVEvKVrhHp
 Metadata update tx: 7CyFSxjgRgFNYTwe7F9HBbbbLKaw1j7aKBjHBqDS4kfoTeiLcBSmieFJKnE8jXBhzwzbQcneReKfCpQ5aH19dsV
+X: https://x.com/LandingCoinFun
