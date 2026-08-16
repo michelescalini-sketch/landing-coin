@@ -9,7 +9,13 @@ import {
   createSignerFromKeypair,
   signerIdentity
 } from '@metaplex-foundation/umi';
-import { irysUploader } from '@metaplex-foundation/umi-uploader-irys';
+let irysUploader;
+try {
+  ({ irysUploader } = await import('@metaplex-foundation/umi-uploader-irys'));
+} catch {
+  console.error('MISSING DEPENDENCY: install @metaplex-foundation/umi-uploader-irys only when you intentionally need to upload new metadata.');
+  process.exit(1);
+}
 
 const umi = createUmi('https://api.mainnet.solana.com')
   .use(irysUploader());
