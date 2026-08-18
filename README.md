@@ -14,6 +14,7 @@ Landing Coin is an ironic, anti-hype memecoin on Solana.
 - Mint authority: disabled
 - Freeze authority: disabled
 - Orca Splash Pool: `GyCQYByuUEMEWErDX6xFSpKC3stsfXJRDsFy4fQb1prq`
+- Technical deployment: [MAINNET-DEPLOYMENT.txt](MAINNET-DEPLOYMENT.txt)
 
 No moon. No promises. Just landing.
 
