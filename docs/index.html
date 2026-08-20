@@ -211,6 +211,24 @@ h1 {
   margin-top: 32px;
 }
 
+.gravity-check {
+  margin-top: 22px;
+  max-width: 570px;
+}
+
+.gravity-result {
+  margin: 14px 0 0;
+  min-height: 1.5em;
+  color: var(--muted);
+  font-size: .95rem;
+  line-height: 1.5;
+}
+
+.gravity-share {
+  display: none;
+  margin-top: 12px;
+}
+
 .button {
   padding: 15px 22px;
   border-radius: 12px;
@@ -637,6 +655,20 @@ footer strong {
         Why does this exist?
       </a>
     </div>
+
+    <div class="gravity-check">
+      <button class="button secondary" id="gravityButton" type="button">
+        Check gravity
+      </button>
+      <p class="gravity-result" id="gravityResult" aria-live="polite"></p>
+      <a class="button secondary gravity-share"
+         id="gravityShare"
+         href="#"
+         target="_blank"
+         rel="noopener">
+        Share on X
+      </a>
+    </div>
   </div>
 
   <div class="hero-art">
@@ -967,6 +999,39 @@ footer strong {
 </footer>
 
 </div>
+
+<script>
+(() => {
+  const messages = [
+    "Gravity confirmed. Moon mission cancelled.",
+    "Still falling responsibly.",
+    "No moon detected. Beach conditions remain excellent.",
+    "Gravity works. LANDING proceeds as planned.",
+    "Trajectory stable. Destination: somewhere below the hype.",
+    "Moon unavailable. Please enjoy the atmosphere.",
+    "All systems normal. Expectations remain grounded.",
+    "Confirmed: what goes up still has options."
+  ];
+
+  const button = document.getElementById("gravityButton");
+  const result = document.getElementById("gravityResult");
+  const share = document.getElementById("gravityShare");
+
+  button.addEventListener("click", () => {
+    const message = messages[Math.floor(Math.random() * messages.length)];
+    result.textContent = message;
+
+    const shareText = message + " — Landing Coin ($LANDING)";
+    share.href =
+      "https://twitter.com/intent/tweet?text=" +
+      encodeURIComponent(shareText) +
+      "&url=" +
+      encodeURIComponent("https://landingcoin.fun");
+
+    share.style.display = "inline-block";
+  });
+})();
+</script>
 
 </body>
 </html>
