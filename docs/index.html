@@ -228,19 +228,32 @@ h1 {
 .hero-contacts {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px 18px;
-  font-size: .88rem;
-  color: var(--muted);
+  gap: 10px;
 }
 
 .hero-contacts a {
+  width: 42px;
+  height: 42px;
   display: inline-flex;
   align-items: center;
-  gap: 7px;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: rgba(255,255,255,.035);
+  color: #c8d0dc;
+  transition: transform .2s ease, background .2s ease, color .2s ease;
 }
 
 .hero-contacts a:hover {
   color: #fff;
+  background: rgba(255,255,255,.08);
+  transform: translateY(-2px);
+}
+
+.hero-contacts svg {
+  width: 19px;
+  height: 19px;
+  fill: currentColor;
 }
 
 .gravity-check {
@@ -775,9 +788,35 @@ footer strong {
       <span class="hero-contacts-label">Official channels</span>
 
       <div class="hero-contacts" aria-label="Official LANDING channels">
-        <a href="https://x.com/LandingCoinFun" target="_blank" rel="noopener">𝕏 X</a>
-        <a href="https://t.me/LandingCoinFun" target="_blank" rel="noopener">Telegram</a>
-        <a href="mailto:contact@landingcoin.fun">Email</a>
+
+        <a href="https://x.com/LandingCoinFun"
+           target="_blank"
+           rel="noopener"
+           aria-label="Landing Coin on X"
+           title="X">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18.244 2H21.552L14.325 10.26L22.828 22H16.172L10.958 15.183L4.993 22H1.683L9.417 13.163L1.254 2H8.079L12.793 8.231L18.244 2ZM17.083 19.932H18.916L7.084 3.958H5.117L17.083 19.932Z"/>
+          </svg>
+        </a>
+
+        <a href="https://t.me/LandingCoinFun"
+           target="_blank"
+           rel="noopener"
+           aria-label="Landing Coin on Telegram"
+           title="Telegram">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21.944 2.506L18.737 21.33c-.242 1.328-.875 1.655-1.773 1.03l-4.885-3.603-2.357 2.267c-.261.261-.479.479-.982.479l.351-4.978 9.061-8.187c.394-.351-.086-.547-.612-.196L6.34 15.196l-4.82-1.507c-1.048-.327-1.068-1.048.218-1.55L20.59 4.872c.875-.327 1.64.196 1.354 1.634Z"/>
+          </svg>
+        </a>
+
+        <a href="mailto:contact@landingcoin.fun"
+           aria-label="Email Landing Coin"
+           title="Email">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z"/>
+          </svg>
+        </a>
+
       </div>
     </div>
 
