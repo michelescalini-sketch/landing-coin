@@ -205,10 +205,20 @@ h1 {
 }
 
 .actions {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 13px;
   margin-top: 32px;
+  max-width: 820px;
+}
+
+.actions .button {
+  min-height: 58px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .hero-contacts-wrap {
@@ -257,8 +267,25 @@ h1 {
 }
 
 .gravity-check {
-  margin-top: 22px;
+  margin-top: 34px;
   max-width: 570px;
+}
+
+.gravity-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: .7rem;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.gravity-explainer {
+  margin: 0 0 14px;
+  color: var(--muted);
+  font-size: .88rem;
+  line-height: 1.5;
 }
 
 .gravity-result {
@@ -642,6 +669,10 @@ footer strong {
 }
 
 @media(max-width:900px) {
+  .actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .hero {
     grid-template-columns: 1fr;
     gap: 35px;
@@ -665,6 +696,10 @@ footer strong {
 }
 
 @media(max-width:560px) {
+  .actions {
+    grid-template-columns: 1fr;
+  }
+
   .wrapper {
     width: min(100% - 26px,var(--max));
   }
@@ -821,8 +856,13 @@ footer strong {
     </div>
 
     <div class="gravity-check">
+      <span class="gravity-label">Gravity control</span>
+      <p class="gravity-explainer">
+        Because every serious crypto project needs a completely unnecessary feature.
+      </p>
+
       <button class="button secondary" id="gravityButton" type="button">
-        Check gravity
+        Run gravity check
       </button>
       <p class="gravity-result" id="gravityResult" aria-live="polite"></p>
       <a class="button secondary gravity-share"
