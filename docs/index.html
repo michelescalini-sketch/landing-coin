@@ -484,6 +484,65 @@ section {
     rgba(255,255,255,.025);
 }
 
+.script-grid {
+  align-items: stretch;
+}
+
+.script-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 100%;
+}
+
+.script-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+}
+
+.script-card.usual {
+  background:
+    radial-gradient(circle at 90% 10%,rgba(255,173,36,.12),transparent 30%),
+    linear-gradient(145deg,rgba(31,20,18,.88),rgba(12,10,14,.88));
+}
+
+.script-card.usual::before {
+  background: var(--orange);
+}
+
+.script-card.landing-way {
+  background:
+    radial-gradient(circle at 90% 10%,rgba(34,230,199,.12),transparent 30%),
+    linear-gradient(145deg,rgba(10,29,31,.88),rgba(8,11,19,.88));
+}
+
+.script-card.landing-way::before {
+  background: linear-gradient(var(--cyan),var(--blue),var(--violet));
+}
+
+.script-label {
+  display: inline-block;
+  margin-bottom: 18px;
+  font-size: .7rem;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.script-card p {
+  margin: 12px 0;
+}
+
+.script-card .final-line {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  color: #fff;
+  font-weight: 800;
+}
+
 .manifesto {
   text-align: center;
   padding: 120px 0;
@@ -832,57 +891,37 @@ footer strong {
     LANDING is trying something different.
   </p>
 
-  <div class="two">
+  <div class="two script-grid">
 
-    <article class="card warning">
+    <article class="card script-card usual">
+      <span class="script-label">The market cliché</span>
       <div class="icon">📜</div>
 
       <h3>The usual <span class="accent">script.</span></h3>
 
-      <p>
-        “100x potential.”
-      </p>
+      <p>“100x potential.”</p>
+      <p>“Strongest community.”</p>
+      <p>“Huge announcement soon.”</p>
+      <p>“Revolutionary utility.”</p>
 
-      <p>
-        “Strongest community.”
-      </p>
-
-      <p>
-        “Huge announcement soon.”
-      </p>
-
-      <p>
-        “Revolutionary utility.”
-      </p>
-
-      <p>
+      <p class="final-line">
         Manufactured volume, manufactured excitement
         and success announced before it exists.
       </p>
     </article>
 
-    <article class="card">
+    <article class="card script-card landing-way">
+      <span class="script-label">Our approach</span>
       <div class="icon">🪂</div>
 
       <h3>The <span class="accent">LANDING way.</span></h3>
 
-      <p>
-        We don't know how far this will go.
-      </p>
+      <p>We don't know how far this will go.</p>
+      <p>The community is still being built.</p>
+      <p>We announce things when they actually exist.</p>
+      <p>It's a memecoin. We don't need to disguise it as a revolution.</p>
 
-      <p>
-        The community is still being built.
-      </p>
-
-      <p>
-        We announce things when they actually exist.
-      </p>
-
-      <p>
-        It's a memecoin. We don't need to disguise it as a revolution.
-      </p>
-
-      <p>
+      <p class="final-line">
         If LANDING grows, the growth should be real.
       </p>
     </article>
