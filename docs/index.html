@@ -211,11 +211,24 @@ h1 {
   margin-top: 32px;
 }
 
+.hero-contacts-wrap {
+  margin-top: 20px;
+}
+
+.hero-contacts-label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: .7rem;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
 .hero-contacts {
   display: flex;
   flex-wrap: wrap;
   gap: 10px 18px;
-  margin-top: 20px;
   font-size: .88rem;
   color: var(--muted);
 }
@@ -758,10 +771,14 @@ footer strong {
       </a>
     </div>
 
-    <div class="hero-contacts" aria-label="Official LANDING channels">
-      <a href="https://x.com/LandingCoinFun" target="_blank" rel="noopener">𝕏 @LandingCoinFun</a>
-      <a href="https://t.me/LandingCoinFun" target="_blank" rel="noopener">Telegram</a>
-      <a href="mailto:contact@landingcoin.fun">Email</a>
+    <div class="hero-contacts-wrap">
+      <span class="hero-contacts-label">Official channels</span>
+
+      <div class="hero-contacts" aria-label="Official LANDING channels">
+        <a href="https://x.com/LandingCoinFun" target="_blank" rel="noopener">𝕏 X</a>
+        <a href="https://t.me/LandingCoinFun" target="_blank" rel="noopener">Telegram</a>
+        <a href="mailto:contact@landingcoin.fun">Email</a>
+      </div>
     </div>
 
     <div class="gravity-check">
