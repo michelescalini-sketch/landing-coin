@@ -439,6 +439,14 @@ section {
   margin-bottom: 36px;
 }
 
+.manifesto-video {
+  width: 100%;
+  display: block;
+  border-radius: 22px;
+  border: 1px solid var(--line);
+  background: #000;
+}
+
 .two {
   display: grid;
   grid-template-columns: repeat(2,1fr);
@@ -891,6 +899,20 @@ footer strong {
 
   </div>
 
+</section>
+
+<section id="video-manifesto">
+  <h2 class="section-title">Watch the script break.</h2>
+
+  <video
+    class="manifesto-video"
+    controls
+    playsinline
+    preload="metadata"
+    aria-label="LANDING Coin manifesto video">
+    <source src="media/landing-manifesto.mp4" type="video/mp4">
+    Your browser does not support the video element.
+  </video>
 </section>
 
 
