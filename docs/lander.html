@@ -349,6 +349,23 @@
       line-height: 1.45;
     }
 
+    .download-card {
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px 18px;
+      border: 0;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--teal), var(--purple));
+      color: #07100f;
+      font: inherit;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .download-card:hover {
+      filter: brightness(1.06);
+    }
+
     .certified-card {
       width: 100%;
       aspect-ratio: 16 / 9;
@@ -547,6 +564,42 @@
       </div>
     </section>
 
+    <section class="cta">
+      <h2 class="section-title">Welcome to the landing zone.</h2>
+
+      <p>
+        Buy LANDING, then create your personal Certified Lander card below.
+        The current generator uses self-declared information and does not
+        verify token balances on-chain.
+      </p>
+
+      <div class="buttons">
+        <a
+          class="button primary"
+          href="https://jup.ag/?sell=So11111111111111111111111111111111111111112&buy=DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ"
+          target="_blank"
+          rel="noopener">
+          Buy LANDING
+        </a>
+
+        <a
+          class="button secondary"
+          href="https://t.me/LandingCoinFun"
+          target="_blank"
+          rel="noopener">
+          Telegram
+        </a>
+
+        <a
+          class="button secondary"
+          href="https://x.com/LandingCoinFun"
+          target="_blank"
+          rel="noopener">
+          X / Twitter
+        </a>
+      </div>
+    </section>
+
     <section class="certified-section" id="certified">
       <h2 class="section-title">Certified Lander.</h2>
 
@@ -605,6 +658,10 @@
             LANDING balance is self-declared on this version of the card
             and is not automatically verified on-chain.
           </p>
+
+          <button class="download-card" id="download-card" type="button">
+            Download Card
+          </button>
         </div>
 
         <div class="certified-card" id="lander-card">
@@ -662,41 +719,6 @@
       </div>
     </section>
 
-    <section class="cta">
-      <h2 class="section-title">Welcome to the landing zone.</h2>
-
-      <p>
-        No promises about where this goes.
-        That's kind of the point.
-      </p>
-
-      <div class="buttons">
-        <a
-          class="button primary"
-          href="https://jup.ag/?sell=So11111111111111111111111111111111111111112&buy=DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ"
-          target="_blank"
-          rel="noopener">
-          Buy LANDING
-        </a>
-
-        <a
-          class="button secondary"
-          href="https://t.me/LandingCoinFun"
-          target="_blank"
-          rel="noopener">
-          Telegram
-        </a>
-
-        <a
-          class="button secondary"
-          href="https://x.com/LandingCoinFun"
-          target="_blank"
-          rel="noopener">
-          X / Twitter
-        </a>
-      </div>
-    </section>
-
   </main>
 
   <footer>
@@ -706,6 +728,8 @@
 
 </div>
 
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 <script>
 (function () {
@@ -718,6 +742,8 @@
   const cardBalance = document.getElementById('card-balance');
   const cardWallet = document.getElementById('card-wallet');
   const cardId = document.getElementById('card-id');
+  const downloadButton = document.getElementById('download-card');
+  const card = document.getElementById('lander-card');
 
   function shortenWallet(value) {
     const wallet = value.trim();
@@ -758,6 +784,38 @@
 
   [nameInput, balanceInput, walletInput, idInput].forEach(function (input) {
     input.addEventListener('input', updateCard);
+  });
+
+  downloadButton.addEventListener('click', async function () {
+    const originalText = downloadButton.textContent;
+
+    try {
+      downloadButton.disabled = true;
+      downloadButton.textContent = 'Creating PNG...';
+
+      const canvas = await html2canvas(card, {
+        scale: 2,
+        backgroundColor: null,
+        useCORS: true
+      });
+
+      const link = document.createElement('a');
+      const holder =
+        (nameInput.value.trim() || 'lander')
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-+|-+$/g, '');
+
+      link.download = 'certified-lander-' + (holder || 'card') + '.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    } catch (error) {
+      console.error('Unable to create card image:', error);
+      alert('Unable to create the image. Please try again.');
+    } finally {
+      downloadButton.disabled = false;
+      downloadButton.textContent = originalText;
+    }
   });
 
   updateCard();
