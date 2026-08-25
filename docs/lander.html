@@ -286,6 +286,135 @@
       font-size: .95rem;
     }
 
+    .generator-grid {
+      width: min(980px, 100%);
+      margin: 40px auto 0;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .generator-form {
+      padding: 25px;
+      border-radius: 24px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+    }
+
+    .generator-form h3 {
+      margin: 0 0 8px;
+      font-size: 1.35rem;
+    }
+
+    .generator-form .form-note {
+      color: var(--muted);
+      font-size: .9rem;
+      margin: 0 0 22px;
+    }
+
+    .form-field {
+      margin-bottom: 18px;
+    }
+
+    .form-field label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: .82rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .form-field input {
+      width: 100%;
+      padding: 13px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      font: inherit;
+      outline: none;
+    }
+
+    .form-field input:focus {
+      border-color: var(--teal);
+    }
+
+    .balance-note {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: .8rem;
+      line-height: 1.45;
+    }
+
+    .certified-card {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      margin: 0;
+      padding: clamp(28px, 5vw, 52px);
+      border-radius: 32px;
+      border: 1px solid rgba(255,255,255,.17);
+      background:
+        radial-gradient(circle at 80% 15%, rgba(159,114,255,.32), transparent 32%),
+        radial-gradient(circle at 15% 85%, rgba(52,227,193,.25), transparent 35%),
+        #0d111d;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 35px 100px rgba(0,0,0,.4);
+    }
+
+    .lander-details {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px 24px;
+      margin-top: 20px;
+    }
+
+    .lander-detail {
+      min-width: 0;
+    }
+
+    .lander-detail-label {
+      display: block;
+      color: var(--muted);
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .lander-detail-value {
+      display: block;
+      font-weight: 800;
+      font-size: clamp(.85rem, 1.6vw, 1.05rem);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .self-declared {
+      color: var(--muted);
+      font-size: .7rem;
+      font-weight: 500;
+    }
+
+    @media (max-width: 850px) {
+      .generator-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .certified-card {
+        aspect-ratio: auto;
+        min-height: 500px;
+      }
+    }
+
     .cta {
       text-align: center;
       padding: 80px 0 100px;
@@ -422,39 +551,115 @@
       <h2 class="section-title">Certified Lander.</h2>
 
       <p class="section-intro">
-        A badge for people who understand that gravity is not necessarily a bad thing.
+        Create your personal LANDING community card.
+        No NFT. No utility promise. Just identity.
       </p>
 
-      <div class="certified-card">
-        <div class="certified-top">
-          <div class="certified-logo">
-            <img src="landing-logo.jpg" alt="LANDING">
-            LANDING COIN
+      <div class="generator-grid">
+
+        <div class="generator-form">
+          <h3>Personalize your card</h3>
+
+          <p class="form-note">
+            Enter the details you want displayed on your Certified Lander card.
+          </p>
+
+          <div class="form-field">
+            <label for="lander-name">Holder name</label>
+            <input
+              id="lander-name"
+              type="text"
+              maxlength="40"
+              placeholder="Your name or nickname">
           </div>
 
-          <div class="certified-badge">
-            COMMUNITY
+          <div class="form-field">
+            <label for="lander-balance">LANDING balance</label>
+            <input
+              id="lander-balance"
+              type="number"
+              min="0"
+              step="0.000001"
+              placeholder="12500">
+          </div>
+
+          <div class="form-field">
+            <label for="lander-wallet">Solana wallet</label>
+            <input
+              id="lander-wallet"
+              type="text"
+              maxlength="60"
+              placeholder="Your wallet address">
+          </div>
+
+          <div class="form-field">
+            <label for="lander-id">Lander ID (optional)</label>
+            <input
+              id="lander-id"
+              type="text"
+              maxlength="12"
+              placeholder="#0001">
+          </div>
+
+          <p class="balance-note">
+            LANDING balance is self-declared on this version of the card
+            and is not automatically verified on-chain.
+          </p>
+        </div>
+
+        <div class="certified-card" id="lander-card">
+          <div class="certified-top">
+            <div class="certified-logo">
+              <img src="landing-logo.jpg" alt="LANDING">
+              LANDING COIN
+            </div>
+
+            <div class="certified-badge">
+              COMMUNITY
+            </div>
+          </div>
+
+          <div class="certified-main">
+            <h3>
+              CERTIFIED<br>
+              <span class="gradient">LANDER</span>
+            </h3>
+
+            <p>Still not on the moon.</p>
+            <p>Still fine with it.</p>
+
+            <div class="lander-details">
+              <div class="lander-detail">
+                <span class="lander-detail-label">Holder</span>
+                <span class="lander-detail-value" id="card-name">LANDER</span>
+              </div>
+
+              <div class="lander-detail">
+                <span class="lander-detail-label">
+                  LANDING Balance
+                  <span class="self-declared">• self-declared</span>
+                </span>
+                <span class="lander-detail-value" id="card-balance">— LANDING</span>
+              </div>
+
+              <div class="lander-detail">
+                <span class="lander-detail-label">Wallet</span>
+                <span class="lander-detail-value" id="card-wallet">—</span>
+              </div>
+
+              <div class="lander-detail">
+                <span class="lander-detail-label">Lander ID</span>
+                <span class="lander-detail-value" id="card-id">#----</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="certified-footer">
+            EVERYONE IS GOING TO THE MOON. WE ARE LANDING.
           </div>
         </div>
 
-        <div class="certified-main">
-          <h3>
-            CERTIFIED<br>
-            <span class="gradient">LANDER</span>
-          </h3>
-
-          <p>Still not on the moon.</p>
-          <p>Still fine with it.</p>
-        </div>
-
-        <div class="certified-footer">
-          EVERYONE IS GOING TO THE MOON. WE ARE LANDING.
-        </div>
       </div>
-
-      <p class="coming">
-        Shareable Certified Lander card coming next.
-      </p>
     </section>
 
     <section class="cta">
@@ -500,6 +705,64 @@
   </footer>
 
 </div>
+
+
+<script>
+(function () {
+  const nameInput = document.getElementById('lander-name');
+  const balanceInput = document.getElementById('lander-balance');
+  const walletInput = document.getElementById('lander-wallet');
+  const idInput = document.getElementById('lander-id');
+
+  const cardName = document.getElementById('card-name');
+  const cardBalance = document.getElementById('card-balance');
+  const cardWallet = document.getElementById('card-wallet');
+  const cardId = document.getElementById('card-id');
+
+  function shortenWallet(value) {
+    const wallet = value.trim();
+
+    if (!wallet) return '—';
+    if (wallet.length <= 12) return wallet;
+
+    return wallet.slice(0, 4) + '...' + wallet.slice(-4);
+  }
+
+  function formatBalance(value) {
+    if (!value) return '— LANDING';
+
+    const amount = Number(value);
+
+    if (!Number.isFinite(amount)) return '— LANDING';
+
+    return new Intl.NumberFormat('en-US', {
+      maximumFractionDigits: 6
+    }).format(amount) + ' LANDING';
+  }
+
+  function updateCard() {
+    cardName.textContent =
+      nameInput.value.trim() || 'LANDER';
+
+    cardBalance.textContent =
+      formatBalance(balanceInput.value);
+
+    cardWallet.textContent =
+      shortenWallet(walletInput.value);
+
+    const id = idInput.value.trim();
+
+    cardId.textContent =
+      id ? (id.startsWith('#') ? id : '#' + id) : '#----';
+  }
+
+  [nameInput, balanceInput, walletInput, idInput].forEach(function (input) {
+    input.addEventListener('input', updateCard);
+  });
+
+  updateCard();
+})();
+</script>
 
 </body>
 </html>
