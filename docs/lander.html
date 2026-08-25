@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>What Is a Lander? | Landing Coin</title>
+
+  <meta name="description" content="A Lander is a member of the Landing Coin community who stays grounded, ignores fake hype and understands that LANDING is a memecoin — not a promise.">
+
+  <link rel="canonical" href="https://landingcoin.fun/lander.html">
+  <link rel="icon" href="landing-logo.jpg">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="What Is a Lander? | Landing Coin">
+  <meta property="og:description" content="No fake hype. No moon promises. Just landing.">
+  <meta property="og:url" content="https://landingcoin.fun/lander.html">
+  <meta property="og:image" content="https://landingcoin.fun/landing-logo.jpg">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="What Is a Lander? | Landing Coin">
+  <meta name="twitter:description" content="No fake hype. No moon promises. Just landing.">
+  <meta name="twitter:image" content="https://landingcoin.fun/landing-logo.jpg">
+
+  <style>
+    :root {
+      --bg: #080b14;
+      --panel: #101522;
+      --panel2: #151c2d;
+      --text: #f6f1e7;
+      --muted: #aeb7c7;
+      --teal: #34e3c1;
+      --purple: #9f72ff;
+      --border: rgba(255,255,255,.10);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 15% 0%, rgba(52,227,193,.12), transparent 30%),
+        radial-gradient(circle at 90% 20%, rgba(159,114,255,.14), transparent 32%),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .wrapper {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: .04em;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+    }
+
+    .brand span {
+      color: var(--teal);
+    }
+
+    .back {
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .back:hover {
+      color: var(--text);
+    }
+
+    .hero {
+      padding: 100px 0 70px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 8px 14px;
+      border: 1px solid rgba(52,227,193,.35);
+      border-radius: 999px;
+      color: var(--teal);
+      font-size: .8rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 25px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(3.4rem, 9vw, 7.5rem);
+      line-height: .92;
+      letter-spacing: -.055em;
+    }
+
+    .gradient {
+      background: linear-gradient(90deg, var(--teal), var(--purple));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-copy {
+      width: min(720px, 100%);
+      margin: 30px auto 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.3rem);
+    }
+
+    .definition {
+      width: min(850px, 100%);
+      margin: 0 auto 90px;
+      padding: 40px;
+      background: linear-gradient(135deg, rgba(52,227,193,.08), rgba(159,114,255,.08));
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      text-align: center;
+    }
+
+    .definition p {
+      margin: 10px 0;
+      font-size: clamp(1.15rem, 2.5vw, 1.55rem);
+      font-weight: 700;
+    }
+
+    section {
+      padding: 70px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      margin: 0 0 15px;
+      letter-spacing: -.04em;
+    }
+
+    .section-intro {
+      max-width: 700px;
+      margin: 0 auto 35px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 1.1rem;
+    }
+
+    .video-wrap {
+      width: min(820px, 100%);
+      margin: 35px auto 0;
+      border-radius: 26px;
+      overflow: hidden;
+      background: #000;
+      border: 1px solid var(--border);
+      box-shadow: 0 30px 80px rgba(0,0,0,.35);
+    }
+
+    .video-wrap video {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .code-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      margin-top: 40px;
+    }
+
+    .code-item {
+      min-height: 155px;
+      padding: 25px 18px;
+      border-radius: 22px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-weight: 800;
+      font-size: 1.05rem;
+    }
+
+    .certified-section {
+      padding-bottom: 100px;
+    }
+
+    .certified-card {
+      width: min(720px, 100%);
+      aspect-ratio: 16 / 9;
+      margin: 40px auto 0;
+      padding: clamp(28px, 6vw, 60px);
+      border-radius: 32px;
+      border: 1px solid rgba(255,255,255,.17);
+      background:
+        radial-gradient(circle at 80% 15%, rgba(159,114,255,.32), transparent 32%),
+        radial-gradient(circle at 15% 85%, rgba(52,227,193,.25), transparent 35%),
+        #0d111d;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 35px 100px rgba(0,0,0,.4);
+    }
+
+    .certified-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .certified-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+    }
+
+    .certified-logo img {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+    }
+
+    .certified-badge {
+      color: var(--teal);
+      font-size: .8rem;
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .certified-main h3 {
+      margin: 0 0 12px;
+      font-size: clamp(2.5rem, 7vw, 5.5rem);
+      line-height: .9;
+      letter-spacing: -.055em;
+    }
+
+    .certified-main p {
+      margin: 5px 0;
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--muted);
+    }
+
+    .certified-footer {
+      font-weight: 800;
+      letter-spacing: .02em;
+    }
+
+    .coming {
+      width: min(720px, 100%);
+      margin: 22px auto 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .cta {
+      text-align: center;
+      padding: 80px 0 100px;
+      border-top: 1px solid var(--border);
+    }
+
+    .cta p {
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 13px 21px;
+      border-radius: 999px;
+      font-weight: 800;
+      border: 1px solid var(--border);
+    }
+
+    .primary {
+      background: linear-gradient(90deg, var(--teal), var(--purple));
+      color: #07100f;
+      border: 0;
+    }
+
+    .secondary {
+      background: rgba(255,255,255,.04);
+    }
+
+    footer {
+      padding: 28px 0 40px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      color: var(--muted);
+      font-size: .88rem;
+    }
+
+    @media (max-width: 800px) {
+      .code-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .certified-card {
+        aspect-ratio: auto;
+        min-height: 470px;
+      }
+
+      footer {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+  <nav>
+    <a href="/" class="brand">
+      <img src="landing-logo.jpg" alt="Landing Coin logo">
+      LANDING <span>COIN</span>
+    </a>
+
+    <a href="/" class="back">← Back to LANDING</a>
+  </nav>
+
+  <main>
+
+    <section class="hero">
+      <div class="eyebrow">LANDING COMMUNITY</div>
+
+      <h1>
+        ARE YOU A<br>
+        <span class="gradient">LANDER?</span>
+      </h1>
+
+      <p class="hero-copy">
+        Everyone is going to the moon.
+        Landers stay grounded.
+      </p>
+    </section>
+
+    <div class="definition">
+      <p>A Lander doesn't chase every pump.</p>
+      <p>A Lander doesn't panic over every red candle.</p>
+      <p>A Lander doesn't need promises of 100x.</p>
+      <p>A Lander stays grounded.</p>
+    </div>
+
+    <section id="video">
+      <h2 class="section-title">What does it mean to be a Lander?</h2>
+
+      <p class="section-intro">
+        LANDING is a memecoin. A Lander knows that.
+        No fake certainty. No guaranteed destination.
+        Just a different attitude toward the same speculative market.
+      </p>
+
+      <div class="video-wrap">
+        <video controls playsinline preload="metadata">
+          <source src="media/lander.mp4" type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
+      </div>
+    </section>
+
+    <section id="code">
+      <h2 class="section-title">The Lander Code.</h2>
+
+      <p class="section-intro">
+        Five very complicated rules for staying unusually calm in crypto.
+      </p>
+
+      <div class="code-grid">
+        <div class="code-item">No fake hype.</div>
+        <div class="code-item">No guaranteed returns.</div>
+        <div class="code-item">No panic.</div>
+        <div class="code-item">No moon promises.</div>
+        <div class="code-item">Just landing.</div>
+      </div>
+    </section>
+
+    <section class="certified-section" id="certified">
+      <h2 class="section-title">Certified Lander.</h2>
+
+      <p class="section-intro">
+        A badge for people who understand that gravity is not necessarily a bad thing.
+      </p>
+
+      <div class="certified-card">
+        <div class="certified-top">
+          <div class="certified-logo">
+            <img src="landing-logo.jpg" alt="LANDING">
+            LANDING COIN
+          </div>
+
+          <div class="certified-badge">
+            COMMUNITY
+          </div>
+        </div>
+
+        <div class="certified-main">
+          <h3>
+            CERTIFIED<br>
+            <span class="gradient">LANDER</span>
+          </h3>
+
+          <p>Still not on the moon.</p>
+          <p>Still fine with it.</p>
+        </div>
+
+        <div class="certified-footer">
+          EVERYONE IS GOING TO THE MOON. WE ARE LANDING.
+        </div>
+      </div>
+
+      <p class="coming">
+        Shareable Certified Lander card coming next.
+      </p>
+    </section>
+
+    <section class="cta">
+      <h2 class="section-title">Welcome to the landing zone.</h2>
+
+      <p>
+        No promises about where this goes.
+        That's kind of the point.
+      </p>
+
+      <div class="buttons">
+        <a
+          class="button primary"
+          href="https://jup.ag/?sell=So11111111111111111111111111111111111111112&buy=DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ"
+          target="_blank"
+          rel="noopener">
+          Buy LANDING
+        </a>
+
+        <a
+          class="button secondary"
+          href="https://t.me/LandingCoinFun"
+          target="_blank"
+          rel="noopener">
+          Telegram
+        </a>
+
+        <a
+          class="button secondary"
+          href="https://x.com/LandingCoinFun"
+          target="_blank"
+          rel="noopener">
+          X / Twitter
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div>Landing Coin (LANDING)</div>
+    <div>Memecoins are speculative and involve risk.</div>
+  </footer>
+
+</div>
+
+</body>
+</html>
