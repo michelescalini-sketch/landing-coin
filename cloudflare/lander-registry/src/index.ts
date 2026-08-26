@@ -1,6 +1,6 @@
 const LANDING_MINT = "DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ";
 const JUPITER_SWAP_PROGRAM = "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4";
-const SOLANA_RPC = "https://api.mainnet-beta.solana.com";
+const SOLANA_RPC = "https://solana-rpc.publicnode.com";
 const ALLOWED_ORIGINS = new Set([
   "https://landingcoin.fun",
   "https://www.landingcoin.fun",
