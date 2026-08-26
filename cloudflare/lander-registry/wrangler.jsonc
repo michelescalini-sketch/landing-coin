@@ -9,6 +9,7 @@
     {
       "binding": "DB",
       "database_name": "landing-lander-registry",
+      "database_id": "a7318423-07de-4eb0-9d59-6d9978212b8d",
       "migrations_dir": "migrations"
     }
   ],
