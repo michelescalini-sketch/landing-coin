@@ -330,11 +330,43 @@
       border-color: var(--teal);
     }
 
+    .form-field input[readonly] {
+      color: var(--muted);
+      cursor: not-allowed;
+    }
+
     .balance-note {
       margin: 14px 0 0;
       color: var(--muted);
       font-size: .8rem;
       line-height: 1.45;
+    }
+
+    .swap-status {
+      min-height: 44px;
+      margin: 18px 0 0;
+      padding: 11px 13px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(255,255,255,.035);
+      color: var(--muted);
+      font-size: .82rem;
+      line-height: 1.4;
+    }
+
+    .swap-status[data-state="waiting"] {
+      border-color: rgba(159,114,255,.4);
+      color: #d7c8ff;
+    }
+
+    .swap-status[data-state="success"] {
+      border-color: rgba(52,227,193,.45);
+      color: var(--teal);
+    }
+
+    .swap-status[data-state="error"] {
+      border-color: rgba(255,112,112,.45);
+      color: #ffaaaa;
     }
 
     .download-card {
@@ -412,12 +444,6 @@
       text-overflow: ellipsis;
     }
 
-    .self-declared {
-      color: var(--muted);
-      font-size: .7rem;
-      font-weight: 500;
-    }
-
     @media (max-width: 850px) {
       .generator-grid {
         grid-template-columns: 1fr;
@@ -448,7 +474,15 @@
       padding: 13px 21px;
       border-radius: 999px;
       font-weight: 800;
+      font-family: inherit;
+      font-size: inherit;
       border: 1px solid var(--border);
+      cursor: pointer;
+    }
+
+    .button:disabled {
+      cursor: wait;
+      opacity: .7;
     }
 
     .primary {
@@ -557,20 +591,18 @@
       <h2 class="section-title">Welcome to the landing zone.</h2>
 
       <p>
-        Buy LANDING, then create your personal Certified Lander card below.
-        The current generator uses self-declared information and does not
-        verify token balances on-chain.
+        Complete a LANDING swap through Jupiter. After the transaction is
+        finalized on-chain, your wallet receives its permanent progressive
+        Lander ID and the verified card becomes available.
       </p>
 
       <div class="buttons">
-        <a
+        <button
           class="button primary"
           id="buy-landing"
-          href="https://jup.ag/?sell=So11111111111111111111111111111111111111112&buy=DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ"
-          target="_blank"
-          rel="noopener">
+          type="button">
           Buy LANDING
-        </a>
+        </button>
 
         <a
           class="button secondary"
@@ -604,7 +636,8 @@
           <h3>Personalize your card</h3>
 
           <p class="form-note">
-            Enter the details you want displayed on your Certified Lander card.
+            Choose the holder name. Wallet, balance and Lander ID are filled
+            automatically after on-chain confirmation.
           </p>
 
           <div class="form-field">
@@ -617,13 +650,12 @@
           </div>
 
           <div class="form-field">
-            <label for="lander-balance">LANDING balance</label>
+            <label for="lander-balance">Verified LANDING balance</label>
             <input
               id="lander-balance"
-              type="number"
-              min="0"
-              step="0.000001"
-              placeholder="12500">
+              type="text"
+              placeholder="Waiting for confirmation"
+              readonly>
           </div>
 
           <div class="form-field">
@@ -632,21 +664,27 @@
               id="lander-wallet"
               type="text"
               maxlength="60"
-              placeholder="Your wallet address">
+              placeholder="Detected from the swap"
+              readonly>
           </div>
 
           <div class="form-field">
-            <label for="lander-id">Lander ID (optional)</label>
+            <label for="lander-id">Lander ID</label>
             <input
               id="lander-id"
               type="text"
               maxlength="12"
-              placeholder="#0001">
+              placeholder="Assigned progressively"
+              readonly>
           </div>
 
           <p class="balance-note">
-            LANDING balance is self-declared on this version of the card
-            and is not automatically verified on-chain.
+            One permanent Lander ID per wallet. The balance shown is the
+            verified balance recorded when the card is issued.
+          </p>
+
+          <p class="swap-status" id="swap-status" role="status" aria-live="polite">
+            Buy LANDING to unlock your verified card.
           </p>
 
           <button class="download-card" id="download-card" type="button" hidden>
@@ -684,8 +722,7 @@
 
               <div class="lander-detail">
                 <span class="lander-detail-label">
-                  LANDING Balance
-                  <span class="self-declared">• self-declared</span>
+                  LANDING Balance • on-chain
                 </span>
                 <span class="lander-detail-value" id="card-balance">— LANDING</span>
               </div>
@@ -721,10 +758,20 @@
 </div>
 
 
+<script src="https://plugin.jup.ag/plugin-v1.js" data-preload defer></script>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 <script>
 (function () {
+  const REGISTRY_URL =
+    'https://landing-lander-registry.michelescalini.workers.dev';
+  const SOL_MINT =
+    'So11111111111111111111111111111111111111112';
+  const LANDING_MINT =
+    'DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ';
+  const PENDING_SIGNATURE_KEY = 'landing:pending-signature';
+  const LANDER_WALLET_KEY = 'landing:lander-wallet';
+
   const nameInput = document.getElementById('lander-name');
   const balanceInput = document.getElementById('lander-balance');
   const walletInput = document.getElementById('lander-wallet');
@@ -736,7 +783,21 @@
   const cardId = document.getElementById('card-id');
   const downloadButton = document.getElementById('download-card');
   const buyButton = document.getElementById('buy-landing');
+  const swapStatus = document.getElementById('swap-status');
   const card = document.getElementById('lander-card');
+  let jupiterInitialized = false;
+  let verificationInProgress = false;
+
+  function setStatus(message, state) {
+    swapStatus.textContent = message;
+    swapStatus.dataset.state = state || 'idle';
+  }
+
+  function wait(milliseconds) {
+    return new Promise(function (resolve) {
+      window.setTimeout(resolve, milliseconds);
+    });
+  }
 
   function shortenWallet(value) {
     const wallet = value.trim();
@@ -759,6 +820,30 @@
     }).format(amount) + ' LANDING';
   }
 
+  function rawLandingToDecimal(rawValue) {
+    try {
+      const raw = BigInt(rawValue);
+      const base = 1000000n;
+      const whole = raw / base;
+      const fraction = (raw % base)
+        .toString()
+        .padStart(6, '0')
+        .replace(/0+$/, '');
+
+      return fraction ? whole.toString() + '.' + fraction : whole.toString();
+    } catch (error) {
+      return '';
+    }
+  }
+
+  function formatLanderId(value) {
+    const id = Number(value);
+
+    if (!Number.isInteger(id) || id < 1) return '';
+
+    return '#' + String(id).padStart(4, '0');
+  }
+
   function updateCard() {
     cardName.textContent =
       nameInput.value.trim() || 'LANDER';
@@ -775,12 +860,179 @@
       id ? (id.startsWith('#') ? id : '#' + id) : '#----';
   }
 
-  [nameInput, balanceInput, walletInput, idInput].forEach(function (input) {
-    input.addEventListener('input', updateCard);
-  });
+  nameInput.addEventListener('input', updateCard);
 
-  buyButton.addEventListener('click', function () {
+  function applyLander(lander) {
+    const id = formatLanderId(lander && lander.id);
+    const wallet = lander && typeof lander.wallet === 'string'
+      ? lander.wallet
+      : '';
+    const balance = rawLandingToDecimal(lander && lander.balanceRaw);
+
+    if (!id || !wallet || !balance) {
+      throw new Error('The registry returned incomplete Lander data.');
+    }
+
+    balanceInput.value = balance;
+    walletInput.value = wallet;
+    idInput.value = id;
     downloadButton.hidden = false;
+    localStorage.setItem(LANDER_WALLET_KEY, wallet);
+    localStorage.removeItem(PENDING_SIGNATURE_KEY);
+    updateCard();
+    setStatus('Confirmed on-chain. Welcome, Lander ' + id + '.', 'success');
+  }
+
+  async function verifyAndClaim(signature) {
+    if (verificationInProgress) return;
+
+    verificationInProgress = true;
+    buyButton.disabled = true;
+    localStorage.setItem(PENDING_SIGNATURE_KEY, signature);
+    setStatus('Waiting for finalized on-chain confirmation…', 'waiting');
+
+    try {
+      for (let attempt = 1; attempt <= 60; attempt += 1) {
+        try {
+          const response = await fetch(REGISTRY_URL + '/api/claim', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ signature: signature }),
+            cache: 'no-store'
+          });
+          const payload = await response.json();
+
+          if (payload.status === 'confirmed' && payload.lander) {
+            applyLander(payload.lander);
+            document.getElementById('certified').scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+            return;
+          }
+
+          if (payload.status === 'invalid') {
+            localStorage.removeItem(PENDING_SIGNATURE_KEY);
+            throw new Error(payload.message || 'The swap could not be verified.');
+          }
+
+          if (payload.status !== 'waiting') {
+            throw new Error(payload.message || 'The registry is temporarily unavailable.');
+          }
+
+          setStatus(
+            payload.message || 'Waiting for finalized on-chain confirmation…',
+            'waiting'
+          );
+        } catch (error) {
+          if (attempt === 60 ||
+              (error instanceof Error && /could not be verified|failed on-chain|did not deliver|not a finalized Jupiter/i.test(error.message))) {
+            throw error;
+          }
+
+          setStatus('Network check in progress. Waiting for confirmation…', 'waiting');
+        }
+
+        await wait(3000);
+      }
+
+      throw new Error('Confirmation is taking longer than expected. Reload this page to continue.');
+    } catch (error) {
+      console.error('Unable to verify LANDING swap:', error);
+      setStatus(
+        error instanceof Error
+          ? error.message
+          : 'Unable to verify the swap. Please try again.',
+        'error'
+      );
+    } finally {
+      verificationInProgress = false;
+      buyButton.disabled = false;
+    }
+  }
+
+  async function restoreLander() {
+    const pendingSignature = localStorage.getItem(PENDING_SIGNATURE_KEY);
+
+    if (pendingSignature) {
+      verifyAndClaim(pendingSignature);
+      return;
+    }
+
+    const savedWallet = localStorage.getItem(LANDER_WALLET_KEY);
+    if (!savedWallet) return;
+
+    try {
+      const response = await fetch(
+        REGISTRY_URL + '/api/lander?wallet=' + encodeURIComponent(savedWallet),
+        { cache: 'no-store' }
+      );
+      const payload = await response.json();
+
+      if (payload.status === 'confirmed' && payload.lander) {
+        applyLander(payload.lander);
+      }
+    } catch (error) {
+      console.warn('Unable to restore the saved Lander card:', error);
+    }
+  }
+
+  async function waitForJupiter() {
+    for (let attempt = 0; attempt < 100; attempt += 1) {
+      if (window.Jupiter && typeof window.Jupiter.init === 'function') return;
+      await wait(100);
+    }
+
+    throw new Error('Jupiter did not load. Please refresh the page and try again.');
+  }
+
+  buyButton.addEventListener('click', async function () {
+    try {
+      buyButton.disabled = true;
+      setStatus('Loading the Jupiter swap…', 'waiting');
+      await waitForJupiter();
+
+      if (jupiterInitialized) {
+        window.Jupiter.resume();
+      } else {
+        window.Jupiter.init({
+          displayMode: 'modal',
+          formProps: {
+            initialInputMint: SOL_MINT,
+            initialOutputMint: LANDING_MINT,
+            fixedMint: LANDING_MINT
+          },
+          onSuccess: function (result) {
+            if (!result || !result.txid) {
+              setStatus('The transaction signature was not returned.', 'error');
+              return;
+            }
+
+            try {
+              window.Jupiter.close();
+            } catch (error) {
+              console.warn('Unable to close the Jupiter modal:', error);
+            }
+
+            verifyAndClaim(result.txid);
+          },
+          onSwapError: function () {
+            setStatus('Swap not completed. Your card remains locked.', 'error');
+          }
+        });
+        jupiterInitialized = true;
+      }
+    } catch (error) {
+      console.error('Unable to open Jupiter:', error);
+      setStatus(
+        error instanceof Error
+          ? error.message
+          : 'Unable to open Jupiter. Please try again.',
+        'error'
+      );
+    } finally {
+      if (!verificationInProgress) buyButton.disabled = false;
+    }
   });
 
   downloadButton.addEventListener('click', async function () {
@@ -816,6 +1068,7 @@
   });
 
   updateCard();
+  restoreLander();
 })();
 </script>
 
