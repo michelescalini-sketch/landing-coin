@@ -29,6 +29,12 @@ type Verification =
       slot: number;
     };
 
+type Recipient = {
+  wallet: string;
+  receivedRaw: bigint;
+  balanceRaw: bigint;
+};
+
 type ParsedAccountKey = {
   pubkey?: unknown;
   signer?: unknown;
@@ -162,7 +168,7 @@ function transactionUsesJupiter(transaction: SolanaTransaction): boolean {
     || (meta?.logMessages ?? []).some((line) => line.includes(JUPITER_SWAP_PROGRAM));
 }
 
-function findRecipient(transaction: SolanaTransaction): [string, bigint] | null {
+function findRecipient(transaction: SolanaTransaction): Recipient | null {
   const message = transaction.transaction?.message;
   const signerSet = new Set(
     (message?.accountKeys ?? [])
@@ -182,6 +188,7 @@ function findRecipient(transaction: SolanaTransaction): [string, bigint] | null 
   }
 
   const receivedByOwner = new Map<string, bigint>();
+  const balanceByOwner = new Map<string, bigint>();
   for (const item of transaction.meta?.postTokenBalances ?? []) {
     if (
       item.mint !== LANDING_MINT
@@ -197,36 +204,23 @@ function findRecipient(transaction: SolanaTransaction): [string, bigint] | null 
     const pre = preByIndex.get(item.accountIndex) ?? 0n;
     const delta = post - pre;
 
+    balanceByOwner.set(item.owner, (balanceByOwner.get(item.owner) ?? 0n) + post);
+
     if (delta > 0n) {
       receivedByOwner.set(item.owner, (receivedByOwner.get(item.owner) ?? 0n) + delta);
     }
   }
 
-  return [...receivedByOwner.entries()]
-    .sort((a, b) => (a[1] > b[1] ? -1 : a[1] < b[1] ? 1 : 0))[0] ?? null;
-}
+  const winner = [...receivedByOwner.entries()]
+    .sort((a, b) => (a[1] > b[1] ? -1 : a[1] < b[1] ? 1 : 0))[0];
 
-async function getLandingBalance(wallet: string): Promise<bigint> {
-  const result = await solanaRpc("getTokenAccountsByOwner", [
-    wallet,
-    { mint: LANDING_MINT },
-    { encoding: "jsonParsed", commitment: "finalized" },
-  ]);
+  if (!winner) return null;
 
-  if (!isRecord(result) || !Array.isArray(result.value)) {
-    throw new Error("Invalid token balance response");
-  }
-
-  let total = 0n;
-  for (const entry of result.value) {
-    if (!isRecord(entry) || !isRecord(entry.account) || !isRecord(entry.account.data)) continue;
-    const parsed = entry.account.data.parsed;
-    if (!isRecord(parsed) || !isRecord(parsed.info) || !isRecord(parsed.info.tokenAmount)) continue;
-    const amount = parsed.info.tokenAmount.amount;
-    if (typeof amount === "string") total += BigInt(amount);
-  }
-
-  return total;
+  return {
+    wallet: winner[0],
+    receivedRaw: winner[1],
+    balanceRaw: balanceByOwner.get(winner[0]) ?? winner[1],
+  };
 }
 
 async function verifySwap(signature: string): Promise<Verification> {
@@ -270,14 +264,11 @@ async function verifySwap(signature: string): Promise<Verification> {
     return { kind: "invalid", reason: "The swap did not deliver LANDING to its signer." };
   }
 
-  const [wallet, receivedRaw] = recipient;
-  const balanceRaw = await getLandingBalance(wallet);
-
   return {
     kind: "verified",
-    wallet,
-    receivedRaw: receivedRaw.toString(),
-    balanceRaw: balanceRaw.toString(),
+    wallet: recipient.wallet,
+    receivedRaw: recipient.receivedRaw.toString(),
+    balanceRaw: recipient.balanceRaw.toString(),
     slot: transactionResult.slot,
   };
 }
