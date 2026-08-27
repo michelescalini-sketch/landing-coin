@@ -7,7 +7,7 @@ Landing Coin is an ironic, anti-hype memecoin on Solana.
 - Network: Solana mainnet-beta
 - Website: https://landingcoin.fun
 - X: https://x.com/LandingCoinFun
-- Telegram: https://t.me/LandingCoinFun
+- Telegram: https://t.me/LandingCoinCommunity
 - Mint: `DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ`
 - Supply: 404,000,000 LANDING
 - Decimals: 6
