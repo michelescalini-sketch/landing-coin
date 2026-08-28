@@ -1,0 +1,720 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <title>Landing Coin — Team &amp; Project Structure</title>
+  <meta name="description" content="Meet the current structure behind Landing Coin: founder Michele Scalini, digital executive assistant Nova, and the project’s transparent approach to future expansion.">
+
+  <link rel="canonical" href="https://landingcoin.fun/team.html">
+  <link rel="icon" type="image/jpeg" href="/landing-logo.jpg">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://landingcoin.fun/team.html">
+  <meta property="og:title" content="Landing Coin — Team &amp; Project Structure">
+  <meta property="og:description" content="The current people and systems behind LANDING, published as they exist today.">
+  <meta property="og:image" content="https://landingcoin.fun/landing-social.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Landing Coin — Everyone is going to the moon. We are landing.">
+  <meta property="og:site_name" content="Landing Coin">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Landing Coin — Team &amp; Project Structure">
+  <meta name="twitter:description" content="The current people and systems behind LANDING, published as they exist today.">
+  <meta name="twitter:image" content="https://landingcoin.fun/landing-social.jpg">
+  <meta name="twitter:image:alt" content="Landing Coin — Everyone is going to the moon. We are landing.">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Landing Coin — Team & Project Structure",
+    "url": "https://landingcoin.fun/team.html",
+    "description": "The current project structure behind Landing Coin, including founder Michele Scalini, digital executive assistant Nova and clearly marked areas of potential future expansion.",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Landing Coin",
+      "url": "https://landingcoin.fun/"
+    },
+    "about": {
+      "@type": "Person",
+      "name": "Michele Scalini",
+      "url": "https://michelescalini.it"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #05070d;
+      --panel: rgba(13,18,30,.78);
+      --panel-strong: rgba(16,22,38,.94);
+      --line: rgba(255,255,255,.10);
+      --text: #f7f7f8;
+      --muted: #9aa3b5;
+      --cyan: #22e6c7;
+      --blue: #4da4ff;
+      --violet: #a855f7;
+      --orange: #ffad24;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 85% 12%, rgba(122,58,237,.22), transparent 32%),
+        radial-gradient(circle at 8% 20%, rgba(0,210,190,.16), transparent 28%),
+        radial-gradient(circle at 50% 80%, rgba(40,90,200,.12), transparent 35%),
+        linear-gradient(145deg,#02040a,#080b16 45%,#080511);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .14;
+      background-image:
+        radial-gradient(circle at 20% 30%, #fff 0 1px, transparent 1.5px),
+        radial-gradient(circle at 80% 60%, #fff 0 1px, transparent 1.5px),
+        radial-gradient(circle at 60% 10%, #fff 0 1px, transparent 1.5px);
+      background-size: 190px 190px, 240px 240px, 310px 310px;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    a:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 4px;
+      border-radius: 5px;
+    }
+
+    .wrapper {
+      position: relative;
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    nav {
+      min-height: 86px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      flex: 0 0 auto;
+      font-size: 1.2rem;
+      font-weight: 900;
+      letter-spacing: -.02em;
+    }
+
+    .brand img {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 30px rgba(92,80,255,.28);
+    }
+
+    .brand span,
+    .gradient {
+      background: linear-gradient(90deg,var(--cyan),var(--blue),var(--violet));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .navlinks {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: #c4cad5;
+      font-size: .8rem;
+    }
+
+    .navlinks a:hover,
+    footer a:hover { color: #fff; }
+
+    .navlinks .active { color: #fff; }
+
+    .hero {
+      padding: 92px 0 84px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 25px;
+      padding: 8px 14px;
+      border: 1px solid rgba(34,230,199,.30);
+      border-radius: 999px;
+      color: var(--cyan);
+      background: rgba(34,230,199,.045);
+      font-size: .76rem;
+      font-weight: 900;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 14px var(--cyan);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(3.5rem,8vw,7.2rem);
+      line-height: .88;
+      letter-spacing: -.065em;
+    }
+
+    .hero-copy {
+      width: min(700px,100%);
+      margin: 30px auto 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem,2vw,1.28rem);
+      line-height: 1.65;
+    }
+
+    .current-structure {
+      padding: 0 0 95px;
+    }
+
+    .section-heading {
+      width: min(760px,100%);
+      margin: 0 auto 42px;
+      text-align: center;
+    }
+
+    .section-heading h2 {
+      margin: 0 0 14px;
+      font-size: clamp(2.3rem,5vw,4.2rem);
+      line-height: 1;
+      letter-spacing: -.055em;
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .profile-card {
+      width: min(920px,100%);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 34px;
+      align-items: center;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background:
+        radial-gradient(circle at 95% 5%,rgba(77,164,255,.09),transparent 32%),
+        linear-gradient(145deg,var(--panel-strong),rgba(7,10,18,.88));
+      box-shadow: inset 0 1px rgba(255,255,255,.035), 0 26px 65px rgba(0,0,0,.20);
+    }
+
+    .profile-image {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1 / 1;
+      display: block;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 21px;
+      object-fit: cover;
+      object-position: center;
+      background: #080b12;
+    }
+
+    .profile-card.michele .profile-image { object-position: 50% 31%; }
+
+    .role-label {
+      display: inline-flex;
+      margin-bottom: 16px;
+      padding: 6px 10px;
+      border: 1px solid rgba(34,230,199,.24);
+      border-radius: 999px;
+      color: var(--cyan);
+      background: rgba(34,230,199,.045);
+      font-size: .68rem;
+      font-weight: 900;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+
+    .profile-card h3 {
+      margin: 0;
+      font-size: clamp(2rem,4vw,3.25rem);
+      line-height: 1;
+      letter-spacing: -.045em;
+    }
+
+    .titles {
+      margin: 12px 0 22px;
+      color: #dce3ed;
+      font-size: 1.03rem;
+      font-weight: 800;
+      line-height: 1.5;
+    }
+
+    .titles span { display: block; }
+
+    .description,
+    .disclosure {
+      margin: 0 0 15px;
+      color: var(--muted);
+      line-height: 1.72;
+    }
+
+    .disclosure {
+      padding: 15px 17px;
+      border-left: 2px solid var(--blue);
+      border-radius: 0 12px 12px 0;
+      background: rgba(255,255,255,.03);
+      color: #c7cfdb;
+    }
+
+    .references {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 21px;
+    }
+
+    .reference {
+      display: inline-flex;
+      align-items: center;
+      min-height: 42px;
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: rgba(255,255,255,.035);
+      color: #c8d0dc;
+      font-size: .83rem;
+      font-weight: 750;
+    }
+
+    .reference:hover { background: rgba(255,255,255,.075); color: #fff; }
+
+    .hierarchy-connector {
+      position: relative;
+      width: 2px;
+      height: 78px;
+      margin: 0 auto;
+      background: linear-gradient(var(--cyan),var(--blue),var(--violet));
+      opacity: .8;
+    }
+
+    .hierarchy-connector::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -1px;
+      width: 10px;
+      height: 10px;
+      border-right: 2px solid var(--violet);
+      border-bottom: 2px solid var(--violet);
+      transform: translateX(-50%) rotate(45deg);
+    }
+
+    .future-node {
+      width: min(720px,100%);
+      margin: 0 auto;
+      padding: 29px 30px;
+      border: 1px dashed rgba(168,85,247,.46);
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 85% 12%,rgba(168,85,247,.10),transparent 34%),
+        rgba(255,255,255,.025);
+      text-align: center;
+    }
+
+    .future-node h3 {
+      margin: 0 0 10px;
+      font-size: clamp(1.7rem,3.6vw,2.65rem);
+      letter-spacing: -.04em;
+    }
+
+    .future-node p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .future-label {
+      display: inline-block;
+      margin-bottom: 13px;
+      padding: 6px 10px;
+      border: 1px solid rgba(255,173,36,.28);
+      border-radius: 999px;
+      color: var(--orange);
+      background: rgba(255,173,36,.05);
+      font-size: .67rem;
+      font-weight: 900;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+
+    .future-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(4,minmax(0,1fr));
+      gap: 14px;
+      margin-top: 0;
+      padding-top: 60px;
+    }
+
+    .future-grid::before {
+      content: "";
+      position: absolute;
+      top: 26px;
+      left: 12.5%;
+      right: 12.5%;
+      height: 1px;
+      background: linear-gradient(90deg,var(--cyan),var(--blue),var(--violet));
+      opacity: .55;
+    }
+
+    .future-grid::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 1px;
+      height: 27px;
+      background: var(--blue);
+      opacity: .55;
+    }
+
+    .future-role {
+      position: relative;
+      z-index: 1;
+      min-height: 125px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 22px 14px;
+      border: 1px dashed rgba(255,255,255,.18);
+      border-radius: 18px;
+      background: linear-gradient(145deg,rgba(18,25,42,.84),rgba(7,10,18,.92));
+      text-align: center;
+    }
+
+    .future-role::before {
+      content: "";
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      width: 1px;
+      height: 34px;
+      background: rgba(255,255,255,.26);
+    }
+
+    .future-role strong {
+      font-size: 1rem;
+      letter-spacing: -.02em;
+    }
+
+    .future-role span {
+      color: var(--orange);
+      font-size: .63rem;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .transparency {
+      padding: 0 0 110px;
+    }
+
+    .transparency-note {
+      width: min(920px,100%);
+      margin: 0 auto;
+      padding: 31px 34px;
+      border: 1px solid rgba(34,230,199,.20);
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 90% 10%,rgba(168,85,247,.09),transparent 35%),
+        linear-gradient(145deg,rgba(10,24,34,.88),rgba(7,10,18,.86));
+    }
+
+    .transparency-note h2 {
+      margin: 0 0 12px;
+      font-size: 1.7rem;
+      letter-spacing: -.035em;
+    }
+
+    .transparency-note p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    footer {
+      padding: 35px 0 55px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      color: #697386;
+      font-size: .8rem;
+    }
+
+    footer strong { color: #aeb6c5; }
+
+    @media (max-width: 1040px) {
+      .navlinks { display: none; }
+    }
+
+    @media (max-width: 800px) {
+      .profile-card {
+        grid-template-columns: 220px 1fr;
+        gap: 25px;
+      }
+
+      .future-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+
+      .future-grid::before,
+      .future-grid::after,
+      .future-role::before { display: none; }
+    }
+
+    @media (max-width: 620px) {
+      .wrapper { width: min(100% - 26px,var(--max)); }
+
+      nav { min-height: 75px; }
+
+      .brand { font-size: 1rem; }
+
+      .brand img { width: 44px; height: 44px; }
+
+      .hero { padding: 68px 0 65px; }
+
+      h1 { font-size: clamp(3.25rem,17vw,5rem); }
+
+      .profile-card {
+        grid-template-columns: 1fr;
+        padding: 18px;
+      }
+
+      .profile-image { border-radius: 17px; }
+
+      .profile-content { padding: 6px 5px 7px; }
+
+      .future-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding-top: 46px;
+      }
+
+      .future-grid::before {
+        display: block;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        right: auto;
+        width: 1px;
+        height: auto;
+        background: linear-gradient(var(--blue),var(--violet));
+      }
+
+      .future-role { min-height: 102px; }
+
+      .transparency-note { padding: 26px 24px; }
+
+      footer { flex-direction: column; }
+    }
+  </style>
+</head>
+
+<body>
+<div class="wrapper">
+
+  <nav aria-label="Primary navigation">
+    <a href="/" class="brand">
+      <img src="/landing-logo.jpg" alt="Landing Coin logo">
+      LANDING <span>COIN</span>
+    </a>
+
+    <div class="navlinks">
+      <a href="/#story">Story</a>
+      <a href="/#why-own">Why LANDING?</a>
+      <a href="/#against-the-script">Against the script</a>
+      <a href="/#token">Token</a>
+      <a href="/#philosophy">Philosophy</a>
+      <a href="/flight-plan.html">Flight Plan</a>
+      <a href="/lander.html">Be a Lander</a>
+      <a class="active" href="/team.html" aria-current="page">Team</a>
+    </div>
+  </nav>
+
+  <main>
+    <header class="hero">
+      <div class="eyebrow">Current structure · Published as it exists</div>
+      <h1>
+        TEAM &amp; PROJECT<br>
+        <span class="gradient">STRUCTURE.</span>
+      </h1>
+      <p class="hero-copy">The people and systems currently behind LANDING.</p>
+    </header>
+
+    <section class="current-structure" aria-labelledby="current-structure-title">
+      <div class="section-heading">
+        <h2 id="current-structure-title">The structure today.</h2>
+        <p>
+          LANDING is an independent, single-creator project. The structure below
+          separates current responsibilities from possible future expansion.
+        </p>
+      </div>
+
+      <article class="profile-card michele">
+        <img
+          class="profile-image"
+          src="/team/michele-scalini-founder.jpg"
+          alt="Portrait of Michele Scalini, Founder and Project Operator"
+          width="720"
+          height="900">
+
+        <div class="profile-content">
+          <span class="role-label">Current project role</span>
+          <h3>Michele Scalini</h3>
+          <p class="titles">Founder &amp; Project Operator</p>
+          <p class="description">
+            Creator and current project operator of Landing Coin. Oversees project
+            direction, token allocation administration, public communications and
+            overall project coordination.
+          </p>
+          <p class="disclosure">
+            LANDING is currently an independent, single-creator project and is not
+            operated by a separate incorporated company.
+          </p>
+
+          <div class="references" aria-label="Michele Scalini public references">
+            <a class="reference" href="https://michelescalini.it" target="_blank" rel="noopener">
+              Personal website ↗
+            </a>
+            <a class="reference" href="mailto:contact@landingcoin.fun">
+              Project contact
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <div class="hierarchy-connector" aria-hidden="true"></div>
+
+      <article class="profile-card nova">
+        <img
+          class="profile-image"
+          src="/team/nova-executive-assistant.jpg"
+          alt="Visual representation of NOVA, LANDING's digital executive assistant"
+          width="900"
+          height="900">
+
+        <div class="profile-content">
+          <span class="role-label">Digital project role</span>
+          <h3>NOVA</h3>
+          <p class="titles">
+            <span>Executive Assistant</span>
+            <span>Project Support &amp; Coordination</span>
+          </p>
+          <p class="description">
+            Nova is LANDING’s digital executive assistant, supporting the founder
+            with research, organization, documentation, communication workflows and
+            project coordination.
+          </p>
+          <p class="disclosure">
+            Nova does not hold custody of project funds, wallets, private keys or
+            signing authority.
+          </p>
+        </div>
+      </article>
+
+      <div class="hierarchy-connector" aria-hidden="true"></div>
+
+      <div class="future-node">
+        <span class="future-label">Future expansion · Planned</span>
+        <h3>Future Project Expansion</h3>
+        <p>
+          Potential areas that may be added only if the project grows. These are
+          not current departments, employees or team members.
+        </p>
+      </div>
+
+      <div class="future-grid" aria-label="Potential future project areas">
+        <div class="future-role">
+          <strong>Development</strong>
+          <span>Future · Planned</span>
+        </div>
+        <div class="future-role">
+          <strong>Community</strong>
+          <span>Future · Planned</span>
+        </div>
+        <div class="future-role">
+          <strong>Communications</strong>
+          <span>Future · Planned</span>
+        </div>
+        <div class="future-role">
+          <strong>Partnerships</strong>
+          <span>Future · Planned</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="transparency" aria-labelledby="transparency-title">
+      <div class="transparency-note">
+        <h2 id="transparency-title">Transparency Note</h2>
+        <p>
+          LANDING intentionally publishes its current project structure as it exists
+          today. Future roles shown on this page represent potential areas of expansion
+          and do not indicate current employees or team members.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      <strong>Landing Coin — $LANDING</strong><br>
+      Solana Mainnet<br>
+      <a href="https://x.com/LandingCoinFun" target="_blank" rel="noopener">@LandingCoinFun on X</a><br>
+      <a href="https://t.me/LandingCoinCommunity" target="_blank" rel="noopener">Telegram Community</a><br>
+      <a href="mailto:contact@landingcoin.fun">contact@landingcoin.fun</a><br>
+      <a href="https://bitcointalk.org/index.php?topic=5591610.0" target="_blank" rel="noopener">Bitcointalk ANN</a><br>
+      <a href="/why-landing-doesnt-promise-the-moon.html">Why Landing Doesn't Promise the Moon</a><br>
+      <a href="/flight-plan.html">Flight Plan</a><br>
+      <a href="/media-kit.html">Media Kit</a><br>
+      <a href="/team.html" aria-current="page">Team</a>
+    </div>
+
+    <div>
+      © 2026 Landing Coin.<br>
+      Gravity still works.
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
