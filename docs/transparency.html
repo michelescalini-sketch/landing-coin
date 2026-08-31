@@ -33,9 +33,9 @@
 <div class="metric"><small>Mint authority</small><strong class="good" id="mintAuthority">Disabled</strong><em>Permanently disabled</em></div>
 <div class="metric"><small>Freeze authority</small><strong class="good" id="freezeAuthority">Disabled</strong><em>Permanently disabled</em></div>
 <div class="metric"><small>Positive holders</small><strong id="positiveHolders">Loading…</strong><em id="holderCoverage">Live owner count</em></div>
-<div class="metric"><small>Independent holders</small><strong id="independentHolders">Loading…</strong><em>Excludes project, founder, exchange and liquidity wallets</em></div>
+<div class="metric"><small>Independent holders</small><strong id="independentHolders">Loading…</strong><em>Excludes project, founder, known operational and liquidity wallets</em></div>
 <div class="metric"><small>Project wallets</small><strong id="projectWallets">Loading…</strong><em>Community, Treasury, Liquidity Reserve, Creator</em></div>
-<div class="metric"><small>Exchange wallets</small><strong id="exchangeWallets">Loading…</strong><em>Known SuperEx classification</em></div>
+<div class="metric"><small>Other known wallet</small><strong id="exchangeWallets">Loading…</strong><em>Excluded from independent-holder count</em></div>
 <div class="metric"><small>Founder-controlled</small><strong id="founderWallets">Loading…</strong><em>Not counted as independent holders</em></div>
 </div>
 </section>
@@ -63,11 +63,11 @@
 <div class="panel holder-stack">
 <div class="holder-item"><div class="count">4</div><div><strong>Project wallets</strong><span>Community · Treasury · Liquidity Reserve · Creator</span></div><b id="holderProject">—</b></div>
 <div class="holder-item"><div class="count">LP</div><div><strong>Liquidity pool</strong><span>Orca LANDING / SOL pool</span></div><b id="holderPool">—</b></div>
-<div class="holder-item"><div class="count">EX</div><div><strong>Exchange</strong><span>Known SuperEx classification</span></div><b id="holderExchange">—</b></div>
+<div class="holder-item"><div class="count">O</div><div><strong>Other known wallet</strong><span>Known non-independent operational wallet</span></div><b id="holderExchange">—</b></div>
 <div class="holder-item"><div class="count">F</div><div><strong>Founder-controlled</strong><span>Known founder wallets</span></div><b id="holderFounder">—</b></div>
 <div class="holder-item"><div class="count">I</div><div><strong>Independent holder</strong><span>External holder · not project-controlled</span></div><b class="good" id="holderIndependent">—</b></div>
 </div>
-<div class="callout"><strong>Why publish this?</strong><br><br>Because a raw holder count and an independent-holder count can describe two very different realities. LANDING uses the stricter interpretation. The project does not count its own allocation wallets, founder wallets, an exchange wallet or the liquidity pool as organic community adoption.</div>
+<div class="callout"><strong>Why publish this?</strong><br><br>Because a raw holder count and an independent-holder count can describe two very different realities. LANDING uses the stricter interpretation. The project does not count its own allocation wallets, founder wallets, other known operational wallets or the liquidity pool as organic community adoption.</div>
 </div>
 </section>
 
@@ -111,7 +111,7 @@
 <a class="source" href="https://github.com/michelescalini-sketch/landing-coin/blob/main/MAINNET-DEPLOYMENT.txt" target="_blank" rel="noopener"><strong>Deployment record</strong><span>Published mint, pool, authorities and known project addresses.</span></a>
 <a class="source" href="https://coinranking.com/coin/k6ZE3OS1f+landingcoin-landing" target="_blank" rel="noopener"><strong>Coinranking</strong><span>Independent discovery / indexing reference.</span></a>
 </div>
-<div class="method"><strong>Methodology:</strong> “positive holders” means owners with a LANDING balance greater than zero. “Independent holders” excludes known project allocation wallets, the liquidity pool, known exchange wallets and known founder-controlled wallets. Classification is conservative by design. The SuperEx classification is currently a manual count until the exact exchange holding address is configured. Third-party market figures may lag or differ between trackers.</div>
+<div class="method"><strong>Methodology:</strong> “positive holders” means owners with a LANDING balance greater than zero. “Independent holders” excludes known project allocation wallets, the liquidity pool, known founder-controlled wallets and other known non-independent operational wallets. Classification is conservative by design. One operational wallet is currently excluded conservatively by manual classification until its exact holding address is configured. Third-party market figures may lag or differ between trackers.</div>
 </section>
 </main>
 <footer><div><strong>LANDING COIN</strong><br>Everyone is going to the moon. We are landing.</div><div>Transparency is a method, not a marketing claim.</div></footer>
