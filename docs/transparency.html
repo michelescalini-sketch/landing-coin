@@ -154,8 +154,14 @@ function setMarketUnavailable(message){
 }
 
 let hasLoadedSnapshot=false;
+let lastRefreshStarted=0;
+let marketRetryCount=0;
 
 async function loadTransparency(){
+  const now=Date.now();
+  if(now-lastRefreshStarted<1500) return;
+  lastRefreshStarted=now;
+
   try{
     const response=await fetch(
       API_BASE+'?_='+Date.now(),
@@ -242,6 +248,7 @@ async function loadTransparency(){
     }
 
     if(m && typeof m==='object'){
+      marketRetryCount=0;
       setText('price',money(m.priceUsd,8));
       setText('liquidity',money(m.liquidityUsd,2));
       setText('volume24',money(m.volume24hUsd,2));
@@ -271,6 +278,11 @@ async function loadTransparency(){
         'Current market data is temporarily unavailable. '+
         'On-chain data remains live. Retrying automatically.'
       );
+
+      if(marketRetryCount<3){
+        marketRetryCount++;
+        setTimeout(loadTransparency,3000);
+      }
     }
 
     hasLoadedSnapshot=true;
@@ -303,6 +315,17 @@ async function loadTransparency(){
 }
 
 loadTransparency();
+
+window.addEventListener('pageshow',event=>{
+  if(event.persisted) loadTransparency();
+});
+
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState==='visible') loadTransparency();
+});
+
+window.addEventListener('focus',loadTransparency);
+
 setInterval(loadTransparency,60000);
 </script>
 </body>
