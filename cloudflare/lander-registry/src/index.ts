@@ -1,6 +1,30 @@
 const LANDING_MINT = "DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ";
 const JUPITER_SWAP_PROGRAM = "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4";
+const TOKEN_PROGRAM = "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA";
 const SOLANA_RPC = "https://solana-rpc.publicnode.com";
+const ORCA_POOL = "GyCQYByuUEMEWErDX6xFSpKC3stsfXJRDsFy4fQb1prq";
+const ORCA_SOL_VAULT = "9ke7GbPNwyK5Pb8gYN4Yob5sVvvX3yQXKT2AD1FkH5ZS";
+const ORCA_LANDING_VAULT = "Dbuvyfmnf66cdZ5AwmQwDMFwbFGshEnxKyFHnoY9P6kN";
+const GECKOTERMINAL_POOL_API = `https://api.geckoterminal.com/api/v2/networks/solana/pools/${ORCA_POOL}`;
+
+const PROJECT_WALLETS = new Set([
+  "CBPwvUZrDQThyM6a54shKPpywvpTyYQQ2Ng7FWPZPM88", // Community
+  "3JA9uuNqr5tqBxGP9sQTRTPtwmPAR2KxmJyXyietrQwS", // Treasury
+  "34hUkC1XVGMHX64txhfTh7rDBMhtScK8cpCcP54u17vZ", // Liquidity Reserve
+  "4fUtkW2LEZxLt2tgPJ9BitViNBqR3AUy58hyG81Q41hg", // Creator
+]);
+
+const FOUNDER_WALLETS = new Set([
+  "125kgmJxWnzFTvxtapngumyQiqbEdDqgZ8DMbby6sivw", // Admin / metadata authority wallet
+  "Gnn2h1gpQUwUg2so5Zy2boo9MPZJ3FZrbY8eYgidWDy7", // Operational liquidity wallet
+]);
+
+// One currently-positive external holder is known operationally to be SuperEx.
+// The exchange address is intentionally not guessed here. Until that address is
+// explicitly configured, the API subtracts one known exchange holder from the
+// otherwise-unclassified external owner count and labels the basis as manual.
+const MANUAL_EXCHANGE_HOLDER_COUNT = 1;
+
 const ALLOWED_ORIGINS = new Set([
   "https://landingcoin.fun",
   "https://www.landingcoin.fun",
@@ -64,31 +88,49 @@ type SolanaTransaction = {
   };
 };
 
+type HolderRecord = {
+  owner: string;
+  rawBalance: bigint;
+  tokenAccounts: string[];
+};
+
+type HolderSnapshot = {
+  holders: HolderRecord[];
+  complete: boolean;
+  method: "getProgramAccounts" | "getTokenLargestAccounts";
+};
+
 const servicePage = `<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Landing Lander Registry</title>
+    <title>Landing Public Services</title>
     <meta name="robots" content="noindex, nofollow">
     <style>
       :root { color-scheme: dark; font-family: Inter, system-ui, sans-serif; }
       body { display: grid; min-height: 100vh; margin: 0; place-items: center; background: #080b14; color: #f6f1e7; }
-      main { max-width: 36rem; padding: 2rem; text-align: center; }
-      p { color: #aeb7c7; }
+      main { max-width: 40rem; padding: 2rem; text-align: center; }
+      p { color: #aeb7c7; line-height: 1.6; }
       strong { color: #34e3c1; }
+      code { color: #c7d3e6; }
     </style>
   </head>
   <body>
     <main>
-      <h1>Landing Lander Registry</h1>
-      <p><strong>Online.</strong> This service verifies finalized LANDING swaps and assigns progressive Lander IDs.</p>
+      <h1>Landing Public Services</h1>
+      <p><strong>Online.</strong> This Worker verifies finalized LANDING swaps, assigns progressive Lander IDs and exposes the public transparency snapshot used by landingcoin.fun.</p>
+      <p><code>GET /api/transparency</code></p>
     </main>
   </body>
 </html>`;
 
 function isRecord(value: unknown): value is JsonRecord {
   return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function asRecord(value: unknown): JsonRecord | null {
+  return isRecord(value) ? value : null;
 }
 
 function corsHeaders(request: Request): HeadersInit {
@@ -414,6 +456,257 @@ async function findLander(request: Request, env: Env, url: URL): Promise<Respons
     : json(request, { status: "not_found" }, 404);
 }
 
+function parseTokenAccount(entry: unknown): { tokenAccount: string; owner: string; rawBalance: bigint } | null {
+  if (!isRecord(entry)) return null;
+  const tokenAccount = typeof entry.pubkey === "string" ? entry.pubkey : "";
+  const account = asRecord(entry.account);
+  const data = account ? asRecord(account.data) : null;
+  const parsed = data ? asRecord(data.parsed) : null;
+  const info = parsed ? asRecord(parsed.info) : null;
+  const tokenAmount = info ? asRecord(info.tokenAmount) : null;
+  const owner = info && typeof info.owner === "string" ? info.owner : "";
+  const amount = tokenAmount && typeof tokenAmount.amount === "string" ? tokenAmount.amount : "";
+  if (!tokenAccount || !owner || !/^\d+$/.test(amount)) return null;
+  return { tokenAccount, owner, rawBalance: BigInt(amount) };
+}
+
+function aggregateHolders(accounts: Array<{ tokenAccount: string; owner: string; rawBalance: bigint }>): HolderRecord[] {
+  const byOwner = new Map<string, HolderRecord>();
+  for (const account of accounts) {
+    if (account.rawBalance <= 0n) continue;
+    const current = byOwner.get(account.owner) ?? {
+      owner: account.owner,
+      rawBalance: 0n,
+      tokenAccounts: [],
+    };
+    current.rawBalance += account.rawBalance;
+    current.tokenAccounts.push(account.tokenAccount);
+    byOwner.set(account.owner, current);
+  }
+  return [...byOwner.values()].sort((a, b) => a.rawBalance > b.rawBalance ? -1 : a.rawBalance < b.rawBalance ? 1 : 0);
+}
+
+async function fetchHoldersViaProgramAccounts(): Promise<HolderSnapshot> {
+  const result = await solanaRpc("getProgramAccounts", [
+    TOKEN_PROGRAM,
+    {
+      commitment: "finalized",
+      encoding: "jsonParsed",
+      filters: [
+        { dataSize: 165 },
+        { memcmp: { offset: 0, bytes: LANDING_MINT } },
+      ],
+    },
+  ]);
+
+  if (!Array.isArray(result)) throw new Error("Invalid getProgramAccounts response");
+  const accounts = result.map(parseTokenAccount).filter((item): item is NonNullable<typeof item> => item !== null);
+  return { holders: aggregateHolders(accounts), complete: true, method: "getProgramAccounts" };
+}
+
+async function fetchHoldersViaLargestAccounts(): Promise<HolderSnapshot> {
+  const largestResult = await solanaRpc("getTokenLargestAccounts", [LANDING_MINT, { commitment: "finalized" }]);
+  if (!isRecord(largestResult) || !Array.isArray(largestResult.value)) {
+    throw new Error("Invalid getTokenLargestAccounts response");
+  }
+
+  const addresses = largestResult.value
+    .map((item) => isRecord(item) && typeof item.address === "string" ? item.address : "")
+    .filter(Boolean);
+
+  if (!addresses.length) return { holders: [], complete: true, method: "getTokenLargestAccounts" };
+
+  const accountResult = await solanaRpc("getMultipleAccounts", [
+    addresses,
+    { commitment: "finalized", encoding: "jsonParsed" },
+  ]);
+
+  if (!isRecord(accountResult) || !Array.isArray(accountResult.value)) {
+    throw new Error("Invalid getMultipleAccounts response");
+  }
+
+  const parsedAccounts = accountResult.value.map((account, index) => parseTokenAccount({
+    pubkey: addresses[index],
+    account,
+  })).filter((item): item is NonNullable<typeof item> => item !== null);
+
+  return {
+    holders: aggregateHolders(parsedAccounts),
+    complete: addresses.length < 20,
+    method: "getTokenLargestAccounts",
+  };
+}
+
+async function fetchHolderSnapshot(): Promise<HolderSnapshot> {
+  try {
+    return await fetchHoldersViaProgramAccounts();
+  } catch (error) {
+    console.warn(JSON.stringify({
+      message: "getProgramAccounts unavailable; using largest-account fallback",
+      error: error instanceof Error ? error.message : String(error),
+    }));
+    return await fetchHoldersViaLargestAccounts();
+  }
+}
+
+function classifyHolders(snapshot: HolderSnapshot): JsonRecord {
+  const project = snapshot.holders.filter((holder) => PROJECT_WALLETS.has(holder.owner));
+  const founder = snapshot.holders.filter((holder) => FOUNDER_WALLETS.has(holder.owner));
+  const liquidityPool = snapshot.holders.filter((holder) =>
+    holder.owner === ORCA_POOL || holder.tokenAccounts.includes(ORCA_LANDING_VAULT)
+  );
+  const knownOwners = new Set([
+    ...project.map((holder) => holder.owner),
+    ...founder.map((holder) => holder.owner),
+    ...liquidityPool.map((holder) => holder.owner),
+  ]);
+  const otherwiseExternal = snapshot.holders.filter((holder) => !knownOwners.has(holder.owner));
+  const exchangeCount = Math.min(MANUAL_EXCHANGE_HOLDER_COUNT, otherwiseExternal.length);
+  const independentCount = Math.max(0, otherwiseExternal.length - exchangeCount);
+
+  return {
+    totalPositiveOwners: snapshot.holders.length,
+    complete: snapshot.complete,
+    enumerationMethod: snapshot.method,
+    projectWallets: project.length,
+    liquidityPools: liquidityPool.length,
+    founderControlled: founder.length,
+    externalBeforeManualClassification: otherwiseExternal.length,
+    exchangeWallets: exchangeCount,
+    independentHolders: independentCount,
+    exchangeClassification: "manual-count-until-address-is-configured",
+    independentDefinition: "positive owners excluding known project, pool, founder and known exchange holders",
+  };
+}
+
+async function fetchMintState(): Promise<JsonRecord> {
+  const result = await solanaRpc("getAccountInfo", [
+    LANDING_MINT,
+    { commitment: "finalized", encoding: "jsonParsed" },
+  ]);
+  if (!isRecord(result)) throw new Error("Invalid mint account response");
+  const value = asRecord(result.value);
+  const data = value ? asRecord(value.data) : null;
+  const parsed = data ? asRecord(data.parsed) : null;
+  const info = parsed ? asRecord(parsed.info) : null;
+  if (!info) throw new Error("Unable to parse mint state");
+
+  return {
+    supplyRaw: typeof info.supply === "string" ? info.supply : null,
+    decimals: typeof info.decimals === "number" ? info.decimals : null,
+    mintAuthority: typeof info.mintAuthority === "string" ? info.mintAuthority : null,
+    freezeAuthority: typeof info.freezeAuthority === "string" ? info.freezeAuthority : null,
+    isInitialized: info.isInitialized === true,
+  };
+}
+
+async function fetchTokenAccountBalance(address: string): Promise<JsonRecord> {
+  const result = await solanaRpc("getTokenAccountBalance", [address, { commitment: "finalized" }]);
+  if (!isRecord(result) || !isRecord(result.value)) throw new Error("Invalid token balance response");
+  return {
+    amountRaw: typeof result.value.amount === "string" ? result.value.amount : null,
+    decimals: typeof result.value.decimals === "number" ? result.value.decimals : null,
+    uiAmountString: typeof result.value.uiAmountString === "string" ? result.value.uiAmountString : null,
+  };
+}
+
+async function fetchMarketState(): Promise<JsonRecord | null> {
+  try {
+    const response = await fetch(GECKOTERMINAL_POOL_API, {
+      headers: { accept: "application/json" },
+      cf: { cacheTtl: 30, cacheEverything: true },
+    });
+    if (!response.ok) throw new Error(`GeckoTerminal HTTP ${response.status}`);
+    const payload: unknown = await response.json();
+    const root = asRecord(payload);
+    const data = root ? asRecord(root.data) : null;
+    const attributes = data ? asRecord(data.attributes) : null;
+    if (!attributes) throw new Error("Invalid GeckoTerminal response");
+    const volumes = asRecord(attributes.volume_usd);
+    const transactions = asRecord(attributes.transactions);
+    const h24 = transactions ? asRecord(transactions.h24) : null;
+    return {
+      priceUsd: typeof attributes.base_token_price_usd === "string" ? attributes.base_token_price_usd : null,
+      liquidityUsd: typeof attributes.reserve_in_usd === "string" ? attributes.reserve_in_usd : null,
+      volume24hUsd: volumes && typeof volumes.h24 === "string" ? volumes.h24 : null,
+      buys24h: h24 && typeof h24.buys === "number" ? h24.buys : null,
+      sells24h: h24 && typeof h24.sells === "number" ? h24.sells : null,
+      source: "GeckoTerminal",
+    };
+  } catch (error) {
+    console.warn(JSON.stringify({
+      message: "Unable to fetch GeckoTerminal market state",
+      error: error instanceof Error ? error.message : String(error),
+    }));
+    return null;
+  }
+}
+
+async function transparencySnapshot(request: Request): Promise<Response> {
+  const updatedAt = new Date().toISOString();
+  const [mintResult, holderResult, landingVaultResult, marketResult] = await Promise.allSettled([
+    fetchMintState(),
+    fetchHolderSnapshot(),
+    fetchTokenAccountBalance(ORCA_LANDING_VAULT),
+    fetchMarketState(),
+  ]);
+
+  let solVault: JsonRecord | null = null;
+  try {
+    // The SOL side is a wrapped-SOL SPL token account; getTokenAccountBalance works for it too.
+    solVault = await fetchTokenAccountBalance(ORCA_SOL_VAULT);
+  } catch (error) {
+    console.warn(JSON.stringify({
+      message: "Unable to fetch Orca SOL vault balance",
+      error: error instanceof Error ? error.message : String(error),
+    }));
+  }
+
+  const mint = mintResult.status === "fulfilled" ? mintResult.value : null;
+  const holders = holderResult.status === "fulfilled" ? classifyHolders(holderResult.value) : null;
+  const landingVault = landingVaultResult.status === "fulfilled" ? landingVaultResult.value : null;
+  const market = marketResult.status === "fulfilled" ? marketResult.value : null;
+
+  const errors: string[] = [];
+  if (!mint) errors.push("mint_state_unavailable");
+  if (!holders) errors.push("holder_state_unavailable");
+  if (!landingVault) errors.push("landing_vault_unavailable");
+  if (!solVault) errors.push("sol_vault_unavailable");
+  if (!market) errors.push("market_state_unavailable");
+
+  return json(request, {
+    status: errors.length ? "partial" : "ok",
+    updatedAt,
+    token: {
+      mint: LANDING_MINT,
+      network: "solana-mainnet",
+      tokenProgram: TOKEN_PROGRAM,
+      ...mint,
+    },
+    holders,
+    liquidity: {
+      pool: ORCA_POOL,
+      landingVault: ORCA_LANDING_VAULT,
+      solVault: ORCA_SOL_VAULT,
+      landingVaultBalance: landingVault,
+      solVaultBalance: solVault,
+    },
+    market,
+    methodology: {
+      positiveHolder: "unique token-account owner with aggregate LANDING balance greater than zero",
+      projectWallets: [...PROJECT_WALLETS],
+      founderWalletCountConfigured: FOUNDER_WALLETS.size,
+      exchangeHolderCountManual: MANUAL_EXCHANGE_HOLDER_COUNT,
+      notes: "Exchange classification remains manual until the exact SuperEx holding address is configured. No personal or trader addresses are returned by this endpoint.",
+    },
+    sources: {
+      solanaRpc: SOLANA_RPC,
+      market: GECKOTERMINAL_POOL_API,
+    },
+    errors,
+  });
+}
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
@@ -430,6 +723,10 @@ export default {
             "X-Content-Type-Options": "nosniff",
           },
         });
+      }
+
+      if (url.pathname === "/api/transparency" && request.method === "GET") {
+        return await transparencySnapshot(request);
       }
 
       if (url.pathname === "/api/claim" && request.method === "POST") {
