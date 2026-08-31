@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LANDING Transparency Dashboard</title>
+<meta name="description" content="The current verifiable state of LANDING: on-chain configuration, holder classification, liquidity, market data and public sources.">
+<link rel="canonical" href="https://landingcoin.fun/transparency.html">
+<link rel="icon" type="image/jpeg" href="/landing-logo.jpg">
+<style>
+:root{--bg:#05070d;--panel:rgba(13,18,30,.78);--panel2:rgba(255,255,255,.035);--line:rgba(255,255,255,.10);--text:#f7f7f8;--muted:#9aa3b5;--cyan:#22e6c7;--blue:#4da4ff;--violet:#a855f7;--orange:#ffad24;--red:#ff6b7a;--max:1180px}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:radial-gradient(circle at 85% 12%,rgba(122,58,237,.20),transparent 32%),radial-gradient(circle at 8% 20%,rgba(0,210,190,.14),transparent 28%),linear-gradient(145deg,#02040a,#080b16 48%,#080511);min-height:100vh}a{color:inherit;text-decoration:none}.wrapper{width:min(var(--max),calc(100% - 40px));margin:0 auto}nav{height:86px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:13px;font-weight:900;letter-spacing:-.02em;font-size:1.2rem}.brand img{width:52px;height:52px;border-radius:50%;object-fit:cover;box-shadow:0 0 30px rgba(92,80,255,.28)}.brand span{background:linear-gradient(90deg,var(--cyan),var(--blue),var(--violet));-webkit-background-clip:text;color:transparent}.navlinks{display:flex;gap:18px;font-size:.82rem;color:#c4cad5}.navlinks a:hover{color:#fff}.hero{padding:72px 0 46px}.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:8px 13px;border:1px solid var(--line);border-radius:999px;color:#b6bfce;background:rgba(255,255,255,.035);font-size:.75rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 15px var(--cyan)}h1{font-size:clamp(3rem,7vw,6rem);line-height:.94;letter-spacing:-.065em;margin:24px 0 0}.gradient{background:linear-gradient(90deg,var(--cyan),var(--blue),var(--violet));-webkit-background-clip:text;color:transparent}.lead{max-width:790px;font-size:1.13rem;line-height:1.72;color:var(--muted);margin:25px 0 0}.manifesto{margin-top:26px;padding:19px 22px;border:1px solid rgba(34,230,199,.20);border-radius:18px;background:linear-gradient(145deg,rgba(10,29,31,.76),rgba(8,11,19,.72));font-weight:850;font-size:1.06rem}.statusline{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;color:var(--muted);font-size:.79rem}.pill{padding:8px 11px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.025)}section{padding:46px 0}.section-head{display:flex;justify-content:space-between;gap:28px;align-items:end;margin-bottom:24px}.section-head h2{margin:0;font-size:clamp(2rem,4vw,3.2rem);letter-spacing:-.05em}.section-head p{margin:0;max-width:560px;color:var(--muted);line-height:1.6;font-size:.92rem}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.metric{padding:24px 20px;border:1px solid var(--line);border-radius:19px;background:var(--panel2);min-height:132px}.metric small{display:block;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-size:.66rem;font-weight:800;margin-bottom:12px}.metric strong{display:block;font-size:1.65rem;line-height:1.05;letter-spacing:-.035em}.metric em{display:block;margin-top:10px;color:var(--muted);font-style:normal;font-size:.78rem;line-height:1.4}.good{color:var(--cyan)}.warn{color:var(--orange)}.panel{border:1px solid var(--line);border-radius:24px;background:linear-gradient(145deg,rgba(18,25,42,.82),rgba(7,10,18,.80));overflow:hidden}.panel-title{padding:24px 26px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:18px;align-items:center}.panel-title h3{margin:0;font-size:1.35rem;letter-spacing:-.03em}.panel-title span{font-size:.75rem;color:var(--muted)}.rows{padding:5px 26px 10px}.row{display:grid;grid-template-columns:1.05fr 1.45fr .8fr;gap:18px;align-items:center;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.065)}.row:last-child{border-bottom:0}.row .label{font-weight:800}.row .value{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.82rem;color:#dce3ed;word-break:break-all}.row .note{text-align:right;color:var(--muted);font-size:.78rem}.holder-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.holder-stack{padding:24px}.holder-item{display:grid;grid-template-columns:48px 1fr auto;align-items:center;gap:15px;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.06)}.holder-item:last-child{border-bottom:0}.count{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:950;background:rgba(255,255,255,.055);border:1px solid var(--line)}.holder-item strong{display:block;font-size:.95rem}.holder-item span{display:block;color:var(--muted);font-size:.76rem;margin-top:3px}.holder-item b{font-size:1.3rem}.callout{padding:24px;border:1px solid rgba(77,164,255,.20);border-radius:20px;background:radial-gradient(circle at 90% 10%,rgba(168,85,247,.10),transparent 30%),rgba(255,255,255,.025);color:#dce3ed;line-height:1.65}.callout strong{color:#fff}.market-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.market-note{margin-top:14px;color:var(--muted);font-size:.78rem;line-height:1.5}.distribution{display:grid;grid-template-columns:1fr 1fr;gap:18px}.alloc{padding:24px}.bar{height:22px;display:flex;overflow:hidden;border-radius:999px;background:#111;margin:4px 0 22px}.bar span:nth-child(1){width:50%;background:#19dbc0}.bar span:nth-child(2){width:35%;background:#4c91ff}.bar span:nth-child(3){width:9.6535%;background:#9059f7}.bar span:nth-child(4){width:5%;background:#e064ff}.bar span:nth-child(5){width:.3465%;background:#ffb338}.legend{display:grid;gap:12px}.legend-line{display:grid;grid-template-columns:1fr auto;gap:18px;color:var(--muted);font-size:.84rem}.legend-line b{color:#fff}.source-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.source{padding:21px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.025)}.source strong{display:block;margin-bottom:7px}.source span{display:block;color:var(--muted);font-size:.78rem;line-height:1.45}.source:hover{border-color:rgba(34,230,199,.32);transform:translateY(-1px)}.method{margin-top:18px;padding:22px;border-radius:18px;border:1px solid rgba(255,173,36,.20);background:rgba(255,173,36,.045);color:#cfd6e2;line-height:1.6;font-size:.86rem}.method strong{color:#fff}footer{padding:38px 0 55px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;color:#697386;font-size:.8rem}footer strong{color:#aeb6c5}@media(max-width:900px){.navlinks{display:none}.grid,.source-grid{grid-template-columns:repeat(2,1fr)}.holder-grid,.distribution{grid-template-columns:1fr}.market-grid{grid-template-columns:repeat(2,1fr)}.section-head{display:block}.section-head p{margin-top:10px}.row{grid-template-columns:1fr}.row .note{text-align:left}}@media(max-width:560px){.wrapper{width:min(100% - 26px,var(--max))}.grid,.market-grid,.source-grid{grid-template-columns:1fr}.hero{padding-top:42px}h1{font-size:3.7rem}.panel-title{display:block}.panel-title span{display:block;margin-top:7px}.rows{padding:5px 20px 10px}.row{gap:7px}.holder-stack,.alloc{padding:20px}footer{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="wrapper">
+<nav>
+<a href="/" class="brand"><img src="landing-logo.jpg" alt="Landing Coin logo">LANDING <span>COIN</span></a>
+<div class="navlinks"><a href="/">Home</a><a href="flight-plan.html">Flight Plan</a><a href="lander.html">Be a Lander</a><a href="team.html">Team</a></div>
+</nav>
+<main>
+<section class="hero">
+<div class="eyebrow"><span class="dot"></span>Public token transparency</div>
+<h1>Reality, <span class="gradient">not mythology.</span></h1>
+<p class="lead">This page records the current verifiable state of LANDING. Structural token data, known-wallet classification and market metrics are kept separate so a dashboard number is never presented as something it is not.</p>
+<div class="manifesto">No fantasy metrics. No manufactured traction. If the numbers are small, we show small numbers.</div>
+<div class="statusline"><span class="pill" id="snapshotTime">Snapshot: 31 Aug 2026</span><span class="pill">Solana Mainnet</span><span class="pill">LANDING / SOL on Orca</span></div>
+</section>
+
+<section>
+<div class="section-head"><div><h2>At a glance</h2></div><p>The core facts most visitors should be able to verify immediately.</p></div>
+<div class="grid">
+<div class="metric"><small>Total supply</small><strong>404,000,000</strong><em>LANDING · fixed supply</em></div>
+<div class="metric"><small>Mint authority</small><strong class="good">Disabled</strong><em>Permanently disabled</em></div>
+<div class="metric"><small>Freeze authority</small><strong class="good">Disabled</strong><em>Permanently disabled</em></div>
+<div class="metric"><small>Positive holders</small><strong>9</strong><em>Known wallet classification below</em></div>
+<div class="metric"><small>Independent holders</small><strong>1</strong><em>Excludes project, founder, exchange and liquidity wallets</em></div>
+<div class="metric"><small>Project wallets</small><strong>4</strong><em>Community, Treasury, Liquidity Reserve, Creator</em></div>
+<div class="metric"><small>Exchange wallets</small><strong>1</strong><em>Known SuperEx wallet</em></div>
+<div class="metric"><small>Founder-controlled</small><strong>2</strong><em>Not counted as independent holders</em></div>
+</div>
+</section>
+
+<section>
+<div class="section-head"><div><h2>On-chain configuration</h2></div><p>Structural facts. These do not depend on market trackers or promotional claims.</p></div>
+<div class="panel">
+<div class="panel-title"><h3>Token configuration</h3><span>Source: Solana / project deployment record</span></div>
+<div class="rows">
+<div class="row"><div class="label">Mint</div><div class="value">DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ</div><div class="note">SPL Token</div></div>
+<div class="row"><div class="label">Supply</div><div class="value">404,000,000 LANDING</div><div class="note">6 decimals</div></div>
+<div class="row"><div class="label">Mint authority</div><div class="value good">DISABLED PERMANENTLY</div><div class="note">No additional minting</div></div>
+<div class="row"><div class="label">Freeze authority</div><div class="value good">DISABLED PERMANENTLY</div><div class="note">No token freezing</div></div>
+<div class="row"><div class="label">Metadata</div><div class="value warn">MUTABLE</div><div class="note">Disclosed state</div></div>
+<div class="row"><div class="label">Orca pool</div><div class="value">GyCQYByuUEMEWErDX6xFSpKC3stsfXJRDsFy4fQb1prq</div><div class="note">LANDING / SOL</div></div>
+<div class="row"><div class="label">LANDING vault</div><div class="value">Dbuvyfmnf66cdZ5AwmQwDMFwbFGshEnxKyFHnoY9P6kN</div><div class="note">Orca</div></div>
+<div class="row"><div class="label">SOL / WSOL vault</div><div class="value">9ke7GbPNwyK5Pb8gYN4Yob5sVvvX3yQXKT2AD1FkH5ZS</div><div class="note">Orca</div></div>
+</div>
+</div>
+</section>
+
+<section>
+<div class="section-head"><div><h2>Holder classification</h2></div><p>A raw holder count can be misleading. LANDING therefore separates known operational wallets from genuinely independent holders.</p></div>
+<div class="holder-grid">
+<div class="panel holder-stack">
+<div class="holder-item"><div class="count">4</div><div><strong>Project wallets</strong><span>Community · Treasury · Liquidity Reserve · Creator</span></div><b>4</b></div>
+<div class="holder-item"><div class="count">LP</div><div><strong>Liquidity pool</strong><span>Orca LANDING / SOL pool</span></div><b>1</b></div>
+<div class="holder-item"><div class="count">EX</div><div><strong>Exchange</strong><span>Known SuperEx wallet</span></div><b>1</b></div>
+<div class="holder-item"><div class="count">F</div><div><strong>Founder-controlled</strong><span>Known founder wallets</span></div><b>2</b></div>
+<div class="holder-item"><div class="count">I</div><div><strong>Independent holder</strong><span>External trader · not project-controlled</span></div><b class="good">1</b></div>
+</div>
+<div class="callout"><strong>Why publish this?</strong><br><br>Because “9 holders” and “1 independent holder” describe two very different realities. LANDING uses the stricter interpretation. The project does not count its own allocation wallets, founder wallets, an exchange wallet or the liquidity pool as organic community adoption.</div>
+</div>
+</section>
+
+<section>
+<div class="section-head"><div><h2>Allocation & distribution</h2></div><p>The original 404M supply allocation. Current wallet balances can move as liquidity or operational tokens are deployed, so allocation and live balance are not the same metric.</p></div>
+<div class="distribution">
+<div class="panel alloc"><div class="bar" aria-label="LANDING allocation"><span></span><span></span><span></span><span></span><span></span></div><div class="legend"><div class="legend-line"><span>Community</span><b>202,000,000 · 50%</b></div><div class="legend-line"><span>Treasury</span><b>141,400,000 · 35%</b></div><div class="legend-line"><span>Liquidity Reserve</span><b>39,000,000 · 9.6535%</b></div><div class="legend-line"><span>Creator</span><b>20,200,000 · 5%</b></div><div class="legend-line"><span>Initial liquidity</span><b>~1,400,000 · 0.3465%</b></div></div></div>
+<div class="callout"><strong>Classification rule.</strong><br><br>Project allocations remain identified as project-controlled even after operational transfers. A wallet is not treated as an independent holder merely because it appears as a separate positive token account. This prevents LANDING from inflating its own adoption statistics.</div>
+</div>
+</section>
+
+<section>
+<div class="section-head"><div><h2>Market & liquidity</h2></div><p>Market data changes continuously and comes from third-party public trackers. It is kept separate from structural on-chain facts.</p></div>
+<div class="market-grid">
+<div class="metric"><small>Price</small><strong id="price">Loading…</strong><em>GeckoTerminal pool data</em></div>
+<div class="metric"><small>Liquidity</small><strong id="liquidity">Loading…</strong><em>USD estimate</em></div>
+<div class="metric"><small>24h volume</small><strong id="volume24">Loading…</strong><em>Rolling 24 hours</em></div>
+<div class="metric"><small>24h transactions</small><strong id="tx24">Loading…</strong><em>Buys + sells</em></div>
+<div class="metric"><small>24h buys</small><strong id="buys24">Loading…</strong><em>Pool transactions</em></div>
+<div class="metric"><small>24h sells</small><strong id="sells24">Loading…</strong><em>Pool transactions</em></div>
+</div>
+<p class="market-note" id="marketStatus">Attempting to load current public pool data. If the third-party API is unavailable, the structural sections above remain valid and verifiable independently.</p>
+</section>
+
+<section>
+<div class="section-head"><div><h2>Known project addresses</h2></div><p>Public addresses used to identify and exclude project-controlled wallets from independent-holder statistics.</p></div>
+<div class="panel"><div class="rows">
+<div class="row"><div class="label">Community</div><div class="value">CBPwvUZrDQThyM6a54shKPpywvpTyYQQ2Ng7FWPZPM88</div><div class="note">PROJECT_WALLET</div></div>
+<div class="row"><div class="label">Treasury</div><div class="value">3JA9uuNqr5tqBxGP9sQTRTPtwmPAR2KxmJyXyietrQwS</div><div class="note">PROJECT_WALLET</div></div>
+<div class="row"><div class="label">Liquidity Reserve</div><div class="value">34hUkC1XVGMHX64txhfTh7rDBMhtScK8cpCcP54u17vZ</div><div class="note">PROJECT_WALLET</div></div>
+<div class="row"><div class="label">Creator</div><div class="value">4fUtkW2LEZxLt2tgPJ9BitViNBqR3AUy58hyG81Q41hg</div><div class="note">PROJECT_WALLET</div></div>
+</div></div>
+<div class="method"><strong>Privacy note:</strong> the dashboard publishes addresses already used as official project addresses. Founder-controlled personal wallets and third-party trader wallets are classified for counting purposes but are not automatically exposed here merely to make the page look more detailed.</div>
+</section>
+
+<section>
+<div class="section-head"><div><h2>Verify independently</h2></div><p>Do not take this page on trust. The relevant primary and third-party sources are linked below.</p></div>
+<div class="source-grid">
+<a class="source" href="https://solscan.io/token/DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ" target="_blank" rel="noopener"><strong>Solscan</strong><span>Token, accounts and transaction explorer.</span></a>
+<a class="source" href="https://www.geckoterminal.com/solana/pools/GyCQYByuUEMEWErDX6xFSpKC3stsfXJRDsFy4fQb1prq" target="_blank" rel="noopener"><strong>GeckoTerminal</strong><span>Pool price, liquidity, volume and transactions.</span></a>
+<a class="source" href="https://github.com/michelescalini-sketch/landing-coin/blob/main/MAINNET-DEPLOYMENT.txt" target="_blank" rel="noopener"><strong>Deployment record</strong><span>Published mint, pool, authorities and known project addresses.</span></a>
+<a class="source" href="https://coinranking.com/coin/k6ZE3OS1f+landingcoin-landing" target="_blank" rel="noopener"><strong>Coinranking</strong><span>Independent discovery / indexing reference.</span></a>
+</div>
+<div class="method"><strong>Methodology:</strong> “positive holders” means owners with a LANDING balance greater than zero. “Independent holders” excludes known project allocation wallets, the liquidity pool, known exchange wallets and known founder-controlled wallets. Classification is conservative by design. Third-party market figures may lag or differ between trackers.</div>
+</section>
+</main>
+<footer><div><strong>LANDING COIN</strong><br>Everyone is going to the moon. We are landing.</div><div>Transparency is a method, not a marketing claim.</div></footer>
+</div>
+<script>
+const GT='https://api.geckoterminal.com/api/v2/networks/solana/pools/GyCQYByuUEMEWErDX6xFSpKC3stsfXJRDsFy4fQb1prq';
+const money=(n,dp=2)=>{const x=Number(n);return Number.isFinite(x)?'$'+x.toLocaleString('en-US',{minimumFractionDigits:dp,maximumFractionDigits:dp}):'N/A'};
+const integer=n=>{const x=Number(n);return Number.isFinite(x)?x.toLocaleString('en-US'):'N/A'};
+fetch(GT,{headers:{accept:'application/json'},cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}).then(j=>{const a=j&&j.data&&j.data.attributes?j.data.attributes:{};const t=a.transactions&&a.transactions.h24?a.transactions.h24:{};document.getElementById('price').textContent=money(a.base_token_price_usd,8);document.getElementById('liquidity').textContent=money(a.reserve_in_usd,2);document.getElementById('volume24').textContent=money(a.volume_usd&&a.volume_usd.h24,2);document.getElementById('buys24').textContent=integer(t.buys);document.getElementById('sells24').textContent=integer(t.sells);document.getElementById('tx24').textContent=integer((Number(t.buys)||0)+(Number(t.sells)||0));document.getElementById('marketStatus').textContent='Market data loaded from GeckoTerminal at '+new Date().toLocaleString()+'. Third-party figures may lag the underlying chain.'}).catch(()=>{['price','liquidity','volume24','tx24','buys24','sells24'].forEach(id=>document.getElementById(id).textContent='Unavailable');document.getElementById('marketStatus').textContent='Live market feed is temporarily unavailable. Use the GeckoTerminal verification link below; structural on-chain data and wallet classification remain visible.'});
+</script>
+</body>
+</html>
