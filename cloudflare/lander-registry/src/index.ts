@@ -1,7 +1,10 @@
 const LANDING_MINT = "DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ";
 const JUPITER_SWAP_PROGRAM = "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4";
 const TOKEN_PROGRAM = "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA";
-const SOLANA_RPC = "https://solana-rpc.publicnode.com";
+const SOLANA_RPCS = [
+  "https://api.mainnet.solana.com",
+  "https://solana-rpc.publicnode.com",
+];
 const ORCA_POOL = "GyCQYByuUEMEWErDX6xFSpKC3stsfXJRDsFy4fQb1prq";
 const ORCA_SOL_VAULT = "9ke7GbPNwyK5Pb8gYN4Yob5sVvvX3yQXKT2AD1FkH5ZS";
 const ORCA_LANDING_VAULT = "Dbuvyfmnf66cdZ5AwmQwDMFwbFGshEnxKyFHnoY9P6kN";
@@ -14,15 +17,10 @@ const PROJECT_WALLETS = new Set([
   "4fUtkW2LEZxLt2tgPJ9BitViNBqR3AUy58hyG81Q41hg", // Creator
 ]);
 
-const FOUNDER_WALLETS = new Set([
-  "125kgmJxWnzFTvxtapngumyQiqbEdDqgZ8DMbby6sivw", // Admin / metadata authority wallet
-  "Gnn2h1gpQUwUg2so5Zy2boo9MPZJ3FZrbY8eYgidWDy7", // Operational liquidity wallet
-]);
-
-// One currently-positive external holder is known operationally to be SuperEx.
-// The exchange address is intentionally not guessed here. Until that address is
-// explicitly configured, the API subtracts one known exchange holder from the
-// otherwise-unclassified external owner count and labels the basis as manual.
+// The user has confirmed that, among currently-positive non-project/non-pool
+// owners, two are founder-controlled and one is SuperEx. Until their exact
+// addresses are explicitly configured, these are conservative manual counts.
+const MANUAL_FOUNDER_HOLDER_COUNT = 2;
 const MANUAL_EXCHANGE_HOLDER_COUNT = 1;
 
 const ALLOWED_ORIGINS = new Set([
@@ -163,19 +161,19 @@ function json(
   });
 }
 
-async function solanaRpc(method: string, params: unknown[]): Promise<unknown> {
-  const response = await fetch(SOLANA_RPC, {
+async function rpcRequest(endpoint: string, method: string, params: unknown[]): Promise<unknown> {
+  const response = await fetch(endpoint, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ jsonrpc: "2.0", id: 1, method, params }),
   });
 
   if (!response.ok) {
-    throw new Error(`Solana RPC returned HTTP ${response.status}`);
+    throw new Error(`HTTP ${response.status}`);
   }
 
   const payload: unknown = await response.json();
-  if (!isRecord(payload)) throw new Error("Invalid Solana RPC response");
+  if (!isRecord(payload)) throw new Error("Invalid JSON-RPC response");
   if (payload.error) {
     const message = isRecord(payload.error) && typeof payload.error.message === "string"
       ? payload.error.message
@@ -184,6 +182,20 @@ async function solanaRpc(method: string, params: unknown[]): Promise<unknown> {
   }
 
   return payload.result;
+}
+
+async function solanaRpc(method: string, params: unknown[]): Promise<unknown> {
+  const failures: string[] = [];
+
+  for (const endpoint of SOLANA_RPCS) {
+    try {
+      return await rpcRequest(endpoint, method, params);
+    } catch (error) {
+      failures.push(`${endpoint}: ${error instanceof Error ? error.message : String(error)}`);
+    }
+  }
+
+  throw new Error(`${method} failed on all configured RPC endpoints: ${failures.join(" | ")}`);
 }
 
 function publicKey(entry: unknown): string {
@@ -486,24 +498,6 @@ function aggregateHolders(accounts: Array<{ tokenAccount: string; owner: string;
   return [...byOwner.values()].sort((a, b) => a.rawBalance > b.rawBalance ? -1 : a.rawBalance < b.rawBalance ? 1 : 0);
 }
 
-async function fetchHoldersViaProgramAccounts(): Promise<HolderSnapshot> {
-  const result = await solanaRpc("getProgramAccounts", [
-    TOKEN_PROGRAM,
-    {
-      commitment: "finalized",
-      encoding: "jsonParsed",
-      filters: [
-        { dataSize: 165 },
-        { memcmp: { offset: 0, bytes: LANDING_MINT } },
-      ],
-    },
-  ]);
-
-  if (!Array.isArray(result)) throw new Error("Invalid getProgramAccounts response");
-  const accounts = result.map(parseTokenAccount).filter((item): item is NonNullable<typeof item> => item !== null);
-  return { holders: aggregateHolders(accounts), complete: true, method: "getProgramAccounts" };
-}
-
 async function fetchHoldersViaLargestAccounts(): Promise<HolderSnapshot> {
   const largestResult = await solanaRpc("getTokenLargestAccounts", [LANDING_MINT, { commitment: "finalized" }]);
   if (!isRecord(largestResult) || !Array.isArray(largestResult.value)) {
@@ -537,32 +531,50 @@ async function fetchHoldersViaLargestAccounts(): Promise<HolderSnapshot> {
   };
 }
 
+async function fetchHoldersViaProgramAccounts(): Promise<HolderSnapshot> {
+  const result = await solanaRpc("getProgramAccounts", [
+    TOKEN_PROGRAM,
+    {
+      commitment: "finalized",
+      encoding: "jsonParsed",
+      filters: [
+        { dataSize: 165 },
+        { memcmp: { offset: 0, bytes: LANDING_MINT } },
+      ],
+    },
+  ]);
+
+  if (!Array.isArray(result)) throw new Error("Invalid getProgramAccounts response");
+  const accounts = result.map(parseTokenAccount).filter((item): item is NonNullable<typeof item> => item !== null);
+  return { holders: aggregateHolders(accounts), complete: true, method: "getProgramAccounts" };
+}
+
 async function fetchHolderSnapshot(): Promise<HolderSnapshot> {
   try {
-    return await fetchHoldersViaProgramAccounts();
-  } catch (error) {
-    console.warn(JSON.stringify({
-      message: "getProgramAccounts unavailable; using largest-account fallback",
-      error: error instanceof Error ? error.message : String(error),
-    }));
     return await fetchHoldersViaLargestAccounts();
+  } catch (largestError) {
+    console.warn(JSON.stringify({
+      message: "getTokenLargestAccounts unavailable; trying getProgramAccounts",
+      error: largestError instanceof Error ? largestError.message : String(largestError),
+    }));
+    return await fetchHoldersViaProgramAccounts();
   }
 }
 
 function classifyHolders(snapshot: HolderSnapshot): JsonRecord {
   const project = snapshot.holders.filter((holder) => PROJECT_WALLETS.has(holder.owner));
-  const founder = snapshot.holders.filter((holder) => FOUNDER_WALLETS.has(holder.owner));
   const liquidityPool = snapshot.holders.filter((holder) =>
     holder.owner === ORCA_POOL || holder.tokenAccounts.includes(ORCA_LANDING_VAULT)
   );
   const knownOwners = new Set([
     ...project.map((holder) => holder.owner),
-    ...founder.map((holder) => holder.owner),
     ...liquidityPool.map((holder) => holder.owner),
   ]);
   const otherwiseExternal = snapshot.holders.filter((holder) => !knownOwners.has(holder.owner));
-  const exchangeCount = Math.min(MANUAL_EXCHANGE_HOLDER_COUNT, otherwiseExternal.length);
-  const independentCount = Math.max(0, otherwiseExternal.length - exchangeCount);
+  const founderCount = Math.min(MANUAL_FOUNDER_HOLDER_COUNT, otherwiseExternal.length);
+  const afterFounder = Math.max(0, otherwiseExternal.length - founderCount);
+  const exchangeCount = Math.min(MANUAL_EXCHANGE_HOLDER_COUNT, afterFounder);
+  const independentCount = Math.max(0, afterFounder - exchangeCount);
 
   return {
     totalPositiveOwners: snapshot.holders.length,
@@ -570,10 +582,11 @@ function classifyHolders(snapshot: HolderSnapshot): JsonRecord {
     enumerationMethod: snapshot.method,
     projectWallets: project.length,
     liquidityPools: liquidityPool.length,
-    founderControlled: founder.length,
     externalBeforeManualClassification: otherwiseExternal.length,
+    founderControlled: founderCount,
     exchangeWallets: exchangeCount,
     independentHolders: independentCount,
+    founderClassification: "manual-count-until-addresses-are-configured",
     exchangeClassification: "manual-count-until-address-is-configured",
     independentDefinition: "positive owners excluding known project, pool, founder and known exchange holders",
   };
@@ -600,13 +613,25 @@ async function fetchMintState(): Promise<JsonRecord> {
   };
 }
 
-async function fetchTokenAccountBalance(address: string): Promise<JsonRecord> {
-  const result = await solanaRpc("getTokenAccountBalance", [address, { commitment: "finalized" }]);
-  if (!isRecord(result) || !isRecord(result.value)) throw new Error("Invalid token balance response");
+async function fetchTokenAccountState(address: string): Promise<JsonRecord> {
+  const result = await solanaRpc("getAccountInfo", [
+    address,
+    { commitment: "finalized", encoding: "jsonParsed" },
+  ]);
+  if (!isRecord(result)) throw new Error("Invalid token account response");
+  const value = asRecord(result.value);
+  const data = value ? asRecord(value.data) : null;
+  const parsed = data ? asRecord(data.parsed) : null;
+  const info = parsed ? asRecord(parsed.info) : null;
+  const tokenAmount = info ? asRecord(info.tokenAmount) : null;
+  if (!info || !tokenAmount) throw new Error("Unable to parse token account state");
+
   return {
-    amountRaw: typeof result.value.amount === "string" ? result.value.amount : null,
-    decimals: typeof result.value.decimals === "number" ? result.value.decimals : null,
-    uiAmountString: typeof result.value.uiAmountString === "string" ? result.value.uiAmountString : null,
+    owner: typeof info.owner === "string" ? info.owner : null,
+    mint: typeof info.mint === "string" ? info.mint : null,
+    amountRaw: typeof tokenAmount.amount === "string" ? tokenAmount.amount : null,
+    decimals: typeof tokenAmount.decimals === "number" ? tokenAmount.decimals : null,
+    uiAmountString: typeof tokenAmount.uiAmountString === "string" ? tokenAmount.uiAmountString : null,
   };
 }
 
@@ -644,34 +669,25 @@ async function fetchMarketState(): Promise<JsonRecord | null> {
 
 async function transparencySnapshot(request: Request): Promise<Response> {
   const updatedAt = new Date().toISOString();
-  const [mintResult, holderResult, landingVaultResult, marketResult] = await Promise.allSettled([
+  const [mintResult, holderResult, landingVaultResult, solVaultResult, marketResult] = await Promise.allSettled([
     fetchMintState(),
     fetchHolderSnapshot(),
-    fetchTokenAccountBalance(ORCA_LANDING_VAULT),
+    fetchTokenAccountState(ORCA_LANDING_VAULT),
+    fetchTokenAccountState(ORCA_SOL_VAULT),
     fetchMarketState(),
   ]);
-
-  let solVault: JsonRecord | null = null;
-  try {
-    // The SOL side is a wrapped-SOL SPL token account; getTokenAccountBalance works for it too.
-    solVault = await fetchTokenAccountBalance(ORCA_SOL_VAULT);
-  } catch (error) {
-    console.warn(JSON.stringify({
-      message: "Unable to fetch Orca SOL vault balance",
-      error: error instanceof Error ? error.message : String(error),
-    }));
-  }
 
   const mint = mintResult.status === "fulfilled" ? mintResult.value : null;
   const holders = holderResult.status === "fulfilled" ? classifyHolders(holderResult.value) : null;
   const landingVault = landingVaultResult.status === "fulfilled" ? landingVaultResult.value : null;
+  const solVault = solVaultResult.status === "fulfilled" ? solVaultResult.value : null;
   const market = marketResult.status === "fulfilled" ? marketResult.value : null;
 
   const errors: string[] = [];
-  if (!mint) errors.push("mint_state_unavailable");
-  if (!holders) errors.push("holder_state_unavailable");
-  if (!landingVault) errors.push("landing_vault_unavailable");
-  if (!solVault) errors.push("sol_vault_unavailable");
+  if (!mint) errors.push(`mint_state_unavailable${mintResult.status === "rejected" ? `: ${String(mintResult.reason)}` : ""}`);
+  if (!holders) errors.push(`holder_state_unavailable${holderResult.status === "rejected" ? `: ${String(holderResult.reason)}` : ""}`);
+  if (!landingVault) errors.push(`landing_vault_unavailable${landingVaultResult.status === "rejected" ? `: ${String(landingVaultResult.reason)}` : ""}`);
+  if (!solVault) errors.push(`sol_vault_unavailable${solVaultResult.status === "rejected" ? `: ${String(solVaultResult.reason)}` : ""}`);
   if (!market) errors.push("market_state_unavailable");
 
   return json(request, {
@@ -695,12 +711,12 @@ async function transparencySnapshot(request: Request): Promise<Response> {
     methodology: {
       positiveHolder: "unique token-account owner with aggregate LANDING balance greater than zero",
       projectWallets: [...PROJECT_WALLETS],
-      founderWalletCountConfigured: FOUNDER_WALLETS.size,
+      founderHolderCountManual: MANUAL_FOUNDER_HOLDER_COUNT,
       exchangeHolderCountManual: MANUAL_EXCHANGE_HOLDER_COUNT,
-      notes: "Exchange classification remains manual until the exact SuperEx holding address is configured. No personal or trader addresses are returned by this endpoint.",
+      notes: "Founder and exchange classifications remain manual until their exact holding addresses are explicitly configured. No personal or trader addresses are returned by this endpoint.",
     },
     sources: {
-      solanaRpc: SOLANA_RPC,
+      solanaRpcFallbacks: SOLANA_RPCS,
       market: GECKOTERMINAL_POOL_API,
     },
     errors,
