@@ -82,7 +82,7 @@
 <section>
 <div class="section-head"><div><h2>Market & liquidity</h2></div><p>Market data changes continuously and comes from third-party public trackers. It is kept separate from structural on-chain facts.</p></div>
 <div class="market-grid">
-<div class="metric"><small>Price</small><strong id="price">Loading…</strong><em>GeckoTerminal pool data</em></div>
+<div class="metric"><small>Price</small><strong id="price">Loading…</strong><em id="marketSourceLabel">Live market source</em></div>
 <div class="metric"><small>Liquidity</small><strong id="liquidity">Loading…</strong><em>USD estimate</em></div>
 <div class="metric"><small>24h volume</small><strong id="volume24">Loading…</strong><em>Rolling 24 hours</em></div>
 <div class="metric"><small>24h transactions</small><strong id="tx24">Loading…</strong><em>Buys + sells</em></div>
@@ -117,31 +117,193 @@
 <footer><div><strong>LANDING COIN</strong><br>Everyone is going to the moon. We are landing.</div><div>Transparency is a method, not a marketing claim.</div></footer>
 </div>
 <script>
-const API='https://landing-lander-registry.michelescalini.workers.dev/api/transparency';
-const money=(n,dp=2)=>{const x=Number(n);return Number.isFinite(x)?'$'+x.toLocaleString('en-US',{minimumFractionDigits:dp,maximumFractionDigits:dp}):'N/A'};
-const integer=n=>{const x=Number(n);return Number.isFinite(x)?x.toLocaleString('en-US'):'N/A'};
-const tokenAmount=(raw,decimals)=>{try{return (Number(raw)/10**Number(decimals)).toLocaleString('en-US',{maximumFractionDigits:6})}catch{return 'N/A'}};
-function setText(id,value){const el=document.getElementById(id);if(el&&value!==undefined&&value!==null)el.textContent=String(value)}
-fetch(API,{headers:{accept:'application/json'},cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}).then(j=>{
-  const h=j.holders||{};const t=j.token||{};const l=j.liquidity||{};const m=j.market||{};
-  if(j.updatedAt){setText('snapshotTime','Live snapshot: '+new Date(j.updatedAt).toLocaleString())}
-  if(t.supplyRaw&&Number.isFinite(Number(t.decimals))){const supply=Number(t.supplyRaw)/10**Number(t.decimals);setText('supply',integer(supply));setText('supplyDetail',integer(supply)+' LANDING')}
-  const mintDisabled=t.mintAuthority===null;const freezeDisabled=t.freezeAuthority===null;
-  setText('mintAuthority',mintDisabled?'Disabled':'Enabled');setText('freezeAuthority',freezeDisabled?'Disabled':'Enabled');
-  setText('mintAuthorityDetail',mintDisabled?'DISABLED PERMANENTLY':String(t.mintAuthority));setText('freezeAuthorityDetail',freezeDisabled?'DISABLED PERMANENTLY':String(t.freezeAuthority));
-  if(j.holders){setText('positiveHolders',integer(h.totalPositiveOwners));setText('independentHolders',integer(h.independentHolders));setText('projectWallets',integer(h.projectWallets));setText('exchangeWallets',integer(h.exchangeWallets));setText('founderWallets',integer(h.founderControlled));setText('holderProject',integer(h.projectWallets));setText('holderPool',integer(h.liquidityPools));setText('holderExchange',integer(h.exchangeWallets));setText('holderFounder',integer(h.founderControlled));setText('holderIndependent',integer(h.independentHolders));setText('holderCoverage',h.complete?'Complete live owner count':'Partial owner count · fallback mode')}
-  if(l.landingVaultBalance){setText('landingVaultBalance',tokenAmount(l.landingVaultBalance.amountRaw,l.landingVaultBalance.decimals)+' LANDING')}
-  if(l.solVaultBalance){setText('solVaultBalance',tokenAmount(l.solVaultBalance.amountRaw,l.solVaultBalance.decimals)+' SOL')}
-  if(m){setText('price',money(m.priceUsd,8));setText('liquidity',money(m.liquidityUsd,2));setText('volume24',money(m.volume24hUsd,2));setText('buys24',integer(m.buys24h));setText('sells24',integer(m.sells24h));setText('tx24',integer((Number(m.buys24h)||0)+(Number(m.sells24h)||0)));setText('marketStatus','Live transparency data loaded at '+new Date(j.updatedAt||Date.now()).toLocaleString()+'. Market figures are sourced from GeckoTerminal and may lag the chain.')}
-  else setText('marketStatus','On-chain transparency data loaded, but current market data is temporarily unavailable.')
-}).catch(()=>{
-  setText('snapshotTime','Live snapshot unavailable');
-  ['positiveHolders','independentHolders','projectWallets','exchangeWallets','founderWallets','holderProject','holderPool','holderExchange','holderFounder','holderIndependent'].forEach(id=>setText(id,'Unavailable'));
-  ['price','liquidity','volume24','tx24','buys24','sells24'].forEach(id=>setText(id,'Unavailable'));
-  setText('holderCoverage','Public API not yet reachable');
-  setText('landingVaultBalance','Live balance unavailable');setText('solVaultBalance','Live balance unavailable');
-  setText('marketStatus','The live transparency API is temporarily unavailable or has not been deployed yet. Static structural facts above remain independently verifiable through Solscan and the published deployment record.');
-});
+const API_BASE='https://landing-lander-registry.michelescalini.workers.dev/api/transparency';
+
+const present=v=>v!==undefined&&v!==null&&v!=='';
+const money=(n,dp=2)=>{
+  if(!present(n)) return 'N/A';
+  const x=Number(n);
+  return Number.isFinite(x)
+    ? '$'+x.toLocaleString('en-US',{minimumFractionDigits:dp,maximumFractionDigits:dp})
+    : 'N/A';
+};
+const integer=n=>{
+  if(!present(n)) return 'N/A';
+  const x=Number(n);
+  return Number.isFinite(x)?x.toLocaleString('en-US'):'N/A';
+};
+const tokenAmount=(raw,decimals)=>{
+  try{
+    if(!present(raw)||!present(decimals)) return 'N/A';
+    return (Number(raw)/10**Number(decimals)).toLocaleString('en-US',{maximumFractionDigits:6});
+  }catch{
+    return 'N/A';
+  }
+};
+
+function setText(id,value){
+  const el=document.getElementById(id);
+  if(el&&value!==undefined&&value!==null) el.textContent=String(value);
+}
+
+function setMarketUnavailable(message){
+  ['price','liquidity','volume24','tx24','buys24','sells24']
+    .forEach(id=>setText(id,'Unavailable'));
+  setText('marketSourceLabel','Third-party market data');
+  setText('marketStatus',message);
+}
+
+let hasLoadedSnapshot=false;
+
+async function loadTransparency(){
+  try{
+    const response=await fetch(
+      API_BASE+'?_='+Date.now(),
+      {
+        headers:{accept:'application/json'},
+        cache:'no-store'
+      }
+    );
+
+    if(!response.ok) throw new Error('HTTP '+response.status);
+
+    const j=await response.json();
+    const h=j.holders||{};
+    const t=j.token||{};
+    const l=j.liquidity||{};
+    const m=j.market;
+
+    if(j.updatedAt){
+      setText(
+        'snapshotTime',
+        'Live snapshot: '+new Date(j.updatedAt).toLocaleString()
+      );
+    }
+
+    if(t.supplyRaw&&Number.isFinite(Number(t.decimals))){
+      const supply=Number(t.supplyRaw)/10**Number(t.decimals);
+      setText('supply',integer(supply));
+      setText('supplyDetail',integer(supply)+' LANDING');
+    }
+
+    const mintDisabled=t.mintAuthority===null;
+    const freezeDisabled=t.freezeAuthority===null;
+
+    setText('mintAuthority',mintDisabled?'Disabled':'Enabled');
+    setText('freezeAuthority',freezeDisabled?'Disabled':'Enabled');
+    setText(
+      'mintAuthorityDetail',
+      mintDisabled?'DISABLED PERMANENTLY':String(t.mintAuthority)
+    );
+    setText(
+      'freezeAuthorityDetail',
+      freezeDisabled?'DISABLED PERMANENTLY':String(t.freezeAuthority)
+    );
+
+    if(j.holders){
+      setText('positiveHolders',integer(h.totalPositiveOwners));
+      setText('independentHolders',integer(h.independentHolders));
+      setText('projectWallets',integer(h.projectWallets));
+      setText('exchangeWallets',integer(h.exchangeWallets));
+      setText('founderWallets',integer(h.founderControlled));
+
+      setText('holderProject',integer(h.projectWallets));
+      setText('holderPool',integer(h.liquidityPools));
+      setText('holderExchange',integer(h.exchangeWallets));
+      setText('holderFounder',integer(h.founderControlled));
+      setText('holderIndependent',integer(h.independentHolders));
+
+      setText(
+        'holderCoverage',
+        h.complete
+          ? 'Complete live owner count'
+          : 'Partial owner count · fallback mode'
+      );
+    }
+
+    if(l.landingVaultBalance){
+      setText(
+        'landingVaultBalance',
+        tokenAmount(
+          l.landingVaultBalance.amountRaw,
+          l.landingVaultBalance.decimals
+        )+' LANDING'
+      );
+    }
+
+    if(l.solVaultBalance){
+      setText(
+        'solVaultBalance',
+        tokenAmount(
+          l.solVaultBalance.amountRaw,
+          l.solVaultBalance.decimals
+        )+' SOL'
+      );
+    }
+
+    if(m && typeof m==='object'){
+      setText('price',money(m.priceUsd,8));
+      setText('liquidity',money(m.liquidityUsd,2));
+      setText('volume24',money(m.volume24hUsd,2));
+      setText('buys24',integer(m.buys24h));
+      setText('sells24',integer(m.sells24h));
+
+      const buys=Number(m.buys24h);
+      const sells=Number(m.sells24h);
+      setText(
+        'tx24',
+        Number.isFinite(buys)&&Number.isFinite(sells)
+          ? integer(buys+sells)
+          : 'N/A'
+      );
+
+      const source=present(m.source)?String(m.source):'third-party provider';
+      setText('marketSourceLabel',source+' pool data');
+
+      setText(
+        'marketStatus',
+        'Live market data loaded at '+
+        new Date(j.updatedAt||Date.now()).toLocaleString()+
+        '. Source: '+source+'.'
+      );
+    }else{
+      setMarketUnavailable(
+        'Current market data is temporarily unavailable. '+
+        'On-chain data remains live. Retrying automatically.'
+      );
+    }
+
+    hasLoadedSnapshot=true;
+
+  }catch(error){
+    if(!hasLoadedSnapshot){
+      setText('snapshotTime','Live snapshot unavailable');
+
+      [
+        'positiveHolders','independentHolders','projectWallets',
+        'exchangeWallets','founderWallets',
+        'holderProject','holderPool','holderExchange',
+        'holderFounder','holderIndependent'
+      ].forEach(id=>setText(id,'Unavailable'));
+
+      setText('holderCoverage','Public API not reachable');
+      setText('landingVaultBalance','Live balance unavailable');
+      setText('solVaultBalance','Live balance unavailable');
+
+      setMarketUnavailable(
+        'The live transparency API is temporarily unavailable.'
+      );
+    }else{
+      setText(
+        'marketStatus',
+        'Latest refresh failed. Keeping the last available snapshot; retrying automatically.'
+      );
+    }
+  }
+}
+
+loadTransparency();
+setInterval(loadTransparency,60000);
 </script>
 </body>
 </html>
