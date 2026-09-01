@@ -18,10 +18,10 @@ Liquidity increase tx: 52pdbPoLJ3X5umyXLYLnh48ZaFANgruPSHBGJr4QPVnbLmrPSBuzvcjST
 Website: https://landingcoin.fun
 
 Metadata URI: https://gateway.irys.xyz/HMjDFXazvaWKVaGciDCkXymf5t66RrpS8XbVEvKVrhHp
-Metadata update tx: 7CyFSxjgRgFNYTwe7F9HBbbbLKaw1j7aKBjHBqDS4kfoTeiLcBSmieFJKnE8jXBhzwzbQcneKfCpQ5aH19dsV
+Metadata update tx: 7CyFSxjgRgFNYTwe7F9HBbbbLKaw1j7aKBjHBqDS4kfoTeiLcBSmieFJKnE8jXBhzwzbQcneReKfCpQ5aH19dsV
 X: https://x.com/LandingCoinFun
 Launch post: https://x.com/LandingCoinFun/status/2088530960341963098
-Telegram: https://t.me/LandingCoinFun
+Telegram: https://t.me/LandingCoinCommunity
 
 SECURITY
 Mint authority: DISABLED PERMANENTLY
