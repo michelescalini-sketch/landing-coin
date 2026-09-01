@@ -10,11 +10,15 @@ Treasury: 3JA9uuNqr5tqBxGP9sQTRTPtwmPAR2KxmJyXyietrQwS
 Community: CBPwvUZrDQThyM6a54shKPpywvpTyYQQ2Ng7FWPZPM88
 Liquidity: Gnn2h1gpQUwUg2so5Zy2boo9MPZJ3FZrbY8eYgidWDy7
 Liquidity Reserve: 34hUkC1XVGMHX64txhfTh7rDBMhtScK8cpCcP54u17vZ
+Liquidity Reserve available balance (2026-09-01): 19,200,843.887203 LANDING
+Liquidity deployed from Reserve (2026-09-01): 14,300,156.112797 LANDING + 1.500000 SOL
+Liquidity Reserve LP Position Mint: 7T41PuyXqEWESavDyBhaydbS7K3VR8kN7fvDprfDef4z
+Liquidity increase tx: 52pdbPoLJ3X5umyXLYLnh48ZaFANgruPSHBGJr4QPVnbLmrPSBuzvcjSTBFfyKmHARQqtMVoikLwL42GCa7MPP8p
 
 Website: https://landingcoin.fun
 
 Metadata URI: https://gateway.irys.xyz/HMjDFXazvaWKVaGciDCkXymf5t66RrpS8XbVEvKVrhHp
-Metadata update tx: 7CyFSxjgRgFNYTwe7F9HBbbbLKaw1j7aKBjHBqDS4kfoTeiLcBSmieFJKnE8jXBhzwzbQcneReKfCpQ5aH19dsV
+Metadata update tx: 7CyFSxjgRgFNYTwe7F9HBbbbLKaw1j7aKBjHBqDS4kfoTeiLcBSmieFJKnE8jXBhzwzbQcneKfCpQ5aH19dsV
 X: https://x.com/LandingCoinFun
 Launch post: https://x.com/LandingCoinFun/status/2088530960341963098
 Telegram: https://t.me/LandingCoinFun
