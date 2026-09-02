@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="200"
+     height="200"
+     viewBox="0 0 200 200"
+     role="img"
+     aria-labelledby="title desc">
+  <title id="title">LANDING Coin logo</title>
+  <desc id="desc">Official LANDING Coin logo for exchange and listing applications.</desc>
+  <image href="https://landingcoin.fun/landing-logo-cmc.png"
+         xlink:href="https://landingcoin.fun/landing-logo-cmc.png"
+         x="0"
+         y="0"
+         width="200"
+         height="200"
+         preserveAspectRatio="xMidYMid meet" />
+</svg>
