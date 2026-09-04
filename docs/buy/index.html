@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#05070d">
+
+  <title>Buy LANDING Coin on Jupiter | Solana</title>
+  <meta name="description" content="Buy LANDING Coin on Solana via Jupiter. 404M fixed supply, mint authority disabled, freeze authority disabled. No fake promises. No guaranteed moonshots.">
+  <link rel="canonical" href="https://landingcoin.fun/buy/">
+  <link rel="icon" type="image/png" href="/landing-logo-cmc.png">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://landingcoin.fun/buy/">
+  <meta property="og:title" content="Buy LANDING Coin on Jupiter">
+  <meta property="og:description" content="Everyone is going to the moon. We are landing. A memecoin on Solana with a fixed 404M supply.">
+  <meta property="og:image" content="https://landingcoin.fun/landing-social.jpg">
+  <meta property="og:site_name" content="Landing Coin">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Buy LANDING Coin on Jupiter">
+  <meta name="twitter:description" content="Everyone is going to the moon. We are landing. A memecoin on Solana with a fixed 404M supply.">
+  <meta name="twitter:image" content="https://landingcoin.fun/landing-social.jpg">
+
+  <style>
+    :root {
+      --bg: #05070d;
+      --panel: rgba(13,18,30,.82);
+      --panel-soft: rgba(255,255,255,.035);
+      --line: rgba(255,255,255,.11);
+      --text: #f7f7f8;
+      --muted: #9aa3b5;
+      --cyan: #22e6c7;
+      --blue: #4da4ff;
+      --violet: #a855f7;
+      --max: 760px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 88% 7%, rgba(168,85,247,.22), transparent 31%),
+        radial-gradient(circle at 7% 24%, rgba(34,230,199,.15), transparent 28%),
+        radial-gradient(circle at 50% 82%, rgba(77,164,255,.09), transparent 34%),
+        linear-gradient(145deg,#02040a,#080b16 48%,#080511);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .10;
+      background-image:
+        radial-gradient(circle at 20% 30%, #fff 0 1px, transparent 1.5px),
+        radial-gradient(circle at 80% 60%, #fff 0 1px, transparent 1.5px),
+        radial-gradient(circle at 60% 10%, #fff 0 1px, transparent 1.5px);
+      background-size: 190px 190px, 240px 240px, 310px 310px;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+
+    .wrapper {
+      width: min(var(--max), calc(100% - 28px));
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 11px;
+      padding: 20px 0 4px;
+      font-weight: 950;
+      letter-spacing: -.025em;
+      font-size: 1rem;
+    }
+
+    .brand img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 24px rgba(92,80,255,.25);
+    }
+
+    .gradient {
+      background: linear-gradient(90deg,var(--cyan),var(--blue),var(--violet));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero {
+      min-height: calc(100svh - 64px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      padding: 24px 0 40px;
+    }
+
+    .badge {
+      align-self: center;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 18px;
+      padding: 7px 12px;
+      border: 1px solid rgba(34,230,199,.28);
+      border-radius: 999px;
+      background: rgba(34,230,199,.045);
+      color: #b7c7cb;
+      font-size: .7rem;
+      font-weight: 850;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 13px var(--cyan);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(3rem, 14vw, 5.7rem);
+      line-height: .92;
+      letter-spacing: -.065em;
+      font-weight: 950;
+    }
+
+    .tagline {
+      margin: 20px auto 0;
+      max-width: 650px;
+      font-size: clamp(1.35rem, 6vw, 2.15rem);
+      line-height: 1.08;
+      font-weight: 850;
+      letter-spacing: -.035em;
+    }
+
+    .intro {
+      margin: 17px auto 0;
+      max-width: 560px;
+      color: var(--muted);
+      font-size: .98rem;
+      line-height: 1.55;
+    }
+
+    .cta {
+      width: 100%;
+      min-height: 60px;
+      margin-top: 23px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px 20px;
+      border: 0;
+      border-radius: 14px;
+      background: linear-gradient(100deg,var(--cyan),var(--blue),var(--violet));
+      color: #05070d;
+      font-size: .95rem;
+      font-weight: 950;
+      letter-spacing: .01em;
+      box-shadow: 0 16px 36px rgba(77,164,255,.18);
+      cursor: pointer;
+    }
+
+    .cta:focus-visible,
+    .copy-button:focus-visible,
+    .channel:focus-visible {
+      outline: 3px solid rgba(34,230,199,.42);
+      outline-offset: 3px;
+    }
+
+    .cta-note {
+      margin: 10px 0 0;
+      color: #707b90;
+      font-size: .74rem;
+      line-height: 1.4;
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 8px;
+      margin-top: 22px;
+    }
+
+    .trust {
+      min-height: 82px;
+      padding: 13px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--panel-soft);
+    }
+
+    .trust strong {
+      font-size: .84rem;
+      line-height: 1.2;
+    }
+
+    .trust span {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: .66rem;
+      line-height: 1.2;
+    }
+
+    section {
+      padding: 36px 0;
+    }
+
+    .panel {
+      padding: 25px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 90% 0%, rgba(168,85,247,.08), transparent 36%),
+        linear-gradient(145deg,rgba(18,25,42,.78),rgba(7,10,18,.82));
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(1.8rem, 8vw, 2.7rem);
+      letter-spacing: -.045em;
+      line-height: 1;
+    }
+
+    .body-copy {
+      margin: 17px 0 0;
+      color: var(--muted);
+      font-size: .98rem;
+      line-height: 1.65;
+    }
+
+    .contract-label {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: .69rem;
+      font-weight: 900;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+
+    .contract-box {
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(0,0,0,.18);
+    }
+
+    .contract-box code {
+      display: block;
+      color: #d7ddea;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: .75rem;
+      line-height: 1.55;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .copy-button {
+      width: 100%;
+      min-height: 48px;
+      margin-top: 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,.055);
+      color: var(--text);
+      font-weight: 850;
+      cursor: pointer;
+    }
+
+    .copy-status {
+      min-height: 1.3em;
+      margin: 9px 0 0;
+      color: var(--cyan);
+      text-align: center;
+      font-size: .75rem;
+    }
+
+    .channels-title {
+      margin-bottom: 15px;
+      color: var(--muted);
+      font-size: .69rem;
+      font-weight: 900;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .channels {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 9px;
+    }
+
+    .channel {
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,.035);
+      color: #cbd2df;
+      font-size: .82rem;
+      font-weight: 750;
+    }
+
+    .channel:hover { background: rgba(255,255,255,.065); color: #fff; }
+
+    .disclaimer {
+      padding: 22px 0 36px;
+      color: #707b90;
+      text-align: center;
+      font-size: .74rem;
+      line-height: 1.55;
+    }
+
+    @media (max-height: 720px) and (max-width: 560px) {
+      .hero {
+        min-height: auto;
+        justify-content: flex-start;
+        padding-top: 20px;
+      }
+
+      .brand { padding-top: 13px; }
+      .tagline { margin-top: 15px; }
+      .intro { margin-top: 13px; }
+      .cta { margin-top: 18px; }
+      .trust-grid { margin-top: 17px; }
+    }
+
+    @media (max-width: 430px) {
+      .wrapper { width: min(100% - 22px, var(--max)); }
+      h1 { font-size: clamp(2.8rem, 15vw, 4.2rem); }
+      .intro { font-size: .93rem; }
+      .trust strong { font-size: .76rem; }
+      .trust span { font-size: .61rem; }
+      .panel { padding: 22px 18px; }
+    }
+
+    @media (max-width: 350px) {
+      .trust-grid { grid-template-columns: 1fr; }
+      .trust { min-height: 64px; }
+      .channels { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="brand" aria-label="Landing Coin">
+      <img src="/landing-logo-cmc.png" width="40" height="40" alt="LANDING Coin logo">
+      <span>LANDING <span class="gradient">COIN</span></span>
+    </div>
+
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <div class="badge"><span class="dot"></span> Live on Solana Mainnet</div>
+
+        <h1 id="page-title">LANDING <span class="gradient">COIN</span></h1>
+
+        <div class="tagline">
+          Everyone is going to the moon.<br>
+          We are landing.
+        </div>
+
+        <p class="intro">
+          A memecoin on Solana. Fixed supply. No fake promises. No guaranteed moonshots.
+        </p>
+
+        <a
+          class="cta"
+          id="buyTop"
+          data-track="buy_jupiter_click"
+          data-placement="hero"
+          href="https://jup.ag/?buy=DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ&sell=So11111111111111111111111111111111111111112"
+          target="_blank"
+          rel="noopener noreferrer">
+          BUY LANDING ON JUPITER
+        </a>
+        <p class="cta-note">Opens Jupiter with SOL → LANDING preselected.</p>
+
+        <div class="trust-grid" aria-label="LANDING token facts">
+          <div class="trust">
+            <strong>404M</strong>
+            <span>Fixed Supply</span>
+          </div>
+          <div class="trust">
+            <strong>Disabled</strong>
+            <span>Mint Authority</span>
+          </div>
+          <div class="trust">
+            <strong>Disabled</strong>
+            <span>Freeze Authority</span>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="what-title">
+        <div class="panel">
+          <h2 id="what-title">What is <span class="gradient">LANDING?</span></h2>
+          <p class="body-copy">
+            LANDING is an anti-hype memecoin on Solana. No fake roadmap. No guaranteed returns.
+            No pretending a memecoin is going to change civilization. If LANDING grows, the growth should be real.
+          </p>
+
+          <a
+            class="cta"
+            id="buyMiddle"
+            data-track="buy_jupiter_click"
+            data-placement="what_is_landing"
+            href="https://jup.ag/?buy=DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ&sell=So11111111111111111111111111111111111111112"
+            target="_blank"
+            rel="noopener noreferrer">
+            BUY LANDING
+          </a>
+        </div>
+      </section>
+
+      <section aria-labelledby="contract-title">
+        <div class="panel">
+          <span class="contract-label" id="contract-title">Official contract · Solana SPL Token</span>
+          <div class="contract-box">
+            <code id="contractAddress">DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ</code>
+          </div>
+          <button
+            class="copy-button"
+            id="copyContract"
+            type="button"
+            data-track="copy_contract">
+            COPY CONTRACT
+          </button>
+          <p class="copy-status" id="copyStatus" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <section aria-labelledby="channels-title">
+        <div class="channels-title" id="channels-title">Official LANDING channels</div>
+        <div class="channels">
+          <a class="channel" data-track="telegram_click" href="https://t.me/LandingCoinCommunity" target="_blank" rel="noopener noreferrer">Telegram</a>
+          <a class="channel" data-track="reddit_click" href="https://www.reddit.com/r/LandingCoin/" target="_blank" rel="noopener noreferrer">Reddit</a>
+          <a class="channel" data-track="x_click" href="https://x.com/LandingCoinFun" target="_blank" rel="noopener noreferrer">X / Twitter</a>
+          <a class="channel" data-track="email_click" href="mailto:contact@landingcoin.fun">Email</a>
+        </div>
+      </section>
+
+      <div class="disclaimer">
+        LANDING is a memecoin. Crypto assets are volatile and risky. Only participate if you understand the risks.
+      </div>
+    </main>
+  </div>
+
+  <script>
+    (() => {
+      const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
+      const params = new URLSearchParams(window.location.search);
+      const stored = JSON.parse(sessionStorage.getItem("landing_utm") || "{}");
+      const utm = { ...stored };
+
+      for (const key of UTM_KEYS) {
+        const value = params.get(key);
+        if (value) utm[key] = value;
+      }
+
+      sessionStorage.setItem("landing_utm", JSON.stringify(utm));
+
+      const context = {
+        ...utm,
+        landing_path: window.location.pathname,
+        referrer: document.referrer || "direct",
+        viewport_width: window.innerWidth,
+        viewport_height: window.innerHeight
+      };
+
+      window.LANDING_TRACKING_CONTEXT = context;
+
+      function trackEvent(name, extra = {}) {
+        const detail = {
+          event: name,
+          ...context,
+          ...extra,
+          timestamp: new Date().toISOString()
+        };
+
+        window.dispatchEvent(new CustomEvent("landing:track", { detail }));
+      }
+
+      window.LANDING_TRACK_EVENT = trackEvent;
+
+      document.querySelectorAll("[data-track]").forEach((element) => {
+        if (element.id === "copyContract") return;
+
+        element.addEventListener("click", () => {
+          trackEvent(element.dataset.track, {
+            placement: element.dataset.placement || null,
+            destination: element.getAttribute("href") || null
+          });
+        });
+      });
+
+      const copyButton = document.getElementById("copyContract");
+      const contractAddress = document.getElementById("contractAddress");
+      const copyStatus = document.getElementById("copyStatus");
+
+      copyButton.addEventListener("click", async () => {
+        const value = contractAddress.textContent.trim();
+
+        try {
+          await navigator.clipboard.writeText(value);
+          copyStatus.textContent = "Contract copied.";
+          trackEvent("copy_contract", { method: "clipboard_api" });
+        } catch (error) {
+          const textarea = document.createElement("textarea");
+          textarea.value = value;
+          textarea.setAttribute("readonly", "");
+          textarea.style.position = "fixed";
+          textarea.style.opacity = "0";
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand("copy");
+          document.body.removeChild(textarea);
+          copyStatus.textContent = "Contract copied.";
+          trackEvent("copy_contract", { method: "fallback" });
+        }
+
+        window.setTimeout(() => {
+          copyStatus.textContent = "";
+        }, 2200);
+      });
+
+      trackEvent("page_view");
+    })();
+  </script>
+</body>
+</html>
