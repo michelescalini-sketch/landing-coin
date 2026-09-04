@@ -1,488 +1,76 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#05070d">
-  <meta name="robots" content="noindex,follow">
-
-  <title>Buy LANDING Coin on Jupiter | Solana</title>
-  <meta name="description" content="Buy LANDING Coin on Solana via Jupiter. 404M fixed supply, mint authority disabled, freeze authority disabled. No fake promises. No guaranteed moonshots.">
-  <link rel="canonical" href="https://landingcoin.fun/buy/">
-  <link rel="icon" type="image/png" href="/landing-logo-cmc.png">
-
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://landingcoin.fun/buy/">
-  <meta property="og:title" content="Buy LANDING Coin on Jupiter">
-  <meta property="og:description" content="Everyone is going to the moon. We are landing. A memecoin on Solana with a fixed 404M supply.">
-  <meta property="og:image" content="https://landingcoin.fun/landing-social.jpg">
-  <meta property="og:site_name" content="Landing Coin">
-
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Buy LANDING Coin on Jupiter">
-  <meta name="twitter:description" content="Everyone is going to the moon. We are landing. A memecoin on Solana with a fixed 404M supply.">
-  <meta name="twitter:image" content="https://landingcoin.fun/landing-social.jpg">
-
-  <style>
-    :root {
-      --bg: #05070d;
-      --line: rgba(255,255,255,.11);
-      --text: #f7f7f8;
-      --muted: #9aa3b5;
-      --cyan: #22e6c7;
-      --blue: #4da4ff;
-      --violet: #a855f7;
-      --max: 760px;
-    }
-
-    * { box-sizing: border-box; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      color: var(--text);
-      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at 88% 7%, rgba(168,85,247,.22), transparent 31%),
-        radial-gradient(circle at 7% 24%, rgba(34,230,199,.15), transparent 28%),
-        radial-gradient(circle at 50% 82%, rgba(77,164,255,.09), transparent 34%),
-        linear-gradient(145deg,#02040a,#080b16 48%,#080511);
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      opacity: .10;
-      background-image:
-        radial-gradient(circle at 20% 30%, #fff 0 1px, transparent 1.5px),
-        radial-gradient(circle at 80% 60%, #fff 0 1px, transparent 1.5px),
-        radial-gradient(circle at 60% 10%, #fff 0 1px, transparent 1.5px);
-      background-size: 190px 190px, 240px 240px, 310px 310px;
-    }
-
-    a { color: inherit; text-decoration: none; }
-    button { font: inherit; }
-
-    .wrapper {
-      width: min(var(--max), calc(100% - 28px));
-      margin: 0 auto;
-      position: relative;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 15px 0 0;
-      font-size: .93rem;
-      font-weight: 950;
-      letter-spacing: -.025em;
-    }
-
-    .brand img {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      object-fit: cover;
-      box-shadow: 0 0 22px rgba(92,80,255,.24);
-    }
-
-    .gradient {
-      background: linear-gradient(90deg,var(--cyan),var(--blue),var(--violet));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .hero {
-      min-height: calc(100svh - 51px);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      text-align: center;
-      padding: 14px 0 28px;
-    }
-
-    .badge {
-      align-self: center;
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      margin-bottom: 14px;
-      padding: 6px 11px;
-      border: 1px solid rgba(34,230,199,.28);
-      border-radius: 999px;
-      background: rgba(34,230,199,.045);
-      color: #b7c7cb;
-      font-size: .65rem;
-      font-weight: 850;
-      letter-spacing: .09em;
-      text-transform: uppercase;
-    }
-
-    .dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--cyan);
-      box-shadow: 0 0 13px var(--cyan);
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(2.75rem, 13vw, 5.7rem);
-      line-height: .92;
-      letter-spacing: -.065em;
-      font-weight: 950;
-    }
-
-    .tagline {
-      margin: 16px auto 0;
-      max-width: 650px;
-      font-size: clamp(1.25rem, 5.7vw, 2.15rem);
-      line-height: 1.08;
-      font-weight: 850;
-      letter-spacing: -.035em;
-    }
-
-    .intro {
-      margin: 13px auto 0;
-      max-width: 560px;
-      color: var(--muted);
-      font-size: .92rem;
-      line-height: 1.48;
-    }
-
-    .cta {
-      width: 100%;
-      min-height: 58px;
-      margin-top: 18px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 14px 18px;
-      border: 0;
-      border-radius: 14px;
-      background: linear-gradient(100deg,var(--cyan),var(--blue),var(--violet));
-      color: #05070d;
-      font-size: .94rem;
-      font-weight: 950;
-      letter-spacing: .01em;
-      box-shadow: 0 16px 36px rgba(77,164,255,.18);
-      cursor: pointer;
-      transition: transform .16s ease, filter .16s ease;
-    }
-
-    .cta:hover { filter: brightness(1.05); transform: translateY(-1px); }
-    .cta:active { transform: translateY(0); }
-
-    .cta:focus-visible,
-    .copy-button:focus-visible,
-    .channel:focus-visible {
-      outline: 3px solid rgba(34,230,199,.42);
-      outline-offset: 3px;
-    }
-
-    .cta-note {
-      margin: 8px 0 0;
-      color: #707b90;
-      font-size: .71rem;
-      line-height: 1.35;
-    }
-
-    .trust-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap: 7px;
-      margin-top: 17px;
-    }
-
-    .trust {
-      min-height: 72px;
-      padding: 11px 6px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid var(--line);
-      border-radius: 13px;
-      background: rgba(255,255,255,.035);
-    }
-
-    .trust strong {
-      font-size: .79rem;
-      line-height: 1.15;
-    }
-
-    .trust span {
-      margin-top: 4px;
-      color: var(--muted);
-      font-size: .61rem;
-      line-height: 1.15;
-    }
-
-    section { padding: 31px 0; }
-
-    .panel {
-      padding: 24px;
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      background:
-        radial-gradient(circle at 90% 0%, rgba(168,85,247,.08), transparent 36%),
-        linear-gradient(145deg,rgba(18,25,42,.78),rgba(7,10,18,.82));
-    }
-
-    h2 {
-      margin: 0;
-      font-size: clamp(1.8rem, 8vw, 2.7rem);
-      letter-spacing: -.045em;
-      line-height: 1;
-    }
-
-    .body-copy {
-      margin: 16px 0 0;
-      color: var(--muted);
-      font-size: .96rem;
-      line-height: 1.62;
-    }
-
-    .contract-label,
-    .channels-title {
-      display: block;
-      color: var(--muted);
-      font-size: .68rem;
-      font-weight: 900;
-      letter-spacing: .11em;
-      text-transform: uppercase;
-    }
-
-    .contract-label { margin-bottom: 10px; }
-    .channels-title { margin-bottom: 14px; text-align: center; }
-
-    .contract-box {
-      padding: 14px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: rgba(0,0,0,.18);
-    }
-
-    .contract-box code {
-      display: block;
-      color: #d7ddea;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      font-size: .74rem;
-      line-height: 1.5;
-      overflow-wrap: anywhere;
-      word-break: break-word;
-    }
-
-    .copy-button {
-      width: 100%;
-      min-height: 48px;
-      margin-top: 11px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: rgba(255,255,255,.055);
-      color: var(--text);
-      font-weight: 850;
-      cursor: pointer;
-    }
-
-    .copy-status {
-      min-height: 1.25em;
-      margin: 8px 0 0;
-      color: var(--cyan);
-      text-align: center;
-      font-size: .74rem;
-    }
-
-    .channels {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0,1fr));
-      gap: 8px;
-    }
-
-    .channel {
-      min-height: 46px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px 12px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: rgba(255,255,255,.035);
-      color: #cbd2df;
-      font-size: .81rem;
-      font-weight: 750;
-      transition: background .16s ease, color .16s ease;
-    }
-
-    .channel:hover { background: rgba(255,255,255,.065); color: #fff; }
-
-    .disclaimer {
-      padding: 18px 0 34px;
-      color: #707b90;
-      text-align: center;
-      font-size: .73rem;
-      line-height: 1.55;
-    }
-
-    @media (max-height: 720px) and (max-width: 560px) {
-      .hero {
-        min-height: auto;
-        justify-content: flex-start;
-        padding-top: 15px;
-      }
-      .badge { margin-bottom: 11px; }
-      .tagline { margin-top: 13px; }
-      .intro { margin-top: 10px; }
-      .cta { margin-top: 15px; }
-      .trust-grid { margin-top: 14px; }
-    }
-
-    @media (max-width: 430px) {
-      .wrapper { width: min(100% - 22px, var(--max)); }
-      .panel { padding: 21px 17px; }
-    }
-
-    @media (max-width: 350px) {
-      .trust-grid { grid-template-columns: 1fr; }
-      .trust { min-height: 58px; }
-      .channels { grid-template-columns: 1fr; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      .cta, .channel { transition: none; }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#05070d">
+<meta name="robots" content="noindex,follow">
+<title>Buy LANDING Coin on Jupiter | Solana</title>
+<meta name="description" content="Buy LANDING Coin on Solana via Jupiter. 404M fixed supply, mint authority disabled, freeze authority disabled. No fake promises. No guaranteed moonshots.">
+<link rel="canonical" href="https://landingcoin.fun/buy/">
+<link rel="icon" type="image/png" href="/landing-logo-cmc.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://landingcoin.fun/buy/">
+<meta property="og:title" content="Buy LANDING Coin on Jupiter">
+<meta property="og:description" content="Everyone is going to the moon. We are landing. A memecoin on Solana with a fixed 404M supply.">
+<meta property="og:image" content="https://landingcoin.fun/landing-social.jpg">
+<meta property="og:site_name" content="Landing Coin">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Buy LANDING Coin on Jupiter">
+<meta name="twitter:description" content="Everyone is going to the moon. We are landing. A memecoin on Solana with a fixed 404M supply.">
+<meta name="twitter:image" content="https://landingcoin.fun/landing-social.jpg">
+<style>
+:root{--bg:#05070d;--line:rgba(255,255,255,.11);--line-strong:rgba(255,255,255,.16);--text:#f7f7f8;--muted:#9aa3b5;--soft:#c7ceda;--cyan:#22e6c7;--blue:#4da4ff;--violet:#a855f7;--panel:linear-gradient(145deg,rgba(20,28,46,.82),rgba(8,11,20,.88));--max:760px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(circle at 84% 8%,rgba(168,85,247,.26),transparent 30%),radial-gradient(circle at 8% 24%,rgba(34,230,199,.18),transparent 28%),radial-gradient(circle at 50% 78%,rgba(77,164,255,.12),transparent 34%),radial-gradient(circle at 82% 72%,rgba(255,201,107,.10),transparent 24%),linear-gradient(145deg,#02040a,#080b16 48%,#080511)}body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.12;background-image:radial-gradient(circle at 20% 30%,#fff 0 1px,transparent 1.5px),radial-gradient(circle at 80% 60%,#fff 0 1px,transparent 1.5px),radial-gradient(circle at 60% 10%,#fff 0 1px,transparent 1.5px);background-size:190px 190px,240px 240px,310px 310px}a{color:inherit;text-decoration:none}button{font:inherit}.wrapper{width:min(var(--max),calc(100% - 28px));margin:0 auto;position:relative}.brand{display:flex;align-items:center;justify-content:center;gap:12px;padding:16px 0 0;font-size:.95rem;font-weight:950;letter-spacing:-.025em}.brand img{width:42px;height:42px;border-radius:50%;object-fit:cover;box-shadow:0 0 24px rgba(92,80,255,.26),0 0 46px rgba(34,230,199,.08)}.gradient{background:linear-gradient(90deg,var(--cyan),var(--blue),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}.hero{min-height:calc(100svh - 58px);display:flex;flex-direction:column;justify-content:center;text-align:center;padding:12px 0 28px}.badge{align-self:center;display:inline-flex;align-items:center;gap:8px;margin-bottom:16px;padding:7px 12px;border:1px solid rgba(34,230,199,.28);border-radius:999px;background:rgba(34,230,199,.05);color:#bed0d2;font-size:.68rem;font-weight:850;letter-spacing:.09em;text-transform:uppercase;backdrop-filter:blur(10px)}.dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 13px var(--cyan)}.logo-orb{width:96px;height:96px;margin:0 auto 16px;padding:6px;border-radius:50%;background:linear-gradient(135deg,rgba(34,230,199,.22),rgba(77,164,255,.16),rgba(168,85,247,.24));box-shadow:0 20px 60px rgba(0,0,0,.38),0 0 70px rgba(168,85,247,.12)}.logo-orb img{width:100%;height:100%;display:block;border-radius:50%;object-fit:cover;border:1px solid rgba(255,255,255,.08)}h1{margin:0;font-size:clamp(2.8rem,13vw,5.8rem);line-height:.92;letter-spacing:-.065em;font-weight:950}.tagline{margin:16px auto 0;max-width:650px;font-size:clamp(1.28rem,5.8vw,2.18rem);line-height:1.08;font-weight:850;letter-spacing:-.035em}.subtagline{margin:12px auto 0;max-width:580px;color:var(--soft);font-size:.95rem;line-height:1.48}.intro{margin:11px auto 0;max-width:560px;color:var(--muted);font-size:.92rem;line-height:1.5}.micro-thesis{margin:12px auto 0;max-width:500px;color:#d9dff0;font-size:.83rem;line-height:1.45;font-weight:700}.cta{width:100%;min-height:58px;margin-top:18px;display:inline-flex;align-items:center;justify-content:center;padding:14px 18px;border:0;border-radius:14px;background:linear-gradient(100deg,var(--cyan),var(--blue),var(--violet));color:#05070d;font-size:.95rem;font-weight:950;letter-spacing:.01em;box-shadow:0 18px 40px rgba(77,164,255,.18),0 0 40px rgba(34,230,199,.10);cursor:pointer;transition:transform .16s ease,filter .16s ease}.cta:hover{filter:brightness(1.05);transform:translateY(-1px)}.cta:active{transform:translateY(0)}.cta:focus-visible,.copy-button:focus-visible,.channel:focus-visible{outline:3px solid rgba(34,230,199,.42);outline-offset:3px}.cta-note{margin:8px 0 0;color:#77839a;font-size:.71rem;line-height:1.35}.trust-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:18px}.trust{min-height:112px;padding:14px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border:1px solid var(--line);border-radius:16px;background:radial-gradient(circle at 50% -20%,rgba(255,255,255,.08),transparent 42%),rgba(255,255,255,.04);backdrop-filter:blur(12px);box-shadow:inset 0 1px rgba(255,255,255,.03)}.trust .emoji{font-size:1rem}.trust strong{font-size:.83rem;line-height:1.15}.trust span{color:var(--muted);font-size:.67rem;line-height:1.22}section{padding:32px 0}.panel{padding:24px;border:1px solid var(--line-strong);border-radius:22px;background:radial-gradient(circle at 90% 0%,rgba(168,85,247,.10),transparent 36%),radial-gradient(circle at 10% 0%,rgba(34,230,199,.06),transparent 30%),var(--panel);box-shadow:0 16px 40px rgba(0,0,0,.18),inset 0 1px rgba(255,255,255,.03);backdrop-filter:blur(12px)}h2{margin:0;font-size:clamp(1.8rem,8vw,2.7rem);letter-spacing:-.045em;line-height:1}.body-copy{margin:16px 0 0;color:var(--muted);font-size:.96rem;line-height:1.62}.quote-line{margin:16px 0 0;color:#eef2ff;font-size:.88rem;line-height:1.45;font-weight:700}.contract-label,.channels-title{display:block;color:var(--muted);font-size:.68rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase}.contract-label{margin-bottom:10px}.channels-title{margin-bottom:14px;text-align:center}.contract-box{padding:14px;border:1px solid var(--line);border-radius:14px;background:rgba(0,0,0,.18)}.contract-box code{display:block;color:#d7ddea;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:.74rem;line-height:1.5;overflow-wrap:anywhere;word-break:break-word}.copy-button{width:100%;min-height:48px;margin-top:11px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.055);color:var(--text);font-weight:850;cursor:pointer}.copy-status{min-height:1.25em;margin:8px 0 0;color:var(--cyan);text-align:center;font-size:.74rem}.channels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.channel{min-height:50px;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.04);color:#cbd2df;font-size:.81rem;font-weight:750;transition:background .16s ease,color .16s ease,transform .16s ease;backdrop-filter:blur(8px)}.channel:hover{background:rgba(255,255,255,.07);color:#fff;transform:translateY(-1px)}.channel .icon{font-size:1rem;line-height:1}.footer-line{margin-top:18px;color:#d9def0;text-align:center;font-size:.82rem;font-weight:700;line-height:1.45}.disclaimer{padding:18px 0 34px;color:#707b90;text-align:center;font-size:.73rem;line-height:1.55}@media (max-height:720px) and (max-width:560px){.hero{min-height:auto;justify-content:flex-start;padding-top:15px}.logo-orb{width:84px;height:84px;margin-bottom:13px}.badge{margin-bottom:12px}.tagline{margin-top:13px}.subtagline{margin-top:10px}.intro{margin-top:9px}.cta{margin-top:15px}.trust-grid{margin-top:15px}}@media (max-width:430px){.wrapper{width:min(100% - 22px,var(--max))}.logo-orb{width:88px;height:88px}.panel{padding:21px 17px}.trust{min-height:104px}}@media (max-width:350px){.trust-grid{grid-template-columns:1fr}.trust{min-height:64px}.channels{grid-template-columns:1fr}}@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.cta,.channel{transition:none}}
+</style>
 </head>
 <body>
-  <div class="wrapper">
-    <div class="brand" aria-label="Landing Coin">
-      <img src="/landing-logo-cmc.png" width="36" height="36" alt="LANDING Coin logo">
-      <span>LANDING <span class="gradient">COIN</span></span>
-    </div>
-
-    <main>
-      <section class="hero" aria-labelledby="page-title">
-        <div class="badge"><span class="dot"></span> Live on Solana Mainnet</div>
-
-        <h1 id="page-title">LANDING <span class="gradient">COIN</span></h1>
-
-        <div class="tagline">
-          Everyone is going to the moon.<br>
-          We are landing.
-        </div>
-
-        <p class="intro">
-          A memecoin on Solana. Fixed supply. No fake promises. No guaranteed moonshots.
-        </p>
-
-        <a
-          class="cta"
-          href="https://jup.ag/?buy=DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ&amp;sell=So11111111111111111111111111111111111111112">
-          BUY LANDING ON JUPITER
-        </a>
-        <p class="cta-note">Opens Jupiter with SOL → LANDING preselected.</p>
-
-        <div class="trust-grid" aria-label="LANDING token facts">
-          <div class="trust">
-            <strong>404M</strong>
-            <span>Fixed Supply</span>
-          </div>
-          <div class="trust">
-            <strong>Disabled</strong>
-            <span>Mint Authority</span>
-          </div>
-          <div class="trust">
-            <strong>Disabled</strong>
-            <span>Freeze Authority</span>
-          </div>
-        </div>
-      </section>
-
-      <section aria-labelledby="what-title">
-        <div class="panel">
-          <h2 id="what-title">What is <span class="gradient">LANDING?</span></h2>
-          <p class="body-copy">
-            LANDING is an anti-hype memecoin on Solana. No fake roadmap. No guaranteed returns.
-            No pretending a memecoin is going to change civilization. If LANDING grows, the growth should be real.
-          </p>
-
-          <a
-            class="cta"
-            href="https://jup.ag/?buy=DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ&amp;sell=So11111111111111111111111111111111111111112">
-            BUY LANDING
-          </a>
-        </div>
-      </section>
-
-      <section aria-labelledby="contract-title">
-        <div class="panel">
-          <span class="contract-label" id="contract-title">Official contract · Solana SPL Token</span>
-          <div class="contract-box">
-            <code id="contractAddress">DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ</code>
-          </div>
-          <button class="copy-button" id="copyContract" type="button">COPY CONTRACT</button>
-          <p class="copy-status" id="copyStatus" aria-live="polite"></p>
-        </div>
-      </section>
-
-      <section aria-labelledby="channels-title">
-        <div class="channels-title" id="channels-title">Official LANDING channels</div>
-        <div class="channels">
-          <a class="channel" href="https://t.me/LandingCoinCommunity" target="_blank" rel="noopener noreferrer">Telegram</a>
-          <a class="channel" href="https://www.reddit.com/r/LandingCoin/" target="_blank" rel="noopener noreferrer">Reddit</a>
-          <a class="channel" href="https://x.com/LandingCoinFun" target="_blank" rel="noopener noreferrer">X / Twitter</a>
-          <a class="channel" href="mailto:contact@landingcoin.fun">Email</a>
-        </div>
-      </section>
-
-      <div class="disclaimer">
-        LANDING is a memecoin. Crypto assets are volatile and risky. Only participate if you understand the risks.
-      </div>
-    </main>
-  </div>
-
-  <script>
-    (() => {
-      const copyButton = document.getElementById("copyContract");
-      const contractAddress = document.getElementById("contractAddress");
-      const copyStatus = document.getElementById("copyStatus");
-
-      copyButton.addEventListener("click", async () => {
-        const value = contractAddress.textContent.trim();
-        let copied = false;
-
-        if (navigator.clipboard && window.isSecureContext) {
-          try {
-            await navigator.clipboard.writeText(value);
-            copied = true;
-          } catch (_) {}
-        }
-
-        if (!copied) {
-          const textarea = document.createElement("textarea");
-          textarea.value = value;
-          textarea.setAttribute("readonly", "");
-          textarea.style.position = "fixed";
-          textarea.style.opacity = "0";
-          document.body.appendChild(textarea);
-          textarea.select();
-          copied = document.execCommand("copy");
-          document.body.removeChild(textarea);
-        }
-
-        copyStatus.textContent = copied ? "Contract copied." : "Copy failed. Select the contract above.";
-        window.setTimeout(() => { copyStatus.textContent = ""; }, 2400);
-      });
-    })();
-  </script>
+<div class="wrapper">
+<div class="brand" aria-label="Landing Coin"><img src="/landing-logo-cmc.png" width="42" height="42" alt="LANDING Coin logo"><span>LANDING <span class="gradient">COIN</span></span></div>
+<main>
+<section class="hero" aria-labelledby="page-title">
+<div class="badge"><span class="dot"></span> Anti-hype memecoin on Solana</div>
+<div class="logo-orb"><img src="/landing-logo-cmc.png" width="96" height="96" alt="LANDING Coin emblem"></div>
+<h1 id="page-title">LANDING <span class="gradient">COIN</span></h1>
+<div class="tagline">Everyone is going to the moon.<br>We are landing.</div>
+<p class="subtagline">A memecoin for people tired of pretending every token is a revolution.</p>
+<p class="intro">Fixed supply. No fake promises. No guaranteed moonshots. Same risk. Different attitude.</p>
+<p class="micro-thesis">If LANDING grows, the growth should be real.</p>
+<a class="cta" href="https://jup.ag/?buy=DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ&amp;sell=So11111111111111111111111111111111111111112">LAND ON JUPITER →</a>
+<p class="cta-note">SOL → LANDING already selected.</p>
+<div class="trust-grid" aria-label="LANDING token facts">
+<div class="trust"><div class="emoji">🪂</div><strong>404M — That’s it.</strong><span>Fixed supply. No surprise inflation.</span></div>
+<div class="trust"><div class="emoji">🔒</div><strong>Mint disabled.</strong><span>No extra tokens waiting backstage.</span></div>
+<div class="trust"><div class="emoji">🧊</div><strong>Freeze disabled.</strong><span>No control switch hiding in the dark.</span></div>
+</div>
+</section>
+<section aria-labelledby="what-title"><div class="panel">
+<h2 id="what-title">What is <span class="gradient">LANDING?</span></h2>
+<p class="body-copy">LANDING is an anti-hype memecoin on Solana. No fake roadmap. No guaranteed returns. No pretending a memecoin is going to change civilization. Just a project trying to be more honest than the usual script.</p>
+<p class="quote-line">Everyone else is still going to the moon. We’ll be here when they come back down.</p>
+<a class="cta" href="https://jup.ag/?buy=DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ&amp;sell=So11111111111111111111111111111111111111112">BUY LANDING</a>
+</div></section>
+<section aria-labelledby="contract-title"><div class="panel">
+<span class="contract-label" id="contract-title">Official contract · Solana SPL Token</span>
+<div class="contract-box"><code id="contractAddress">DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ</code></div>
+<button class="copy-button" id="copyContract" type="button">COPY CONTRACT</button>
+<p class="copy-status" id="copyStatus" aria-live="polite"></p>
+</div></section>
+<section aria-labelledby="channels-title">
+<div class="channels-title" id="channels-title">Stay close to the landing zone</div>
+<div class="channels">
+<a class="channel" href="https://t.me/LandingCoinCommunity" target="_blank" rel="noopener noreferrer"><span class="icon">✈️</span><span>Telegram</span></a>
+<a class="channel" href="https://www.reddit.com/r/LandingCoin/" target="_blank" rel="noopener noreferrer"><span class="icon">💬</span><span>Reddit</span></a>
+<a class="channel" href="https://x.com/LandingCoinFun" target="_blank" rel="noopener noreferrer"><span class="icon">𝕏</span><span>X / Twitter</span></a>
+<a class="channel" href="mailto:contact@landingcoin.fun"><span class="icon">✉️</span><span>Email</span></a>
+</div>
+<div class="footer-line">No moon speech. No magic formula. Just LANDING.</div>
+</section>
+<div class="disclaimer">LANDING is a memecoin. Crypto assets are volatile and risky. Only participate if you understand the risks.</div>
+</main>
+</div>
+<script>
+(()=>{const copyButton=document.getElementById("copyContract"),contractAddress=document.getElementById("contractAddress"),copyStatus=document.getElementById("copyStatus");copyButton.addEventListener("click",async()=>{const value=contractAddress.textContent.trim();let copied=false;if(navigator.clipboard&&window.isSecureContext){try{await navigator.clipboard.writeText(value);copied=true}catch(_){}}if(!copied){const textarea=document.createElement("textarea");textarea.value=value;textarea.setAttribute("readonly","");textarea.style.position="fixed";textarea.style.opacity="0";document.body.appendChild(textarea);textarea.select();copied=document.execCommand("copy");document.body.removeChild(textarea)}copyStatus.textContent=copied?"Contract copied.":"Copy failed. Select the contract above.";window.setTimeout(()=>{copyStatus.textContent=""},2400)})})();
+</script>
 </body>
 </html>
