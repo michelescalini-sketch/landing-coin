@@ -49,8 +49,8 @@
 <div class="row"><div class="label">Supply</div><div class="value" id="supplyDetail">404,000,000 LANDING</div><div class="note">6 decimals</div></div>
 <div class="row"><div class="label">Mint authority</div><div class="value good" id="mintAuthorityDetail">DISABLED PERMANENTLY</div><div class="note">No additional minting</div></div>
 <div class="row"><div class="label">Freeze authority</div><div class="value good" id="freezeAuthorityDetail">DISABLED PERMANENTLY</div><div class="note">No token freezing</div></div>
-<div class="row"><div class="label">Metadata</div><div class="value warn">MUTABLE</div><div class="note">Disclosed state</div></div>
-<div class="row"><div class="label">Orca pool</div><div class="value">GyCQYByuUEMEWErDX6xFSpKC3stsfXJRDsFy4fQb1prq</div><div class="note">LANDING / SOL</div></div>
+<div class="row"><div class="label">Metadata</div><div class="value good">IMMUTABLE</div><div class="note">Permanently frozen on-chain</div></div>
+<div class="row"><div class="label">Orca pool</div><div class="value">GyCQYByuUEMErDX6xFSpKC3stsfXJRDsFy4fQb1prq</div><div class="note">LANDING / SOL</div></div>
 <div class="row"><div class="label">LANDING vault</div><div class="value">Dbuvyfmnf66cdZ5AwmQwDMFwbFGshEnxKyFHnoY9P6kN</div><div class="note" id="landingVaultBalance">Live balance loading…</div></div>
 <div class="row"><div class="label">SOL / WSOL vault</div><div class="value">9ke7GbPNwyK5Pb8gYN4Yob5sVvvX3yQXKT2AD1FkH5ZS</div><div class="note" id="solVaultBalance">Live balance loading…</div></div>
 </div>
@@ -118,215 +118,15 @@
 </div>
 <script>
 const API_BASE='https://landing-lander-registry.michelescalini.workers.dev/api/transparency';
-
 const present=v=>v!==undefined&&v!==null&&v!=='';
-const money=(n,dp=2)=>{
-  if(!present(n)) return 'N/A';
-  const x=Number(n);
-  return Number.isFinite(x)
-    ? '$'+x.toLocaleString('en-US',{minimumFractionDigits:dp,maximumFractionDigits:dp})
-    : 'N/A';
-};
-const integer=n=>{
-  if(!present(n)) return 'N/A';
-  const x=Number(n);
-  return Number.isFinite(x)?x.toLocaleString('en-US'):'N/A';
-};
-const tokenAmount=(raw,decimals)=>{
-  try{
-    if(!present(raw)||!present(decimals)) return 'N/A';
-    return (Number(raw)/10**Number(decimals)).toLocaleString('en-US',{maximumFractionDigits:6});
-  }catch{
-    return 'N/A';
-  }
-};
-
-function setText(id,value){
-  const el=document.getElementById(id);
-  if(el&&value!==undefined&&value!==null) el.textContent=String(value);
-}
-
-function setMarketUnavailable(message){
-  ['price','liquidity','volume24','tx24','buys24','sells24']
-    .forEach(id=>setText(id,'Unavailable'));
-  setText('marketSourceLabel','Third-party market data');
-  setText('marketStatus',message);
-}
-
-let hasLoadedSnapshot=false;
-let lastRefreshStarted=0;
-let marketRetryCount=0;
-
-async function loadTransparency(){
-  const now=Date.now();
-  if(now-lastRefreshStarted<1500) return;
-  lastRefreshStarted=now;
-
-  try{
-    const response=await fetch(
-      API_BASE+'?_='+Date.now(),
-      {
-        headers:{accept:'application/json'},
-        cache:'no-store'
-      }
-    );
-
-    if(!response.ok) throw new Error('HTTP '+response.status);
-
-    const j=await response.json();
-    const h=j.holders||{};
-    const t=j.token||{};
-    const l=j.liquidity||{};
-    const m=j.market;
-
-    if(j.updatedAt){
-      setText(
-        'snapshotTime',
-        'Live snapshot: '+new Date(j.updatedAt).toLocaleString()
-      );
-    }
-
-    if(t.supplyRaw&&Number.isFinite(Number(t.decimals))){
-      const supply=Number(t.supplyRaw)/10**Number(t.decimals);
-      setText('supply',integer(supply));
-      setText('supplyDetail',integer(supply)+' LANDING');
-    }
-
-    const mintDisabled=t.mintAuthority===null;
-    const freezeDisabled=t.freezeAuthority===null;
-
-    setText('mintAuthority',mintDisabled?'Disabled':'Enabled');
-    setText('freezeAuthority',freezeDisabled?'Disabled':'Enabled');
-    setText(
-      'mintAuthorityDetail',
-      mintDisabled?'DISABLED PERMANENTLY':String(t.mintAuthority)
-    );
-    setText(
-      'freezeAuthorityDetail',
-      freezeDisabled?'DISABLED PERMANENTLY':String(t.freezeAuthority)
-    );
-
-    if(j.holders){
-      setText('positiveHolders',integer(h.totalPositiveOwners));
-      setText('independentHolders',integer(h.independentHolders));
-      setText('projectWallets',integer(h.projectWallets));
-      setText('exchangeWallets',integer(h.exchangeWallets));
-      setText('founderWallets',integer(h.founderControlled));
-
-      setText('holderProject',integer(h.projectWallets));
-      setText('holderPool',integer(h.liquidityPools));
-      setText('holderExchange',integer(h.exchangeWallets));
-      setText('holderFounder',integer(h.founderControlled));
-      setText('holderIndependent',integer(h.independentHolders));
-
-      setText(
-        'holderCoverage',
-        h.complete
-          ? 'Complete live owner count'
-          : 'Partial owner count · fallback mode'
-      );
-    }
-
-    if(l.landingVaultBalance){
-      setText(
-        'landingVaultBalance',
-        tokenAmount(
-          l.landingVaultBalance.amountRaw,
-          l.landingVaultBalance.decimals
-        )+' LANDING'
-      );
-    }
-
-    if(l.solVaultBalance){
-      setText(
-        'solVaultBalance',
-        tokenAmount(
-          l.solVaultBalance.amountRaw,
-          l.solVaultBalance.decimals
-        )+' SOL'
-      );
-    }
-
-    if(m && typeof m==='object'){
-      marketRetryCount=0;
-      setText('price',money(m.priceUsd,8));
-      setText('liquidity',money(m.liquidityUsd,2));
-      setText('volume24',money(m.volume24hUsd,2));
-      setText('buys24',integer(m.buys24h));
-      setText('sells24',integer(m.sells24h));
-
-      const buys=Number(m.buys24h);
-      const sells=Number(m.sells24h);
-      setText(
-        'tx24',
-        Number.isFinite(buys)&&Number.isFinite(sells)
-          ? integer(buys+sells)
-          : 'N/A'
-      );
-
-      const source=present(m.source)?String(m.source):'third-party provider';
-      setText('marketSourceLabel',source+' pool data');
-
-      setText(
-        'marketStatus',
-        'Live market data loaded at '+
-        new Date(j.updatedAt||Date.now()).toLocaleString()+
-        '. Source: '+source+'.'
-      );
-    }else{
-      setMarketUnavailable(
-        'Current market data is temporarily unavailable. '+
-        'On-chain data remains live. Retrying automatically.'
-      );
-
-      if(marketRetryCount<3){
-        marketRetryCount++;
-        setTimeout(loadTransparency,3000);
-      }
-    }
-
-    hasLoadedSnapshot=true;
-
-  }catch(error){
-    if(!hasLoadedSnapshot){
-      setText('snapshotTime','Live snapshot unavailable');
-
-      [
-        'positiveHolders','independentHolders','projectWallets',
-        'exchangeWallets','founderWallets',
-        'holderProject','holderPool','holderExchange',
-        'holderFounder','holderIndependent'
-      ].forEach(id=>setText(id,'Unavailable'));
-
-      setText('holderCoverage','Public API not reachable');
-      setText('landingVaultBalance','Live balance unavailable');
-      setText('solVaultBalance','Live balance unavailable');
-
-      setMarketUnavailable(
-        'The live transparency API is temporarily unavailable.'
-      );
-    }else{
-      setText(
-        'marketStatus',
-        'Latest refresh failed. Keeping the last available snapshot; retrying automatically.'
-      );
-    }
-  }
-}
-
-loadTransparency();
-
-window.addEventListener('pageshow',event=>{
-  if(event.persisted) loadTransparency();
-});
-
-document.addEventListener('visibilitychange',()=>{
-  if(document.visibilityState==='visible') loadTransparency();
-});
-
-window.addEventListener('focus',loadTransparency);
-
-setInterval(loadTransparency,60000);
+const money=(n,dp=2)=>{if(!present(n)) return 'N/A';const x=Number(n);return Number.isFinite(x)?'$'+x.toLocaleString('en-US',{minimumFractionDigits:dp,maximumFractionDigits:dp}):'N/A';};
+const integer=n=>{if(!present(n)) return 'N/A';const x=Number(n);return Number.isFinite(x)?x.toLocaleString('en-US'):'N/A';};
+const tokenAmount=(raw,decimals)=>{try{if(!present(raw)||!present(decimals)) return 'N/A';return (Number(raw)/10**Number(decimals)).toLocaleString('en-US',{maximumFractionDigits:6});}catch{return 'N/A';}};
+function setText(id,value){const el=document.getElementById(id);if(el&&value!==undefined&&value!==null) el.textContent=String(value);}
+function setMarketUnavailable(message){['price','liquidity','volume24','tx24','buys24','sells24'].forEach(id=>setText(id,'Unavailable'));setText('marketSourceLabel','Third-party market data');setText('marketStatus',message);}
+let hasLoadedSnapshot=false;let lastRefreshStarted=0;let marketRetryCount=0;
+async function loadTransparency(){const now=Date.now();if(now-lastRefreshStarted<1500) return;lastRefreshStarted=now;try{const response=await fetch(API_BASE+'?_='+Date.now(),{headers:{accept:'application/json'},cache:'no-store'});if(!response.ok) throw new Error('HTTP '+response.status);const j=await response.json();const h=j.holders||{};const t=j.token||{};const l=j.liquidity||{};const m=j.market;if(j.updatedAt){setText('snapshotTime','Live snapshot: '+new Date(j.updatedAt).toLocaleString());}if(t.supplyRaw&&Number.isFinite(Number(t.decimals))){const supply=Number(t.supplyRaw)/10**Number(t.decimals);setText('supply',integer(supply));setText('supplyDetail',integer(supply)+' LANDING');}const mintDisabled=t.mintAuthority===null;const freezeDisabled=t.freezeAuthority===null;setText('mintAuthority',mintDisabled?'Disabled':'Enabled');setText('freezeAuthority',freezeDisabled?'Disabled':'Enabled');setText('mintAuthorityDetail',mintDisabled?'DISABLED PERMANENTLY':String(t.mintAuthority));setText('freezeAuthorityDetail',freezeDisabled?'DISABLED PERMANENTLY':String(t.freezeAuthority));if(j.holders){setText('positiveHolders',integer(h.totalPositiveOwners));setText('independentHolders',integer(h.independentHolders));setText('projectWallets',integer(h.projectWallets));setText('exchangeWallets',integer(h.exchangeWallets));setText('founderWallets',integer(h.founderControlled));setText('holderProject',integer(h.projectWallets));setText('holderPool',integer(h.liquidityPools));setText('holderExchange',integer(h.exchangeWallets));setText('holderFounder',integer(h.founderControlled));setText('holderIndependent',integer(h.independentHolders));setText('holderCoverage',h.complete?'Complete live owner count':'Partial owner count · fallback mode');}if(l.landingVaultBalance){setText('landingVaultBalance',tokenAmount(l.landingVaultBalance.amountRaw,l.landingVaultBalance.decimals)+' LANDING');}if(l.solVaultBalance){setText('solVaultBalance',tokenAmount(l.solVaultBalance.amountRaw,l.solVaultBalance.decimals)+' SOL');}if(m && typeof m==='object'){marketRetryCount=0;setText('price',money(m.priceUsd,8));setText('liquidity',money(m.liquidityUsd,2));setText('volume24',money(m.volume24hUsd,2));setText('buys24',integer(m.buys24h));setText('sells24',integer(m.sells24h));const buys=Number(m.buys24h);const sells=Number(m.sells24h);setText('tx24',Number.isFinite(buys)&&Number.isFinite(sells)?integer(buys+sells):'N/A');const source=present(m.source)?String(m.source):'third-party provider';setText('marketSourceLabel',source+' pool data');setText('marketStatus','Live market data loaded at '+new Date(j.updatedAt||Date.now()).toLocaleString()+'. Source: '+source+'.');}else{setMarketUnavailable('Current market data is temporarily unavailable. On-chain data remains live. Retrying automatically.');if(marketRetryCount<3){marketRetryCount++;setTimeout(loadTransparency,3000);}}hasLoadedSnapshot=true;}catch(error){if(!hasLoadedSnapshot){setText('snapshotTime','Live snapshot unavailable');['positiveHolders','independentHolders','projectWallets','exchangeWallets','founderWallets','holderProject','holderPool','holderExchange','holderFounder','holderIndependent'].forEach(id=>setText(id,'Unavailable'));setText('holderCoverage','Public API not reachable');setText('landingVaultBalance','Live balance unavailable');setText('solVaultBalance','Live balance unavailable');setMarketUnavailable('The live transparency API is temporarily unavailable.');}else{setText('marketStatus','Latest refresh failed. Keeping the last available snapshot; retrying automatically.');}}}
+loadTransparency();window.addEventListener('pageshow',event=>{if(event.persisted) loadTransparency();});document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible') loadTransparency();});window.addEventListener('focus',loadTransparency);setInterval(loadTransparency,60000);
 </script>
 </body>
 </html>
