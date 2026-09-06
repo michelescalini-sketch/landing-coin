@@ -59,1352 +59,153 @@
   --max: 1180px;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  margin: 0;
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  color: var(--text);
-
-  background:
-    radial-gradient(circle at 85% 12%, rgba(122,58,237,.22), transparent 32%),
-    radial-gradient(circle at 8% 20%, rgba(0,210,190,.16), transparent 28%),
-    radial-gradient(circle at 50% 80%, rgba(40,90,200,.12), transparent 35%),
-    linear-gradient(145deg,#02040a,#080b16 45%,#080511);
-
-  min-height: 100vh;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  opacity: .14;
-  background-image:
-    radial-gradient(circle at 20% 30%, #fff 0 1px, transparent 1.5px),
-    radial-gradient(circle at 80% 60%, #fff 0 1px, transparent 1.5px),
-    radial-gradient(circle at 60% 10%, #fff 0 1px, transparent 1.5px);
-  background-size: 190px 190px, 240px 240px, 310px 310px;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.wrapper {
-  width: min(var(--max), calc(100% - 40px));
-  margin: 0 auto;
-}
-
-nav {
-  height: 86px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  font-weight: 900;
-  letter-spacing: -.02em;
-  font-size: 1.2rem;
-}
-
-.brand img {
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  object-fit: cover;
-  box-shadow: 0 0 30px rgba(92,80,255,.28);
-}
-
-.brand span {
-  background: linear-gradient(90deg,var(--cyan),var(--blue),var(--violet));
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-.navlinks {
-  display: flex;
-  gap: 20px;
-  font-size: .82rem;
-  color: #c4cad5;
-}
-
-.navlinks a:hover {
-  color: #fff;
-}
-
-.hero {
-  min-height: 660px;
-  display: grid;
-  grid-template-columns: 1.04fr .96fr;
-  align-items: start;
-  gap: 70px;
-  padding: 50px 0 90px;
-}
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 13px;
-  border: 1px solid var(--line);
-  border-radius: 100px;
-  font-size: .78rem;
-  color: #b6bfce;
-  background: rgba(255,255,255,.035);
-  margin-bottom: 25px;
-}
-
-.dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--cyan);
-  box-shadow: 0 0 15px var(--cyan);
-}
-
-h1 {
-  margin: 0;
-  font-size: clamp(3.2rem,6.2vw,6.2rem);
-  line-height: .92;
-  letter-spacing: -.065em;
-  font-weight: 950;
-  white-space: nowrap;
-}
-
-.gradient {
-  background: linear-gradient(90deg,var(--cyan),var(--blue),var(--violet));
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-.tagline {
-  margin: 30px 0 0;
-  font-size: clamp(1.45rem,2.5vw,2.15rem);
-  line-height: 1.12;
-  font-weight: 800;
-  letter-spacing: -.035em;
-}
-
-.intro {
-  max-width: 570px;
-  line-height: 1.75;
-  color: var(--muted);
-  margin: 24px 0 0;
-  font-size: 1.05rem;
-}
-
-.actions {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 13px;
-  margin-top: 32px;
-  max-width: 820px;
-}
-
-.actions .button {
-  min-height: 58px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-.hero-contacts-wrap {
-  margin-top: 20px;
-}
-
-.hero-contacts-label {
-  display: block;
-  margin-bottom: 10px;
-  font-size: .7rem;
-  font-weight: 900;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.hero-contacts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.hero-contacts a {
-  width: 42px;
-  height: 42px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  background: rgba(255,255,255,.035);
-  color: #c8d0dc;
-  transition: transform .2s ease, background .2s ease, color .2s ease;
-}
-
-.hero-contacts a:hover {
-  color: #fff;
-  background: rgba(255,255,255,.08);
-  transform: translateY(-2px);
-}
-
-.hero-contacts svg {
-  width: 19px;
-  height: 19px;
-  fill: currentColor;
-}
-
-.gravity-check {
-  margin-top: 34px;
-  max-width: 570px;
-}
-
-.gravity-label {
-  display: block;
-  margin-bottom: 8px;
-  font-size: .7rem;
-  font-weight: 900;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.gravity-explainer {
-  margin: 0 0 14px;
-  color: var(--muted);
-  font-size: .88rem;
-  line-height: 1.5;
-}
-
-.gravity-result {
-  margin: 14px 0 0;
-  min-height: 1.5em;
-  color: var(--muted);
-  font-size: .95rem;
-  line-height: 1.5;
-}
-
-.gravity-share {
-  display: none;
-  margin-top: 12px;
-}
-
-.button {
-  padding: 15px 22px;
-  border-radius: 12px;
-  font-weight: 800;
-  font-size: .9rem;
-  border: 1px solid var(--line);
-}
-
-.primary {
-  background: linear-gradient(100deg,var(--cyan),var(--blue),var(--violet));
-  color: #05070d;
-  border: 0;
-}
-
-.secondary {
-  background: rgba(255,255,255,.04);
-}
-
-.hero-art {
-  min-height: 545px;
-  position: relative;
-  border-radius: 34px;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,.12);
-
-  background:
-    radial-gradient(circle at 75% 16%, rgba(255,170,72,.75), transparent 17%),
-    linear-gradient(180deg,#074677 0%,#0d8fc1 35%,#58d0d5 55%,#e5bb79 56%,#b77438 100%);
-
-  box-shadow:
-    0 50px 100px rgba(0,0,0,.45),
-    inset 0 0 90px rgba(3,8,20,.22);
-}
-
-.hero-art::before {
-  content: "";
-  position: absolute;
-  width: 540px;
-  height: 270px;
-  left: -70px;
-  bottom: -115px;
-  background: #e4b46f;
-  border-radius: 50%;
-  transform: rotate(-5deg);
-  opacity: .9;
-}
-
-.hero-art::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(90deg,rgba(5,7,13,.32),transparent 40%),
-    linear-gradient(0deg,rgba(5,7,13,.28),transparent 40%);
-}
-
-.sun {
-  position: absolute;
-  right: 65px;
-  top: 57px;
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
-  background: #ffca70;
-  box-shadow: 0 0 70px #ff9b51;
-}
-
-.coin-wrap {
-  position: absolute;
-  z-index: 3;
-  left: 50%;
-  top: 47%;
-  transform: translate(-50%,-50%) rotate(-4deg);
-  text-align: center;
-}
-
-.coin-wrap img {
-  width: 285px;
-  height: 285px;
-  border-radius: 50%;
-  object-fit: cover;
-  box-shadow:
-    0 25px 60px rgba(0,0,0,.45),
-    0 0 60px rgba(93,75,255,.25);
-}
-
-.float {
-  animation: float 5s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%,100% { transform: translate(-50%,-50%) rotate(-4deg); }
-  50% { transform: translate(-50%,-57%) rotate(2deg); }
-}
-
-.parachute {
-  position: absolute;
-  z-index: 4;
-  top: 48px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 5rem;
-  filter: drop-shadow(0 12px 15px rgba(0,0,0,.25));
-}
-
-.beach-copy {
-  position: absolute;
-  z-index: 4;
-  left: 28px;
-  bottom: 26px;
-  right: 28px;
-  padding: 17px 20px;
-  border-radius: 17px;
-  background: rgba(3,7,15,.74);
-  border: 1px solid rgba(255,255,255,.13);
-  backdrop-filter: blur(12px);
-  font-weight: 800;
-  line-height: 1.35;
-}
-
-section {
-  padding: 85px 0;
-}
-
-.section-title {
-  margin: 0 0 13px;
-  font-size: clamp(2.3rem,5vw,4rem);
-  letter-spacing: -.055em;
-}
-
-.section-intro {
-  max-width: 670px;
-  color: var(--muted);
-  line-height: 1.7;
-  margin-bottom: 36px;
-}
-
-.manifesto-video {
-  width: 100%;
-  display: block;
-  border-radius: 22px;
-  border: 1px solid var(--line);
-  background: #000;
-}
-
-.two {
-  display: grid;
-  grid-template-columns: repeat(2,1fr);
-  gap: 20px;
-}
-
-.card {
-  padding: 34px;
-  border: 1px solid var(--line);
-  border-radius: 24px;
-  background:
-    linear-gradient(145deg,rgba(18,25,42,.82),rgba(7,10,18,.80));
-  box-shadow: inset 0 1px rgba(255,255,255,.03);
-}
-
-.card .icon {
-  font-size: 2rem;
-  margin-bottom: 23px;
-}
-
-.card h3 {
-  margin: 0 0 14px;
-  font-size: 1.8rem;
-  letter-spacing: -.04em;
-}
-
-.card .accent {
-  background: linear-gradient(90deg,var(--cyan),var(--violet));
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-.card p {
-  color: var(--muted);
-  line-height: 1.7;
-}
-
-.quote {
-  font-size: 1.25rem;
-  color: #fff !important;
-  font-weight: 700;
-}
-
-.token-grid {
-  display: grid;
-  grid-template-columns: repeat(4,1fr);
-  gap: 14px;
-}
-
-.token {
-  padding: 26px 18px;
-  border-radius: 18px;
-  border: 1px solid var(--line);
-  background: rgba(255,255,255,.035);
-}
-
-.token small {
-  display: block;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: .09em;
-  font-size: .68rem;
-  margin-bottom: 10px;
-}
-
-.token strong {
-  font-size: 1.08rem;
-}
-
-.contract {
-  margin-top: 14px;
-  grid-column: 1 / -1;
-}
-
-.contract code {
-  font-size: .82rem;
-  color: #c6d0df;
-  word-break: break-all;
-}
-
-.distribution {
-  margin-top: 30px;
-  padding: 30px;
-  border-radius: 22px;
-  border: 1px solid var(--line);
-  background: rgba(255,255,255,.025);
-}
-
-.bar {
-  height: 20px;
-  display: flex;
-  overflow: hidden;
-  border-radius: 100px;
-  margin: 22px 0;
-  background: #111;
-}
-
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: var(--text); background: radial-gradient(circle at 85% 12%, rgba(122,58,237,.22), transparent 32%), radial-gradient(circle at 8% 20%, rgba(0,210,190,.16), transparent 28%), radial-gradient(circle at 50% 80%, rgba(40,90,200,.12), transparent 35%), linear-gradient(145deg,#02040a,#080b16 45%,#080511); min-height: 100vh; }
+body::before { content: ""; position: fixed; inset: 0; pointer-events: none; opacity: .14; background-image: radial-gradient(circle at 20% 30%, #fff 0 1px, transparent 1.5px), radial-gradient(circle at 80% 60%, #fff 0 1px, transparent 1.5px), radial-gradient(circle at 60% 10%, #fff 0 1px, transparent 1.5px); background-size: 190px 190px, 240px 240px, 310px 310px; }
+a { color: inherit; text-decoration: none; }
+.wrapper { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
+nav { height: 86px; display: flex; align-items: center; justify-content: space-between; }
+.brand { display: flex; align-items: center; gap: 13px; font-weight: 900; letter-spacing: -.02em; font-size: 1.2rem; }
+.brand img { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 30px rgba(92,80,255,.28); }
+.brand span { background: linear-gradient(90deg,var(--cyan),var(--blue),var(--violet)); -webkit-background-clip: text; color: transparent; }
+.navlinks { display: flex; gap: 20px; font-size: .82rem; color: #c4cad5; }
+.navlinks a:hover { color: #fff; }
+.hero { min-height: 660px; display: grid; grid-template-columns: 1.04fr .96fr; align-items: start; gap: 70px; padding: 50px 0 90px; }
+.badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 13px; border: 1px solid var(--line); border-radius: 100px; font-size: .78rem; color: #b6bfce; background: rgba(255,255,255,.035); margin-bottom: 25px; }
+.dot { width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 15px var(--cyan); }
+h1 { margin: 0; font-size: clamp(3.2rem,6.2vw,6.2rem); line-height: .92; letter-spacing: -.065em; font-weight: 950; white-space: nowrap; }
+.gradient { background: linear-gradient(90deg,var(--cyan),var(--blue),var(--violet)); -webkit-background-clip: text; color: transparent; }
+.tagline { margin: 30px 0 0; font-size: clamp(1.45rem,2.5vw,2.15rem); line-height: 1.12; font-weight: 800; letter-spacing: -.035em; }
+.intro { max-width: 570px; line-height: 1.75; color: var(--muted); margin: 24px 0 0; font-size: 1.05rem; }
+.actions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 13px; margin-top: 32px; max-width: 820px; }
+.actions .button { min-height: 58px; width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; }
+.hero-contacts-wrap { margin-top: 20px; }
+.hero-contacts-label { display: block; margin-bottom: 10px; font-size: .7rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.hero-contacts { display: flex; flex-wrap: wrap; gap: 10px; }
+.hero-contacts a { width: 42px; height: 42px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--line); border-radius: 50%; background: rgba(255,255,255,.035); color: #c8d0dc; transition: transform .2s ease, background .2s ease, color .2s ease; }
+.hero-contacts a:hover { color: #fff; background: rgba(255,255,255,.08); transform: translateY(-2px); }
+.hero-contacts svg { width: 19px; height: 19px; fill: currentColor; }
+.gravity-check { margin-top: 34px; max-width: 570px; }
+.gravity-label { display: block; margin-bottom: 8px; font-size: .7rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.gravity-explainer { margin: 0 0 14px; color: var(--muted); font-size: .88rem; line-height: 1.5; }
+.gravity-result { margin: 14px 0 0; min-height: 1.5em; color: var(--muted); font-size: .95rem; line-height: 1.5; }
+.gravity-share { display: none; margin-top: 12px; }
+.button { padding: 15px 22px; border-radius: 12px; font-weight: 800; font-size: .9rem; border: 1px solid var(--line); }
+.primary { background: linear-gradient(100deg,var(--cyan),var(--blue),var(--violet)); color: #05070d; border: 0; }
+.secondary { background: rgba(255,255,255,.04); }
+.hero-art { min-height: 545px; position: relative; border-radius: 34px; overflow: hidden; border: 1px solid rgba(255,255,255,.12); background: radial-gradient(circle at 75% 16%, rgba(255,170,72,.75), transparent 17%), linear-gradient(180deg,#074677 0%,#0d8fc1 35%,#58d0d5 55%,#e5bb79 56%,#b77438 100%); box-shadow: 0 50px 100px rgba(0,0,0,.45), inset 0 0 90px rgba(3,8,20,.22); }
+.hero-art::before { content: ""; position: absolute; width: 540px; height: 270px; left: -70px; bottom: -115px; background: #e4b46f; border-radius: 50%; transform: rotate(-5deg); opacity: .9; }
+.hero-art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg,rgba(5,7,13,.32),transparent 40%), linear-gradient(0deg,rgba(5,7,13,.28),transparent 40%); }
+.sun { position: absolute; right: 65px; top: 57px; width: 110px; height: 110px; border-radius: 50%; background: #ffca70; box-shadow: 0 0 70px #ff9b51; }
+.coin-wrap { position: absolute; z-index: 3; left: 50%; top: 47%; transform: translate(-50%,-50%) rotate(-4deg); text-align: center; }
+.coin-wrap img { width: 285px; height: 285px; border-radius: 50%; object-fit: cover; box-shadow: 0 25px 60px rgba(0,0,0,.45), 0 0 60px rgba(93,75,255,.25); }
+.float { animation: float 5s ease-in-out infinite; }
+@keyframes float { 0%,100% { transform: translate(-50%,-50%) rotate(-4deg); } 50% { transform: translate(-50%,-57%) rotate(2deg); } }
+.parachute { position: absolute; z-index: 4; top: 48px; left: 50%; transform: translateX(-50%); font-size: 5rem; filter: drop-shadow(0 12px 15px rgba(0,0,0,.25)); }
+.beach-copy { position: absolute; z-index: 4; left: 28px; bottom: 26px; right: 28px; padding: 17px 20px; border-radius: 17px; background: rgba(3,7,15,.74); border: 1px solid rgba(255,255,255,.13); backdrop-filter: blur(12px); font-weight: 800; line-height: 1.35; }
+section { padding: 85px 0; }
+.section-title { margin: 0 0 13px; font-size: clamp(2.3rem,5vw,4rem); letter-spacing: -.055em; }
+.section-intro { max-width: 670px; color: var(--muted); line-height: 1.7; margin-bottom: 36px; }
+.manifesto-video { width: 100%; display: block; border-radius: 22px; border: 1px solid var(--line); background: #000; }
+.two { display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; }
+.card { padding: 34px; border: 1px solid var(--line); border-radius: 24px; background: linear-gradient(145deg,rgba(18,25,42,.82),rgba(7,10,18,.80)); box-shadow: inset 0 1px rgba(255,255,255,.03); }
+.card .icon { font-size: 2rem; margin-bottom: 23px; }
+.card h3 { margin: 0 0 14px; font-size: 1.8rem; letter-spacing: -.04em; }
+.card .accent { background: linear-gradient(90deg,var(--cyan),var(--violet)); -webkit-background-clip: text; color: transparent; }
+.card p { color: var(--muted); line-height: 1.7; }
+.quote { font-size: 1.25rem; color: #fff !important; font-weight: 700; }
+.token-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+.token { padding: 26px 18px; border-radius: 18px; border: 1px solid var(--line); background: rgba(255,255,255,.035); }
+.token small { display: block; color: var(--muted); text-transform: uppercase; letter-spacing: .09em; font-size: .68rem; margin-bottom: 10px; }
+.token strong { font-size: 1.08rem; }
+.contract { margin-top: 14px; grid-column: 1 / -1; }
+.contract code { font-size: .82rem; color: #c6d0df; word-break: break-all; }
+.distribution { margin-top: 30px; padding: 30px; border-radius: 22px; border: 1px solid var(--line); background: rgba(255,255,255,.025); }
+.bar { height: 20px; display: flex; overflow: hidden; border-radius: 100px; margin: 22px 0; background: #111; }
 .bar span:nth-child(1) { width:50%; background:#19dbc0; }
 .bar span:nth-child(2) { width:35%; background:#4c91ff; }
 .bar span:nth-child(3) { width:9.6535%; background:#9059f7; }
 .bar span:nth-child(4) { width:5%; background:#e064ff; }
 .bar span:nth-child(5) { width:.3465%; background:#ffb338; }
-
-.legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 11px 23px;
-  color: var(--muted);
-  font-size: .84rem;
-}
-
-.warning {
-  border-color: rgba(255,180,60,.25);
-  background:
-    radial-gradient(circle at 90% 20%,rgba(255,160,40,.08),transparent 30%),
-    rgba(255,255,255,.025);
-}
-
-.why-thesis {
-  margin: 28px 0 34px;
-  padding: 28px 30px;
-  border-radius: 22px;
-  border: 1px solid rgba(34,230,199,.22);
-  background:
-    radial-gradient(circle at 85% 15%,rgba(168,85,247,.10),transparent 32%),
-    linear-gradient(145deg,rgba(10,24,34,.90),rgba(7,10,18,.88));
-  font-size: clamp(1.45rem,3vw,2.4rem);
-  line-height: 1.15;
-  font-weight: 900;
-  letter-spacing: -.035em;
-}
-
-.why-thesis span {
-  background: linear-gradient(90deg,var(--cyan),var(--blue),var(--violet));
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-.script-grid {
-  align-items: stretch;
-}
-
-.script-card {
-  position: relative;
-  overflow: hidden;
-  min-height: 100%;
-}
-
-.script-card::before {
-  content: "";
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 4px;
-}
-
-.script-card.usual {
-  background:
-    radial-gradient(circle at 90% 10%,rgba(255,173,36,.12),transparent 30%),
-    linear-gradient(145deg,rgba(31,20,18,.88),rgba(12,10,14,.88));
-}
-
-.script-card.usual::before {
-  background: var(--orange);
-}
-
-.script-card.landing-way {
-  background:
-    radial-gradient(circle at 90% 10%,rgba(34,230,199,.12),transparent 30%),
-    linear-gradient(145deg,rgba(10,29,31,.88),rgba(8,11,19,.88));
-}
-
-.script-card.landing-way::before {
-  background: linear-gradient(var(--cyan),var(--blue),var(--violet));
-}
-
-.script-label {
-  display: inline-block;
-  margin-bottom: 18px;
-  font-size: .7rem;
-  font-weight: 900;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.script-card p {
-  margin: 12px 0;
-}
-
-.script-card .final-line {
-  margin-top: 24px;
-  padding-top: 20px;
-  border-top: 1px solid var(--line);
-  color: #fff;
-  font-weight: 800;
-}
-
-.manifesto {
-  text-align: center;
-  padding: 120px 0;
-}
-
-.manifesto h2 {
-  font-size: clamp(3rem,7vw,6.6rem);
-  letter-spacing: -.07em;
-  line-height: .95;
-  margin: 0;
-}
-
-.manifesto p {
-  margin: 30px auto 0;
-  color: var(--muted);
-  max-width: 620px;
-  line-height: 1.7;
-}
-
-footer {
-  padding: 35px 0 55px;
-  border-top: 1px solid var(--line);
-  color: #697386;
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  font-size: .8rem;
-}
-
-footer strong {
-  color: #aeb6c5;
-}
-
-@media(max-width:900px) {
-  .actions {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .hero {
-    grid-template-columns: 1fr;
-    gap: 35px;
-  }
-
-  .hero-art {
-    min-height: 480px;
-  }
-
-  .two {
-    grid-template-columns: 1fr;
-  }
-
-  .token-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .navlinks {
-    display: none;
-  }
-}
-
-@media(max-width:560px) {
-  .actions {
-    grid-template-columns: 1fr;
-  }
-
-  .wrapper {
-    width: min(100% - 26px,var(--max));
-  }
-
-  nav {
-    height: 75px;
-  }
-
-  h1 {
-    font-size: 4.3rem;
-  }
-
-  .hero {
-    padding-top: 30px;
-  }
-
-  .hero-art {
-    min-height: 410px;
-  }
-
-  .coin-wrap img {
-    width: 215px;
-    height: 215px;
-  }
-
-  .parachute {
-    font-size: 4rem;
-  }
-
-  .token-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .card {
-    padding: 25px;
-  }
-
-  footer {
-    flex-direction: column;
-  }
-}
+.legend { display: flex; flex-wrap: wrap; gap: 11px 23px; color: var(--muted); font-size: .84rem; }
+.warning { border-color: rgba(255,180,60,.25); background: radial-gradient(circle at 90% 20%,rgba(255,160,40,.08),transparent 30%), rgba(255,255,255,.025); }
+.why-thesis { margin: 28px 0 34px; padding: 28px 30px; border-radius: 22px; border: 1px solid rgba(34,230,199,.22); background: radial-gradient(circle at 85% 15%,rgba(168,85,247,.10),transparent 32%), linear-gradient(145deg,rgba(10,24,34,.90),rgba(7,10,18,.88)); font-size: clamp(1.45rem,3vw,2.4rem); line-height: 1.15; font-weight: 900; letter-spacing: -.035em; }
+.why-thesis span { background: linear-gradient(90deg,var(--cyan),var(--blue),var(--violet)); -webkit-background-clip: text; color: transparent; }
+.script-grid { align-items: stretch; }
+.script-card { position: relative; overflow: hidden; min-height: 100%; }
+.script-card::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 4px; }
+.script-card.usual { background: radial-gradient(circle at 90% 10%,rgba(255,173,36,.12),transparent 30%), linear-gradient(145deg,rgba(31,20,18,.88),rgba(12,10,14,.88)); }
+.script-card.usual::before { background: var(--orange); }
+.script-card.landing-way { background: radial-gradient(circle at 90% 10%,rgba(34,230,199,.12),transparent 30%), linear-gradient(145deg,rgba(10,29,31,.88),rgba(8,11,19,.88)); }
+.script-card.landing-way::before { background: linear-gradient(var(--cyan),var(--blue),var(--violet)); }
+.script-label { display: inline-block; margin-bottom: 18px; font-size: .7rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.script-card p { margin: 12px 0; }
+.script-card .final-line { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); color: #fff; font-weight: 800; }
+.manifesto { text-align: center; padding: 120px 0; }
+.manifesto h2 { font-size: clamp(3rem,7vw,6.6rem); letter-spacing: -.07em; line-height: .95; margin: 0; }
+.manifesto p { margin: 30px auto 0; color: var(--muted); max-width: 620px; line-height: 1.7; }
+footer { padding: 35px 0 55px; border-top: 1px solid var(--line); color: #697386; display: flex; justify-content: space-between; gap: 20px; font-size: .8rem; }
+footer strong { color: #aeb6c5; }
+@media(max-width:900px) { .actions { grid-template-columns: repeat(2, minmax(0, 1fr)); } .hero { grid-template-columns: 1fr; gap: 35px; } .hero-art { min-height: 480px; } .two { grid-template-columns: 1fr; } .token-grid { grid-template-columns: 1fr 1fr; } .navlinks { display: none; } }
+@media(max-width:560px) { .actions { grid-template-columns: 1fr; } .wrapper { width: min(100% - 26px,var(--max)); } nav { height: 75px; } h1 { font-size: 4.3rem; } .hero { padding-top: 30px; } .hero-art { min-height: 410px; } .coin-wrap img { width: 215px; height: 215px; } .parachute { font-size: 4rem; } .token-grid { grid-template-columns: 1fr; } .card { padding: 25px; } footer { flex-direction: column; } }
 </style>
 </head>
-
 <body>
-
 <div class="wrapper">
-
 <nav>
-  <a href="#" class="brand">
-    <img src="landing-logo.jpg" alt="Landing Coin logo">
-    LANDING <span>COIN</span>
-  </a>
-
+  <a href="#" class="brand"><img src="landing-logo.jpg" alt="Landing Coin logo">LANDING <span>COIN</span></a>
   <div class="navlinks">
-    <a href="#story">Story</a>
-    <a href="#why-own">Why LANDING?</a>
-    <a href="#against-the-script">Against the script</a>
-    <a href="#token">Token</a>
-    <a href="#philosophy">Philosophy</a>
-    <a href="flight-plan.html">Flight Plan</a>
-    <a href="transparency.html">Transparency</a>
-    <a href="lander.html">Be a Lander</a>
-    <a href="team.html">Team</a>
+    <a href="#story">Story</a><a href="#why-own">Why LANDING?</a><a href="#against-the-script">Against the script</a><a href="#token">Token</a><a href="#philosophy">Philosophy</a><a href="flight-plan.html">Flight Plan</a><a href="transparency.html">Transparency</a><a href="lander.html">Be a Lander</a><a href="team.html">Team</a>
   </div>
 </nav>
-
 <main>
-
 <section class="hero">
-
   <div>
-    <div class="badge">
-      <span class="dot"></span>
-      LIVE ON SOLANA MAINNET
-    </div>
-
-    <h1>
-      LANDING <span class="gradient">COIN</span>
-    </h1>
-
-    <div class="tagline">
-      Everyone is going to the moon.<br>
-      We are landing.
-    </div>
-
-    <p class="intro">
-      A memecoin on Solana that refuses to follow the usual memecoin script.
-      No fake revolution. No manufactured hype. No guaranteed destination.
-      Same risk. Different attitude.
-    </p>
-
+    <div class="badge"><span class="dot"></span>LIVE ON SOLANA MAINNET</div>
+    <h1>LANDING <span class="gradient">COIN</span></h1>
+    <div class="tagline">Everyone is going to the moon.<br>We are landing.</div>
+    <p class="intro">A memecoin on Solana that refuses to follow the usual memecoin script. No fake revolution. No manufactured hype. No guaranteed destination. Same risk. Different attitude.</p>
     <div class="actions">
       <a class="button primary" href="https://jup.ag/?sell=So11111111111111111111111111111111111111112&buy=DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ" target="_blank" rel="noopener">Buy LANDING</a>
-      <a class="button secondary"
-         href="https://solscan.io/token/DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ"
-         target="_blank"
-         rel="noopener">
-        View on Solscan
-      </a>
-
-      <a class="button secondary" href="https://www.geckoterminal.com/solana/pools/GyCQYByuUEMEWErDX6xFSpKC3stsfXJRDsFy4fQb1prq" target="_blank" rel="noopener">
-        View on GeckoTerminal
-      </a>
-
-      <a class="button secondary" href="https://coinranking.com/coin/k6ZE3OS1f+landingcoin-landing" target="_blank" rel="noopener">
-        View on Coinranking
-      </a>
-
-      <a class="button secondary" href="https://www.amazon.com/dp/B0HH8G84M6" target="_blank" rel="noopener">
-        Read the LANDING Book
-      </a>
-
-      <a class="button secondary" href="https://github.com/michelescalini-sketch/landing-coin/blob/main/MAINNET-DEPLOYMENT.txt" target="_blank" rel="noopener">
-        Technical deployment
-      </a>
-
-      <a class="button secondary" href="#story">
-        Why does this exist?
-      </a>
-
-      <a class="button secondary" href="flight-plan.html">
-        View the Flight Plan
-      </a>
-
-      <a class="button secondary" href="transparency.html">
-        View Live Transparency
-      </a>
+      <a class="button secondary" href="https://solscan.io/token/DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ" target="_blank" rel="noopener">View on Solscan</a>
+      <a class="button secondary" href="https://www.geckoterminal.com/solana/pools/GyCQYByuUEMEWErDX6xFSpKC3stsfXJRDsFy4fQb1prq" target="_blank" rel="noopener">View on GeckoTerminal</a>
+      <a class="button secondary" href="https://coinranking.com/coin/k6ZE3OS1f+landingcoin-landing" target="_blank" rel="noopener">View on Coinranking</a>
+      <a class="button secondary" href="https://www.amazon.com/dp/B0HH8G84M6" target="_blank" rel="noopener">Read the LANDING Book</a>
+      <a class="button secondary" href="https://github.com/michelescalini-sketch/landing-coin/blob/main/MAINNET-DEPLOYMENT.txt" target="_blank" rel="noopener">Technical deployment</a>
+      <a class="button secondary" href="#story">Why does this exist?</a>
+      <a class="button secondary" href="flight-plan.html">View the Flight Plan</a>
+      <a class="button secondary" href="transparency.html">View Live Transparency</a>
     </div>
-
-    <div class="hero-contacts-wrap">
-      <span class="hero-contacts-label">Official channels</span>
-
-      <div class="hero-contacts" aria-label="Official LANDING channels">
-
-        <a href="https://x.com/LandingCoinFun"
-           target="_blank"
-           rel="noopener"
-           aria-label="Landing Coin on X"
-           title="X">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M18.244 2H21.552L14.325 10.26L22.828 22H16.172L10.958 15.183L4.993 22H1.683L9.417 13.163L1.254 2H8.079L12.793 8.231L18.244 2ZM17.083 19.932H18.916L7.084 3.958H5.117L17.083 19.932Z"/>
-          </svg>
-        </a>
-
-        <a href="https://t.me/LandingCoinCommunity"
-           target="_blank"
-           rel="noopener"
-           aria-label="Landing Coin on Telegram"
-           title="Telegram">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M21.944 2.506L18.737 21.33c-.242 1.328-.875 1.655-1.773 1.03l-4.885-3.603-2.357 2.267c-.261.261-.479.479-.982.479l.351-4.978 9.061-8.187c.394-.351-.086-.547-.612-.196L6.34 15.196l-4.82-1.507c-1.048-.327-1.068-1.048.218-1.55L20.59 4.872c.875-.327 1.64.196 1.354 1.634Z"/>
-          </svg>
-        </a>
-
-        <a href="https://www.reddit.com/r/LandingCoin/"
-           target="_blank"
-           rel="noopener"
-           aria-label="Landing Coin on Reddit"
-           title="Reddit">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/>
-          </svg>
-        </a>
-
-        <a href="mailto:contact@landingcoin.fun"
-           aria-label="Email Landing Coin"
-           title="Email">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z"/>
-          </svg>
-        </a>
-
-      </div>
-    </div>
-
-    <div class="gravity-check">
-      <span class="gravity-label">Gravity control</span>
-      <p class="gravity-explainer">
-        Because every serious crypto project needs a completely unnecessary feature.
-      </p>
-
-      <button class="button secondary" id="gravityButton" type="button">
-        Run gravity check
-      </button>
-      <p class="gravity-result" id="gravityResult" aria-live="polite"></p>
-      <a class="button secondary gravity-share"
-         id="gravityShare"
-         href="#"
-         target="_blank"
-         rel="noopener">
-        Share on X
-      </a>
-    </div>
+    <div class="hero-contacts-wrap"><span class="hero-contacts-label">Official channels</span><div class="hero-contacts" aria-label="Official LANDING channels">
+      <a href="https://x.com/LandingCoinFun" target="_blank" rel="noopener" aria-label="Landing Coin on X" title="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2H21.552L14.325 10.26L22.828 22H16.172L10.958 15.183L4.993 22H1.683L9.417 13.163L1.254 2H8.079L12.793 8.231L18.244 2ZM17.083 19.932H18.916L7.084 3.958H5.117L17.083 19.932Z"/></svg></a>
+      <a href="https://t.me/LandingCoinCommunity" target="_blank" rel="noopener" aria-label="Landing Coin on Telegram" title="Telegram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.944 2.506L18.737 21.33c-.242 1.328-.875 1.655-1.773 1.03l-4.885-3.603-2.357 2.267c-.261.261-.479.479-.982.479l.351-4.978 9.061-8.187c.394-.351-.086-.547-.612-.196L6.34 15.196l-4.82-1.507c-1.048-.327-1.068-1.048.218-1.55L20.59 4.872c.875-.327 1.64.196 1.354 1.634Z"/></svg></a>
+      <a href="https://www.reddit.com/r/LandingCoin/" target="_blank" rel="noopener" aria-label="Landing Coin on Reddit" title="Reddit"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701z"/></svg></a>
+      <a href="mailto:contact@landingcoin.fun" aria-label="Email Landing Coin" title="Email"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z"/></svg></a>
+    </div></div>
+    <div class="gravity-check"><span class="gravity-label">Gravity control</span><p class="gravity-explainer">Because every serious crypto project needs a completely unnecessary feature.</p><button class="button secondary" id="gravityButton" type="button">Run gravity check</button><p class="gravity-result" id="gravityResult" aria-live="polite"></p><a class="button secondary gravity-share" id="gravityShare" href="#" target="_blank" rel="noopener">Share on X</a></div>
   </div>
-
-  <div class="hero-art">
-
-    <div class="sun"></div>
-    <div class="parachute">🪂</div>
-
-    <div class="coin-wrap float">
-      <img src="landing-logo.jpg" alt="Landing Coin">
-    </div>
-
-    <div class="beach-copy">
-      While everybody else is checking the moon charts,
-      we already found a chair on the beach.
-    </div>
-
-  </div>
-
+  <div class="hero-art"><div class="sun"></div><div class="parachute">🪂</div><div class="coin-wrap float"><img src="landing-logo.jpg" alt="Landing Coin"></div><div class="beach-copy">While everybody else is checking the moon charts, we already found a chair on the beach.</div></div>
 </section>
-
-<section id="video-manifesto">
-  <h2 class="section-title">Watch the script break.</h2>
-
-  <video
-    class="manifesto-video"
-    controls
-    playsinline
-    preload="metadata"
-    aria-label="LANDING Coin manifesto video">
-    <source src="media/landing-manifesto.mp4" type="video/mp4">
-    Your browser does not support the video element.
-  </video>
-</section>
-
-
-<section id="story">
-
-  <h2 class="section-title">Our story.</h2>
-
-  <p class="section-intro">
-    Every serious crypto project needs an origin story.
-    Ours is refreshingly less impressive.
-  </p>
-
-  <div class="two">
-
-    <article class="card">
-      <div class="icon">🪂</div>
-
-      <h3 class="accent">
-        We had nothing to do.<br>
-        So we made a coin.
-      </h3>
-
-      <p class="quote">
-        No problem to solve. No industry to disrupt.
-        No whitepaper explaining why humanity needed another token.
-      </p>
-
-      <p>
-        Landing Coin started with an idea, some curiosity,
-        too much free time and the observation that apparently every
-        crypto project wants to go to the moon.
-      </p>
-
-      <p>
-        So we decided to go in the opposite direction.
-      </p>
-
-      <p>
-        Down.
-      </p>
-
-      <p>
-        Preferably with a parachute.
-      </p>
-    </article>
-
-
-    <article class="card" id="mission">
-      <div class="icon">🎯</div>
-
-      <h3>
-        A mission without the
-        <span class="accent">moon speech.</span>
-      </h3>
-
-      <p class="quote">
-        Landing Coin intends to support future experiments
-        and projects connected to the blockchain world.
-      </p>
-
-      <p>
-        Part of the project's resources may be used over time
-        to explore ideas, prototypes, tools and initiatives
-        we believe are worth building.
-      </p>
-
-      <p>
-        That does not mean guaranteed funding,
-        guaranteed projects or guaranteed returns.
-      </p>
-
-      <p>
-        We prefer experiments over promises.
-      </p>
-    </article>
-
-  </div>
-
-</section>
-
-
-<section id="why-own">
-
-  <h2 class="section-title">Why own LANDING?</h2>
-
-  <p class="section-intro">
-    Because LANDING is a bet that a memecoin can grow
-    without pretending it already has.
-  </p>
-
-  <div class="why-thesis">
-    <span>Same risk. Different attitude.</span><br>
-    If LANDING becomes something, it should be because it earned attention —
-    not because success was manufactured in advance.
-  </div>
-
-  <div class="two">
-
-    <article class="card">
-      <div class="icon">🎲</div>
-
-      <h3>You're not buying a <span class="accent">promise.</span></h3>
-
-      <p>
-        No guaranteed destination.
-        No predicted returns.
-        No imaginary future presented as fact.
-      </p>
-
-      <p>
-        LANDING is speculative.
-        It can work or it can fail.
-        We would rather say that clearly than sell certainty we do not have.
-      </p>
-    </article>
-
-    <article class="card">
-      <div class="icon">🛬</div>
-
-      <h3>If it grows, it has to <span class="accent">earn it.</span></h3>
-
-      <p>
-        No fake volume.
-        No manufactured community.
-        No pretending success happened before it did.
-      </p>
-
-      <p>
-        If LANDING becomes something,
-        owning it early means you were part of the experiment
-        before the result was known.
-      </p>
-    </article>
-
-  </div>
-
-</section>
-
-
-<section id="against-the-script">
-
-  <h2 class="section-title">Against the script.</h2>
-
-  <p class="section-intro">
-    Most memecoins follow the same playbook.
-    LANDING is trying something different.
-  </p>
-
-  <div class="two script-grid">
-
-    <article class="card script-card usual">
-      <span class="script-label">The market cliché</span>
-      <div class="icon">📜</div>
-
-      <h3>The usual <span class="accent">script.</span></h3>
-
-      <p>“100x potential.”</p>
-      <p>“Strongest community.”</p>
-      <p>“Huge announcement soon.”</p>
-      <p>“Revolutionary utility.”</p>
-
-      <p class="final-line">
-        Manufactured volume, manufactured excitement
-        and success announced before it exists.
-      </p>
-    </article>
-
-    <article class="card script-card landing-way">
-      <span class="script-label">Our approach</span>
-      <div class="icon">🪂</div>
-
-      <h3>The <span class="accent">LANDING way.</span></h3>
-
-      <p>We don't know how far this will go.</p>
-      <p>The community is still being built.</p>
-      <p>We announce things when they actually exist.</p>
-      <p>It's a memecoin. We don't need to disguise it as a revolution.</p>
-
-      <p class="final-line">
-        If LANDING grows, the growth should be real.
-      </p>
-    </article>
-
-  </div>
-
-</section>
-
-
-<section id="token">
-
-  <h2 class="section-title">The token.</h2>
-
-  <p class="section-intro">
-    The important part is intentionally simple.
-    Fixed supply. No ability to print more LANDING.
-    No freeze authority.
-  </p>
-
-  <div class="token-grid">
-
-    <div class="token">
-      <small>Total supply</small>
-      <strong>404,000,000 LANDING</strong>
-    </div>
-
-    <div class="token">
-      <small>Decimals</small>
-      <strong>6</strong>
-    </div>
-
-    <div class="token">
-      <small>Mint authority</small>
-      <strong>Disabled</strong>
-    </div>
-
-    <div class="token">
-      <small>Freeze authority</small>
-      <strong>Disabled</strong>
-    </div>
-
-    <div class="token contract">
-      <small>Official mint address</small>
-      <code>DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ</code>
-    </div>
-
-  </div>
-
-
-  <div class="distribution">
-
-    <strong>Initial allocation</strong>
-
-    <div class="bar">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-
-    <div class="legend">
-      <span>Community — 50%</span>
-      <span>Treasury — 35%</span>
-      <span>Liquidity Reserve — 9.6535%</span>
-      <span>Creator — 5%</span>
-      <span>Initial liquidity allocation — ~0.3465%</span>
-    </div>
-
-  </div>
-
-  <div class="distribution">
-    <strong>Allocation wallets</strong>
-
-    <div class="token-grid" style="margin-top:22px;">
-      <div class="token contract">
-        <small>Community — 202,000,000 LANDING</small>
-        <code>Owner: CBPwvUZrDQThyM6a54shKPpywvpTyYQQ2Ng7FWPZPM88</code><br>
-        <code>Token account: 5pBLtzKHs2X4hxZ8PqAJ2ExqWKXDZsjSRzHcDvNJZw6Y</code>
-      </div>
-
-      <div class="token contract">
-        <small>Treasury — 141,400,000 LANDING</small>
-        <code>Owner: 3JA9uuNqr5tqBxGP9sQTRTPtwmPAR2KxmJyXyietrQwS</code><br>
-        <code>Token account: 9KwXDAVKmxXUmLWXuVK743uDQYWKtdwxMstQecKm5HQK</code>
-      </div>
-
-      <div class="token contract">
-        <small>Liquidity Reserve — 39,000,000 LANDING</small>
-        <code>Owner: 34hUkC1XVGMHX64txhfTh7rDBMhtScK8cpCcP54u17vZ</code><br>
-        <code>Token account: 8sygdEd6myF7E1TAmaYaCocW3UCJT61wNezYP9KWwZFE</code>
-      </div>
-
-      <div class="token contract">
-        <small>Creator — 20,200,000 LANDING</small>
-        <code>Owner: 4fUtkW2LEZxLt2tgPJ9BitViNBqR3AUy58hyG81Q41hg</code><br>
-        <code>Token account: 6jKWEWgm8EsjaW8ezJZF7DYkJ3yogkUifeMW1J2ZXMMv</code>
-      </div>
-    </div>
-  </div>
-
-  <div class="distribution">
-    <strong>Technical transparency</strong>
-
-    <div class="token-grid" style="margin-top:22px;">
-      <div class="token">
-        <small>Token standard</small>
-        <strong>SPL Token (classic)</strong>
-      </div>
-
-      <div class="token">
-        <small>Metadata</small>
-        <strong>Mutable</strong>
-      </div>
-
-      <div class="token contract">
-        <small>Metadata update authority</small>
-        <code>125kgmJxWnzFTvxtapngumyQiqbEdDqgZ8DMbby6sivw</code>
-      </div>
-
-      <div class="token contract">
-        <small>Orca Whirlpool / Splash Pool</small>
-        <code>GyCQYByuUEMEWErDX6xFSpKC3stsfXJRDsFy4fQb1prq</code>
-      </div>
-
-      <div class="token">
-        <small>Liquidity lock status</small>
-        <strong>Not locked</strong>
-      </div>
-
-      <div class="token contract">
-        <small>Metadata URI</small>
-        <code>https://gateway.irys.xyz/HMjDFXazvaWKVaGciDCkXymf5t66RrpS8XbVEvKVrhHp</code>
-      </div>
-    </div>
-  </div>
-
-</section>
-
-
-<section id="philosophy">
-
-  <h2 class="section-title">Philosophy.</h2>
-
-  <p class="section-intro">
-    LANDING is not trying to make memecoins look serious.
-    It is trying to make them more honest.
-  </p>
-
-  <div class="two">
-
-    <article class="card warning">
-
-      <div class="icon">🚫</div>
-
-      <h3>What LANDING is not.</h3>
-
-      <p>
-        It is not a promise of profit.
-      </p>
-
-      <p>
-        It is not a guaranteed investment.
-      </p>
-
-      <p>
-        It does not have a magical algorithm,
-        secret AI technology or a revolutionary
-        roadmap to Mars.
-      </p>
-
-      <p>
-        If someone promises you guaranteed returns
-        using LANDING, that person is not speaking for us.
-      </p>
-
-    </article>
-
-
-    <article class="card">
-
-      <div class="icon">🌴</div>
-
-      <h3>What LANDING <span class="accent">is.</span></h3>
-
-      <p>
-        A memecoin.
-      </p>
-
-      <p>
-        An experiment.
-      </p>
-
-      <p>
-        A bet that honesty can build a memecoin too.
-      </p>
-
-      <p>
-        A project that would rather earn attention
-        than manufacture the appearance of success.
-      </p>
-
-      <p>
-        And perhaps, eventually, a way to help fund
-        other interesting blockchain experiments.
-      </p>
-
-    </article>
-
-  </div>
-
-</section>
-
-
-<section class="manifesto">
-
-  <h2>
-    NO MOON.<br>
-    NO PROMISES.<br>
-    <span class="gradient">JUST LANDING.</span>
-  </h2>
-
-  <p>
-    Maybe the most revolutionary thing a crypto project
-    can do is stop pretending everything is revolutionary.
-  </p>
-
-</section>
-
+<section id="video-manifesto"><h2 class="section-title">Watch the script break.</h2><video class="manifesto-video" controls playsinline preload="metadata" aria-label="LANDING Coin manifesto video"><source src="media/landing-manifesto.mp4" type="video/mp4">Your browser does not support the video element.</video></section>
+<section id="story"><h2 class="section-title">Our story.</h2><p class="section-intro">Every serious crypto project needs an origin story. Ours is refreshingly less impressive.</p><div class="two"><article class="card"><div class="icon">🪂</div><h3 class="accent">We had nothing to do.<br>So we made a coin.</h3><p class="quote">No problem to solve. No industry to disrupt. No whitepaper explaining why humanity needed another token.</p><p>Landing Coin started with an idea, some curiosity, too much free time and the observation that apparently every crypto project wants to go to the moon.</p><p>So we decided to go in the opposite direction.</p><p>Down.</p><p>Preferably with a parachute.</p></article><article class="card" id="mission"><div class="icon">🎯</div><h3>A mission without the <span class="accent">moon speech.</span></h3><p class="quote">Landing Coin intends to support future experiments and projects connected to the blockchain world.</p><p>Part of the project's resources may be used over time to explore ideas, prototypes, tools and initiatives we believe are worth building.</p><p>That does not mean guaranteed funding, guaranteed projects or guaranteed returns.</p><p>We prefer experiments over promises.</p></article></div></section>
+<section id="why-own"><h2 class="section-title">Why own LANDING?</h2><p class="section-intro">Because LANDING is a bet that a memecoin can grow without pretending it already has.</p><div class="why-thesis"><span>Same risk. Different attitude.</span><br>If LANDING becomes something, it should be because it earned attention — not because success was manufactured in advance.</div><div class="two"><article class="card"><div class="icon">🎲</div><h3>You're not buying a <span class="accent">promise.</span></h3><p>No guaranteed destination. No predicted returns. No imaginary future presented as fact.</p><p>LANDING is speculative. It can work or it can fail. We would rather say that clearly than sell certainty we do not have.</p></article><article class="card"><div class="icon">🛬</div><h3>If it grows, it has to <span class="accent">earn it.</span></h3><p>No fake volume. No manufactured community. No pretending success happened before it did.</p><p>If LANDING becomes something, owning it early means you were part of the experiment before the result was known.</p></article></div></section>
+<section id="against-the-script"><h2 class="section-title">Against the script.</h2><p class="section-intro">Most memecoins follow the same playbook. LANDING is trying something different.</p><div class="two script-grid"><article class="card script-card usual"><span class="script-label">The market cliché</span><div class="icon">📜</div><h3>The usual <span class="accent">script.</span></h3><p>“100x potential.”</p><p>“Strongest community.”</p><p>“Huge announcement soon.”</p><p>“Revolutionary utility.”</p><p class="final-line">Manufactured volume, manufactured excitement and success announced before it exists.</p></article><article class="card script-card landing-way"><span class="script-label">Our approach</span><div class="icon">🪂</div><h3>The <span class="accent">LANDING way.</span></h3><p>We don't know how far this will go.</p><p>The community is still being built.</p><p>We announce things when they actually exist.</p><p>It's a memecoin. We don't need to disguise it as a revolution.</p><p class="final-line">If LANDING grows, the growth should be real.</p></article></div></section>
+<section id="token"><h2 class="section-title">The token.</h2><p class="section-intro">The important part is intentionally simple. Fixed supply. No ability to print more LANDING. No freeze authority.</p><div class="token-grid"><div class="token"><small>Total supply</small><strong>404,000,000 LANDING</strong></div><div class="token"><small>Decimals</small><strong>6</strong></div><div class="token"><small>Mint authority</small><strong>Disabled</strong></div><div class="token"><small>Freeze authority</small><strong>Disabled</strong></div><div class="token contract"><small>Official mint address</small><code>DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ</code></div></div>
+<div class="distribution"><strong>Initial allocation</strong><div class="bar"><span></span><span></span><span></span><span></span><span></span></div><div class="legend"><span>Community — 50%</span><span>Treasury — 35%</span><span>Liquidity Reserve — 9.6535%</span><span>Creator — 5%</span><span>Initial liquidity allocation — ~0.3465%</span></div></div>
+<div class="distribution"><strong>Allocation wallets</strong><div class="token-grid" style="margin-top:22px;"><div class="token contract"><small>Community — 202,000,000 LANDING</small><code>Owner: CBPwvUZrDQThyM6a54shKPpywvpTyYQQ2Ng7FWPZPM88</code><br><code>Token account: 5pBLtzKHs2X4hxZ8PqAJ2ExqWKXDZsjSRzHcDvNJZw6Y</code></div><div class="token contract"><small>Treasury — 141,400,000 LANDING</small><code>Owner: 3JA9uuNqr5tqBxGP9sQTRTPtwmPAR2KxmJyXyietrQwS</code><br><code>Token account: 9KwXDAVKmxXUmLWXuVK743uDQYWKtdwxMstQecKm5HQK</code></div><div class="token contract"><small>Liquidity Reserve — 39,000,000 LANDING</small><code>Owner: 34hUkC1XVGMHX64txhfTh7rDBMhtScK8cpCcP54u17vZ</code><br><code>Token account: 8sygdEd6myF7E1TAmaYaCocW3UCJT61wNezYP9KWwZFE</code></div><div class="token contract"><small>Creator — 20,200,000 LANDING</small><code>Owner: 4fUtkW2LEZxLt2tgPJ9BitViNBqR3AUy58hyG81Q41hg</code><br><code>Token account: 6jKWEWgm8EsjaW8ezJZF7DYkJ3yogkUifeMW1J2ZXMMv</code></div></div></div>
+<div class="distribution"><strong>Technical transparency</strong><div class="token-grid" style="margin-top:22px;"><div class="token"><small>Token standard</small><strong>SPL Token (classic)</strong></div><div class="token"><small>Metadata</small><strong>Immutable</strong></div><div class="token contract"><small>Token identity</small><strong>Frozen on-chain</strong></div><div class="token contract"><small>Orca Whirlpool / Splash Pool</small><code>GyCQYByuUEMEWErDX6xFSpKC3stsfXJRDsFy4fQb1prq</code></div><div class="token"><small>Liquidity lock status</small><strong>Not locked</strong></div><div class="token contract"><small>Metadata URI</small><code>https://gateway.irys.xyz/HMjDFXazvaWKVaGciDCkXymf5t66RrpS8XbVEvKVrhHp</code></div></div></div></section>
+<section id="philosophy"><h2 class="section-title">Philosophy.</h2><p class="section-intro">LANDING is not trying to make memecoins look serious. It is trying to make them more honest.</p><div class="two"><article class="card warning"><div class="icon">🚫</div><h3>What LANDING is not.</h3><p>It is not a promise of profit.</p><p>It is not a guaranteed investment.</p><p>It does not have a magical algorithm, secret AI technology or a revolutionary roadmap to Mars.</p><p>If someone promises you guaranteed returns using LANDING, that person is not speaking for us.</p></article><article class="card"><div class="icon">🌴</div><h3>What LANDING <span class="accent">is.</span></h3><p>A memecoin.</p><p>An experiment.</p><p>A bet that honesty can build a memecoin too.</p><p>A project that would rather earn attention than manufacture the appearance of success.</p><p>And perhaps, eventually, a way to help fund other interesting blockchain experiments.</p></article></div></section>
+<section class="manifesto"><h2>NO MOON.<br>NO PROMISES.<br><span class="gradient">JUST LANDING.</span></h2><p>Maybe the most revolutionary thing a crypto project can do is stop pretending everything is revolutionary.</p></section>
 </main>
-
-
-<footer>
-
-  <div>
-    <strong>Landing Coin — $LANDING</strong><br>
-    Solana Mainnet<br>
-    <a href="https://x.com/LandingCoinFun" target="_blank" rel="noopener">@LandingCoinFun on X</a><br>
-    <a href="https://t.me/LandingCoinCommunity" target="_blank" rel="noopener">Telegram Community</a><br>
-    <a href="https://www.reddit.com/r/LandingCoin/" target="_blank" rel="noopener">Reddit Community</a><br>
-    <a href="mailto:contact@landingcoin.fun">contact@landingcoin.fun</a><br>
-    <a href="https://bitcointalk.org/index.php?topic=5591610.0" target="_blank" rel="noopener">Bitcointalk ANN</a><br>
-    <a href="/why-landing-doesnt-promise-the-moon.html">Why Landing Doesn't Promise the Moon</a><br>
-    <a href="/flight-plan.html">Flight Plan</a><br>
-    <a href="/transparency.html">Transparency Dashboard</a><br>
-    <a href="/media-kit.html">Media Kit</a><br>
-    <a href="/team.html">Team</a>
-  </div>
-
-  <div>
-    © 2026 Landing Coin.<br>
-    Gravity still works.
-  </div>
-
-</footer>
-
+<footer><div><strong>Landing Coin — $LANDING</strong><br>Solana Mainnet<br><a href="https://x.com/LandingCoinFun" target="_blank" rel="noopener">@LandingCoinFun on X</a><br><a href="https://t.me/LandingCoinCommunity" target="_blank" rel="noopener">Telegram Community</a><br><a href="https://www.reddit.com/r/LandingCoin/" target="_blank" rel="noopener">Reddit Community</a><br><a href="mailto:contact@landingcoin.fun">contact@landingcoin.fun</a><br><a href="https://bitcointalk.org/index.php?topic=5591610.0" target="_blank" rel="noopener">Bitcointalk ANN</a><br><a href="/why-landing-doesnt-promise-the-moon.html">Why Landing Doesn't Promise the Moon</a><br><a href="/flight-plan.html">Flight Plan</a><br><a href="/transparency.html">Transparency Dashboard</a><br><a href="/media-kit.html">Media Kit</a><br><a href="/team.html">Team</a></div><div>© 2026 Landing Coin.<br>Gravity still works.</div></footer>
 </div>
-
 <script>
 (() => {
-  const messages = [
-    "Gravity confirmed. Moon mission cancelled.",
-    "Still falling responsibly.",
-    "No moon detected. Beach conditions remain excellent.",
-    "Gravity works. LANDING proceeds as planned.",
-    "Trajectory stable. Destination: somewhere below the hype.",
-    "Moon unavailable. Please enjoy the atmosphere.",
-    "All systems normal. Expectations remain grounded.",
-    "Confirmed: what goes up still has options."
-  ];
-
-  const button = document.getElementById("gravityButton");
-  const result = document.getElementById("gravityResult");
-  const share = document.getElementById("gravityShare");
-
-  button.addEventListener("click", () => {
-    const message = messages[Math.floor(Math.random() * messages.length)];
-    result.textContent = message;
-
-    const shareText = message + " — Landing Coin ($LANDING)";
-    share.href =
-      "https://twitter.com/intent/tweet?text=" +
-      encodeURIComponent(shareText) +
-      "&url=" +
-      encodeURIComponent("https://landingcoin.fun");
-
-    share.style.display = "inline-block";
-  });
+  const messages = ["Gravity confirmed. Moon mission cancelled.","Still falling responsibly.","No moon detected. Beach conditions remain excellent.","Gravity works. LANDING proceeds as planned.","Trajectory stable. Destination: somewhere below the hype.","Moon unavailable. Please enjoy the atmosphere.","All systems normal. Expectations remain grounded.","Confirmed: what goes up still has options."];
+  const button = document.getElementById("gravityButton"); const result = document.getElementById("gravityResult"); const share = document.getElementById("gravityShare");
+  button.addEventListener("click", () => { const message = messages[Math.floor(Math.random() * messages.length)]; result.textContent = message; const shareText = message + " — Landing Coin ($LANDING)"; share.href = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(shareText) + "&url=" + encodeURIComponent("https://landingcoin.fun"); share.style.display = "inline-block"; });
 })();
 </script>
-
 </body>
 </html>
