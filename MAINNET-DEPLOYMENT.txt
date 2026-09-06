@@ -19,6 +19,7 @@ Website: https://landingcoin.fun
 
 Metadata URI: https://gateway.irys.xyz/HMjDFXazvaWKVaGciDCkXymf5t66RrpS8XbVEvKVrhHp
 Metadata update tx: 7CyFSxjgRgFNYTwe7F9HBbbbLKaw1j7aKBjHBqDS4kfoTeiLcBSmieFJKnE8jXBhzwzbQcneReKfCpQ5aH19dsV
+Metadata immutable tx: 5GhV9x73HW53zS84wxxNzjeDpux3eNfKxNL24iepQEC8t1L4eeYgGeYzopMYpWcwKijRUxrw52wQingadY6pU66r
 X: https://x.com/LandingCoinFun
 Launch post: https://x.com/LandingCoinFun/status/2088530960341963098
 Telegram: https://t.me/LandingCoinCommunity
@@ -26,6 +27,7 @@ Telegram: https://t.me/LandingCoinCommunity
 SECURITY
 Mint authority: DISABLED PERMANENTLY
 Freeze authority: DISABLED PERMANENTLY
-Metadata mutable: true
+Metadata: IMMUTABLE
+Metadata frozen permanently: true
 Mainnet transaction scripts require LANDING_MAINNET_EXECUTE=YES
 Never commit private keypairs or secret material to this repository.
