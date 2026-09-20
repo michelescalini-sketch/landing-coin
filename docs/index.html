@@ -94,6 +94,11 @@ h1 { margin: 0; font-size: clamp(3.2rem,6.2vw,6.2rem); line-height: .92; letter-
 .button { padding: 15px 22px; border-radius: 12px; font-weight: 800; font-size: .9rem; border: 1px solid var(--line); }
 .primary { background: linear-gradient(100deg,var(--cyan),var(--blue),var(--violet)); color: #05070d; border: 0; }
 .secondary { background: rgba(255,255,255,.04); }
+.exchange-banner { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 20px; margin: 8px 0 4px; padding: 18px 20px; border: 1px solid rgba(34,230,199,.28); border-radius: 18px; background: radial-gradient(circle at 92% 20%,rgba(168,85,247,.13),transparent 28%), linear-gradient(100deg,rgba(34,230,199,.08),rgba(77,164,255,.06) 48%,rgba(168,85,247,.08)); box-shadow: inset 0 1px rgba(255,255,255,.04), 0 16px 42px rgba(0,0,0,.18); }
+.exchange-mark { min-width: 112px; padding: 9px 12px; border: 1px solid rgba(255,255,255,.12); border-radius: 11px; background: rgba(255,255,255,.05); font-size: .72rem; font-weight: 950; letter-spacing: .14em; text-align: center; color: #fff; }
+.exchange-copy strong { display: block; margin-bottom: 4px; font-size: 1.05rem; letter-spacing: -.015em; }
+.exchange-copy span { color: var(--muted); font-size: .86rem; line-height: 1.45; }
+.exchange-banner .button { white-space: nowrap; padding: 12px 18px; }
 .hero-art { min-height: 545px; position: relative; border-radius: 34px; overflow: hidden; border: 1px solid rgba(255,255,255,.12); background: radial-gradient(circle at 75% 16%, rgba(255,170,72,.75), transparent 17%), linear-gradient(180deg,#074677 0%,#0d8fc1 35%,#58d0d5 55%,#e5bb79 56%,#b77438 100%); box-shadow: 0 50px 100px rgba(0,0,0,.45), inset 0 0 90px rgba(3,8,20,.22); }
 .hero-art::before { content: ""; position: absolute; width: 540px; height: 270px; left: -70px; bottom: -115px; background: #e4b46f; border-radius: 50%; transform: rotate(-5deg); opacity: .9; }
 .hero-art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg,rgba(5,7,13,.32),transparent 40%), linear-gradient(0deg,rgba(5,7,13,.28),transparent 40%); }
@@ -147,8 +152,8 @@ section { padding: 85px 0; }
 .manifesto p { margin: 30px auto 0; color: var(--muted); max-width: 620px; line-height: 1.7; }
 footer { padding: 35px 0 55px; border-top: 1px solid var(--line); color: #697386; display: flex; justify-content: space-between; gap: 20px; font-size: .8rem; }
 footer strong { color: #aeb6c5; }
-@media(max-width:900px) { .actions { grid-template-columns: repeat(2, minmax(0, 1fr)); } .hero { grid-template-columns: 1fr; gap: 35px; } .hero-art { min-height: 480px; } .two { grid-template-columns: 1fr; } .token-grid { grid-template-columns: 1fr 1fr; } .navlinks { display: none; } }
-@media(max-width:560px) { .actions { grid-template-columns: 1fr; } .wrapper { width: min(100% - 26px,var(--max)); } nav { height: 75px; } h1 { font-size: 4.3rem; } .hero { padding-top: 30px; } .hero-art { min-height: 410px; } .coin-wrap img { width: 215px; height: 215px; } .parachute { font-size: 4rem; } .token-grid { grid-template-columns: 1fr; } .card { padding: 25px; } footer { flex-direction: column; } }
+@media(max-width:900px) { .exchange-banner { grid-template-columns: auto 1fr; } .exchange-banner .button { grid-column: 1 / -1; width: 100%; text-align: center; } .actions { grid-template-columns: repeat(2, minmax(0, 1fr)); } .hero { grid-template-columns: 1fr; gap: 35px; } .hero-art { min-height: 480px; } .two { grid-template-columns: 1fr; } .token-grid { grid-template-columns: 1fr 1fr; } .navlinks { display: none; } }
+@media(max-width:560px) { .exchange-banner { grid-template-columns: 1fr; gap: 12px; padding: 16px; } .exchange-mark { width: max-content; min-width: 0; } .exchange-banner .button { grid-column: auto; } .actions { grid-template-columns: 1fr; } .wrapper { width: min(100% - 26px,var(--max)); } nav { height: 75px; } h1 { font-size: 4.3rem; } .hero { padding-top: 30px; } .hero-art { min-height: 410px; } .coin-wrap img { width: 215px; height: 215px; } .parachute { font-size: 4rem; } .token-grid { grid-template-columns: 1fr; } .card { padding: 25px; } footer { flex-direction: column; } }
 </style>
 </head>
 <body>
@@ -159,6 +164,11 @@ footer strong { color: #aeb6c5; }
     <a href="#story">Story</a><a href="#why-landing">Why LANDING?</a><a href="#against-the-script">Against the script</a><a href="#token">Token</a><a href="#philosophy">Philosophy</a><a href="flight-plan.html">Flight Plan</a><a href="transparency.html">Transparency</a><a href="lander.html">Be a Lander</a><a href="team.html">Team</a>
   </div>
 </nav>
+<div class="exchange-banner" role="region" aria-label="LANDING on Poloniex">
+  <div class="exchange-mark">POLONIEX</div>
+  <div class="exchange-copy"><strong>LANDING is listed on Poloniex.</strong><span>LANDING/USDT spot trading starts September 21, 2026 at 12:00 UTC.</span></div>
+  <a class="button primary" href="https://www.poloniex.com/trade/LANDING_USDT" target="_blank" rel="noopener">Open LANDING/USDT →</a>
+</div>
 <main>
 <section class="hero">
   <div>
