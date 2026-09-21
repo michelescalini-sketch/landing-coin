@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://landingcoin.fun/</loc>
-  </url>
-  <url>
-    <loc>https://landingcoin.fun/media-kit.html</loc>
-  </url>
-  <url>
-    <loc>https://landingcoin.fun/why-landing-doesnt-promise-the-moon.html</loc>
-  </url>
-  <url>
-    <loc>https://landingcoin.fun/lander.html</loc>
-  </url>
-  <url>
-    <loc>https://landingcoin.fun/flight-plan.html</loc>
-  </url>
-  <url>
-    <loc>https://landingcoin.fun/team.html</loc>
-  </url>
+  <url><loc>https://landingcoin.fun/</loc><lastmod>2026-09-21</lastmod></url>
+  <url><loc>https://landingcoin.fun/news/</loc><lastmod>2026-09-21</lastmod></url>
+  <url><loc>https://landingcoin.fun/news/landing-coin-poloniex-listing.html</loc><lastmod>2026-09-21</lastmod></url>
+  <url><loc>https://landingcoin.fun/buy/</loc><lastmod>2026-09-20</lastmod></url>
+  <url><loc>https://landingcoin.fun/media-kit.html</loc></url>
+  <url><loc>https://landingcoin.fun/why-landing-doesnt-promise-the-moon.html</loc></url>
+  <url><loc>https://landingcoin.fun/lander.html</loc></url>
+  <url><loc>https://landingcoin.fun/flight-plan.html</loc><lastmod>2026-09-20</lastmod></url>
+  <url><loc>https://landingcoin.fun/transparency.html</loc></url>
+  <url><loc>https://landingcoin.fun/team.html</loc></url>
 </urlset>
