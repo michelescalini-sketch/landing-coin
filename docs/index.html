@@ -8,6 +8,7 @@
 <meta name="description" content="Everyone is going to the moon. We are landing. LANDING is a Solana memecoin that refuses to follow the usual memecoin script.">
 
 <link rel="canonical" href="https://landingcoin.fun/">
+<link rel="alternate" type="application/rss+xml" title="LANDING Coin News" href="https://landingcoin.fun/news/feed.xml">
 <link rel="icon" type="image/jpeg" href="/landing-logo.jpg">
 
 <meta property="og:type" content="website">
@@ -147,6 +148,13 @@ section { padding: 85px 0; }
 .script-label { display: inline-block; margin-bottom: 18px; font-size: .7rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
 .script-card p { margin: 12px 0; }
 .script-card .final-line { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); color: #fff; font-weight: 800; }
+.news-home { padding-top: 34px; }
+.news-feature { display: grid; grid-template-columns: 1fr auto; gap: 26px; align-items: center; padding: 30px; border: 1px solid rgba(34,230,199,.24); border-radius: 24px; background: radial-gradient(circle at 92% 18%,rgba(168,85,247,.12),transparent 28%), linear-gradient(145deg,rgba(10,24,34,.88),rgba(7,10,18,.88)); }
+.news-kicker { display: inline-block; margin-bottom: 10px; color: var(--cyan); font-size: .7rem; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; }
+.news-feature h3 { margin: 0 0 10px; font-size: clamp(1.55rem,3vw,2.35rem); letter-spacing: -.035em; }
+.news-feature p { margin: 0; color: var(--muted); line-height: 1.65; max-width: 760px; }
+.news-actions { display: flex; flex-direction: column; gap: 10px; min-width: 190px; }
+@media(max-width:760px) { .news-feature { grid-template-columns: 1fr; } .news-actions { min-width: 0; } }
 .manifesto { text-align: center; padding: 120px 0; }
 .manifesto h2 { font-size: clamp(3rem,7vw,6.6rem); letter-spacing: -.07em; line-height: .95; margin: 0; }
 .manifesto p { margin: 30px auto 0; color: var(--muted); max-width: 620px; line-height: 1.7; }
@@ -161,7 +169,7 @@ footer strong { color: #aeb6c5; }
 <nav>
   <a href="#" class="brand"><img src="landing-logo.jpg" alt="Landing Coin logo">LANDING <span>COIN</span></a>
   <div class="navlinks">
-    <a href="#story">Story</a><a href="#why-landing">Why LANDING?</a><a href="#against-the-script">Against the script</a><a href="#token">Token</a><a href="#philosophy">Philosophy</a><a href="flight-plan.html">Flight Plan</a><a href="transparency.html">Transparency</a><a href="lander.html">Be a Lander</a><a href="team.html">Team</a>
+    <a href="#story">Story</a><a href="/news/">News</a><a href="#why-landing">Why LANDING?</a><a href="#against-the-script">Against the script</a><a href="#token">Token</a><a href="#philosophy">Philosophy</a><a href="flight-plan.html">Flight Plan</a><a href="transparency.html">Transparency</a><a href="lander.html">Be a Lander</a><a href="team.html">Team</a>
   </div>
 </nav>
 <div class="exchange-banner" role="region" aria-label="LANDING on Poloniex">
@@ -196,6 +204,19 @@ footer strong { color: #aeb6c5; }
   </div>
   <div class="hero-art"><div class="sun"></div><div class="parachute">🪂</div><div class="coin-wrap float"><img src="landing-logo.jpg" alt="Landing Coin"></div><div class="beach-copy">While everybody else is checking the moon charts, we already found a chair on the beach.</div></div>
 </section>
+<section class="news-home" aria-labelledby="latest-news-title">
+  <span class="news-kicker">Latest News · September 21, 2026</span>
+  <div class="news-feature">
+    <div>
+      <h3 id="latest-news-title">LANDING Coin is listed on Poloniex.</h3>
+      <p>LANDING/USDT spot trading starts September 21, 2026 at 12:00 UTC. Read the official LANDING update, trading details and what the listing changes for the project.</p>
+    </div>
+    <div class="news-actions">
+      <a class="button primary" href="/news/landing-coin-poloniex-listing.html">Read the news →</a>
+      <a class="button secondary" href="/news/">All news</a>
+    </div>
+  </div>
+</section>
 <section id="video-manifesto"><h2 class="section-title">Watch the script break.</h2><video class="manifesto-video" controls playsinline preload="metadata" aria-label="LANDING Coin manifesto video"><source src="media/landing-manifesto.mp4" type="video/mp4">Your browser does not support the video element.</video></section>
 <section id="story"><h2 class="section-title">Our story.</h2><p class="section-intro">Every serious crypto project needs an origin story. Ours is refreshingly less impressive.</p><div class="two"><article class="card"><div class="icon">🪂</div><h3 class="accent">We had nothing to do.<br>So we made a coin.</h3><p class="quote">No problem to solve. No industry to disrupt. No invented utility story explaining why humanity needed another token.</p><p>Landing Coin started with an idea, some curiosity, too much free time and the observation that apparently every crypto project wants to go to the moon.</p><p>So we decided to go in the opposite direction.</p><p>Down.</p><p>Preferably with a parachute.</p></article><article class="card" id="mission"><div class="icon">🎯</div><h3>A mission without the <span class="accent">moon speech.</span></h3><p class="quote">Landing Coin intends to support future experiments and projects connected to the blockchain world.</p><p>Part of the project's resources may be used over time to explore ideas, prototypes, tools and initiatives we believe are worth building.</p><p>That does not mean guaranteed funding, guaranteed projects or guaranteed outcomes.</p><p>We prefer experiments over promises.</p></article></div></section>
 <section id="why-landing"><h2 class="section-title">Why LANDING exists.</h2><p class="section-intro">Because memecoins do not need to pretend they already know where they are going.</p><div class="why-thesis"><span>Same risk. Different attitude.</span><br>LANDING is an experiment in whether a memecoin can grow without manufactured hype, fictional utility or promises about its future.</div><div class="two"><article class="card"><div class="icon">🎲</div><h3>No promises <span class="accent">built in.</span></h3><p>No guaranteed destination. No predicted returns. No imaginary future presented as fact.</p><p>LANDING is an experimental memecoin project. It may grow, change direction or fail entirely. We would rather document what actually happens than manufacture certainty about what comes next.</p></article><article class="card"><div class="icon">🛬</div><h3>If it grows, it has to <span class="accent">earn it.</span></h3><p>No fake volume. No manufactured community. No pretending success happened before it did.</p><p>If LANDING becomes something, the people who followed the experiment from its early stages will have seen that development happen in public.</p></article></div></section>
@@ -207,7 +228,7 @@ footer strong { color: #aeb6c5; }
 <section id="philosophy"><h2 class="section-title">Philosophy.</h2><p class="section-intro">LANDING is not trying to make memecoins look serious. It is trying to make them more honest.</p><div class="two"><article class="card warning"><div class="icon">🚫</div><h3>What LANDING is not.</h3><p>It is not a promise of profit.</p><p>It does not guarantee any financial outcome.</p><p>It does not have a magical algorithm, secret AI technology or a revolutionary roadmap to Mars.</p><p>If someone promises guaranteed returns using LANDING, that person is not speaking for the project.</p></article><article class="card"><div class="icon">🌴</div><h3>What LANDING <span class="accent">is.</span></h3><p>A memecoin.</p><p>An experiment.</p><p>An attempt to see whether honesty can build a memecoin community too.</p><p>A project that would rather earn attention than manufacture the appearance of success.</p><p>And perhaps, eventually, a way to help fund other interesting blockchain experiments.</p></article></div></section>
 <section class="manifesto"><h2>NO MOON.<br>NO PROMISES.<br><span class="gradient">JUST LANDING.</span></h2><p>Maybe the most revolutionary thing a crypto project can do is stop pretending everything is revolutionary.</p></section>
 </main>
-<footer><div><strong>Landing Coin — $LANDING</strong><br>Solana Mainnet<br><a href="https://x.com/LandingCoinFun" target="_blank" rel="noopener">@LandingCoinFun on X</a><br><a href="https://t.me/LandingCoinCommunity" target="_blank" rel="noopener">Telegram Community</a><br><a href="https://www.reddit.com/r/LandingCoin/" target="_blank" rel="noopener">Reddit Community</a><br><a href="mailto:contact@landingcoin.fun">contact@landingcoin.fun</a><br><a href="https://bitcointalk.org/index.php?topic=5591610.0" target="_blank" rel="noopener">Bitcointalk ANN</a><br><a href="/why-landing-doesnt-promise-the-moon.html">Why Landing Doesn't Promise the Moon</a><br><a href="/flight-plan.html">Flight Plan</a><br><a href="/transparency.html">Transparency Dashboard</a><br><a href="/media-kit.html">Media Kit</a><br><a href="/team.html">Team</a></div><div>© 2026 Landing Coin.<br>Gravity still works.</div></footer>
+<footer><div><strong>Landing Coin — $LANDING</strong><br>Solana Mainnet<br><a href="https://x.com/LandingCoinFun" target="_blank" rel="noopener">@LandingCoinFun on X</a><br><a href="https://t.me/LandingCoinCommunity" target="_blank" rel="noopener">Telegram Community</a><br><a href="https://www.reddit.com/r/LandingCoin/" target="_blank" rel="noopener">Reddit Community</a><br><a href="mailto:contact@landingcoin.fun">contact@landingcoin.fun</a><br><a href="https://bitcointalk.org/index.php?topic=5591610.0" target="_blank" rel="noopener">Bitcointalk ANN</a><br><a href="/why-landing-doesnt-promise-the-moon.html">Why Landing Doesn't Promise the Moon</a><br><a href="/flight-plan.html">Flight Plan</a><br><a href="/news/">News</a><br><a href="/transparency.html">Transparency Dashboard</a><br><a href="/media-kit.html">Media Kit</a><br><a href="/team.html">Team</a></div><div>© 2026 Landing Coin.<br>Gravity still works.</div></footer>
 </div>
 <script>
 (() => {
