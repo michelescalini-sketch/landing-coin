@@ -1,0 +1,907 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The LANDING Wall | Landing Coin</title>
+<meta name="description" content="Leave a public mark on the LANDING Wall. One post-it costs 5,000 LANDING and is recorded with the payment on Solana.">
+<link rel="canonical" href="https://landingcoin.fun/wall.html">
+<link rel="icon" type="image/jpeg" href="/landing-logo.jpg">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://landingcoin.fun/wall.html">
+<meta property="og:title" content="The LANDING Wall">
+<meta property="og:description" content="5,000 LANDING. One message. One mark left behind.">
+<meta property="og:image" content="https://landingcoin.fun/landing-social.jpg">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The LANDING Wall">
+<meta name="twitter:description" content="5,000 LANDING. One message. One mark left behind.">
+<meta name="twitter:image" content="https://landingcoin.fun/landing-social.jpg">
+
+<style>
+:root{
+  --bg:#070913;
+  --panel:#0f1422;
+  --line:rgba(255,255,255,.11);
+  --text:#f7f4ec;
+  --muted:#aab3c3;
+  --teal:#34e3c1;
+  --violet:#9f72ff;
+  --yellow:#f4dfa0;
+  --pink:#f2becb;
+  --blue:#b8d9ee;
+  --green:#bee0c1;
+  --max:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  min-height:100vh;
+  color:var(--text);
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:
+    radial-gradient(circle at 12% 0%,rgba(52,227,193,.12),transparent 28%),
+    radial-gradient(circle at 90% 12%,rgba(159,114,255,.14),transparent 31%),
+    var(--bg);
+}
+a{color:inherit;text-decoration:none}
+button,textarea{font:inherit}
+.wrapper{width:min(var(--max),calc(100% - 40px));margin:0 auto}
+nav{
+  min-height:86px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  border-bottom:1px solid var(--line);
+}
+.brand{display:flex;align-items:center;gap:13px;font-weight:900;letter-spacing:-.02em;font-size:1.2rem}
+.brand img{width:50px;height:50px;border-radius:50%;object-fit:cover;box-shadow:0 0 30px rgba(92,80,255,.28)}
+.brand span{background:linear-gradient(90deg,var(--teal),#4da4ff,var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+.nav-right{display:flex;align-items:center;gap:16px;color:#c4cad5;font-size:.88rem}
+.nav-right a:hover{color:#fff}
+.hero{
+  padding:88px 0 56px;
+  text-align:center;
+}
+.eyebrow{
+  display:inline-block;
+  padding:8px 14px;
+  border:1px solid rgba(52,227,193,.34);
+  border-radius:999px;
+  color:var(--teal);
+  font-size:.75rem;
+  font-weight:900;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+h1{
+  margin:24px 0 0;
+  font-size:clamp(3.8rem,9vw,8rem);
+  line-height:.88;
+  letter-spacing:-.065em;
+}
+.gradient{
+  background:linear-gradient(90deg,var(--teal),#4da4ff,var(--violet));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.hero-copy{
+  max-width:700px;
+  margin:28px auto 0;
+  color:var(--muted);
+  font-size:clamp(1.05rem,2vw,1.25rem);
+  line-height:1.7;
+}
+.price-line{
+  margin:26px auto 0;
+  font-weight:900;
+  font-size:clamp(1.2rem,2.4vw,1.55rem);
+}
+.price-line strong{color:var(--teal)}
+.composer-wrap{
+  display:grid;
+  grid-template-columns:minmax(0,430px) 1fr;
+  gap:34px;
+  align-items:center;
+  padding:34px;
+  margin:12px 0 70px;
+  border:1px solid var(--line);
+  border-radius:30px;
+  background:linear-gradient(145deg,rgba(18,25,42,.86),rgba(7,10,18,.88));
+  box-shadow:0 35px 90px rgba(0,0,0,.28);
+}
+.composer-copy h2{
+  margin:0 0 12px;
+  font-size:clamp(2rem,4vw,3.3rem);
+  letter-spacing:-.05em;
+}
+.composer-copy p{margin:0;color:var(--muted);line-height:1.7}
+.rules{margin-top:18px;color:#c8d0dc;font-size:.88rem;line-height:1.65}
+.rules strong{color:#fff}
+.compose-card{
+  position:relative;
+  max-width:520px;
+  width:100%;
+  margin:0 auto;
+  padding:28px;
+  min-height:300px;
+  color:#29271f;
+  background:var(--yellow);
+  box-shadow:0 25px 55px rgba(0,0,0,.35);
+  transform:rotate(-1deg);
+}
+.compose-card::before,.sticky::before{
+  content:"";
+  position:absolute;
+  width:52px;
+  height:14px;
+  top:-8px;
+  left:50%;
+  transform:translateX(-50%) rotate(-2deg);
+  background:rgba(238,232,209,.62);
+  border:1px solid rgba(90,80,50,.10);
+}
+.compose-label{
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:14px;
+  color:rgba(41,39,31,.65);
+  font-size:.72rem;
+  font-weight:900;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+textarea{
+  width:100%;
+  height:140px;
+  resize:none;
+  border:0;
+  border-bottom:1px solid rgba(41,39,31,.17);
+  outline:0;
+  background:transparent;
+  color:#29271f;
+  font-size:1.2rem;
+  line-height:1.45;
+}
+textarea::placeholder{color:rgba(41,39,31,.42)}
+.leave-button{
+  width:100%;
+  margin-top:20px;
+  padding:14px 18px;
+  border:0;
+  border-radius:999px;
+  background:#151823;
+  color:#fff;
+  font-weight:900;
+  cursor:pointer;
+}
+.leave-button:hover{filter:brightness(1.12)}
+.leave-button:disabled{opacity:.55;cursor:wait}
+.status{
+  min-height:1.5em;
+  margin:14px 0 0;
+  color:rgba(41,39,31,.68);
+  font-size:.82rem;
+  line-height:1.45;
+}
+.status[data-state="error"]{color:#8b1f2b;font-weight:700}
+.status[data-state="success"]{color:#13644f;font-weight:700}
+.wall-section{padding:0 0 90px}
+.wall-head{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:22px;
+  margin-bottom:24px;
+}
+.wall-head h2{margin:0;font-size:clamp(2.3rem,5vw,4rem);letter-spacing:-.055em}
+.wall-head p{margin:0;color:var(--muted)}
+.wall{
+  position:relative;
+  min-height:520px;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:28px 24px;
+  align-items:start;
+  padding:52px 34px;
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:32px;
+  overflow:hidden;
+  background:
+    linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px),
+    radial-gradient(circle at 50% 0%,rgba(255,255,255,.04),transparent 45%),
+    #12131a;
+  background-size:42px 42px,42px 42px,auto,auto;
+  box-shadow:inset 0 0 90px rgba(0,0,0,.34),0 30px 80px rgba(0,0,0,.24);
+}
+.sticky{
+  position:relative;
+  min-height:205px;
+  padding:24px 21px 19px;
+  color:#29271f;
+  background:var(--note,var(--yellow));
+  transform:rotate(var(--rot,0deg));
+  box-shadow:0 14px 28px rgba(0,0,0,.28);
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.sticky:hover{
+  z-index:2;
+  transform:rotate(0deg) translateY(-4px) scale(1.025);
+  box-shadow:0 20px 38px rgba(0,0,0,.34);
+}
+.sticky p{
+  margin:12px 0 20px;
+  font-size:1.03rem;
+  line-height:1.5;
+  overflow-wrap:anywhere;
+}
+.sticky-meta{
+  margin-top:auto;
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  color:rgba(41,39,31,.58);
+  font-size:.68rem;
+  font-weight:800;
+  letter-spacing:.025em;
+}
+.sticky-tag{
+  color:rgba(41,39,31,.55);
+  font-size:.66rem;
+  font-weight:950;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.wall-empty,.wall-loading{
+  grid-column:1/-1;
+  align-self:center;
+  justify-self:center;
+  max-width:520px;
+  padding:50px 20px;
+  text-align:center;
+  color:#9aa3b5;
+  line-height:1.65;
+}
+.wall-actions{text-align:center;margin-top:26px}
+.more-button{
+  padding:13px 22px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:rgba(255,255,255,.04);
+  color:#fff;
+  font-weight:800;
+  cursor:pointer;
+}
+.more-button:hover{background:rgba(255,255,255,.08)}
+.more-button:disabled{opacity:.5;cursor:wait}
+.chain-note{
+  max-width:760px;
+  margin:24px auto 0;
+  color:var(--muted);
+  text-align:center;
+  font-size:.82rem;
+  line-height:1.65;
+}
+footer{
+  padding:30px 0 46px;
+  border-top:1px solid var(--line);
+  color:#7d8798;
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  font-size:.8rem;
+}
+@media(max-width:940px){
+  .composer-wrap{grid-template-columns:1fr}
+  .wall{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:720px){
+  .wrapper{width:min(100% - 26px,var(--max))}
+  nav{min-height:76px}
+  .brand img{width:42px;height:42px}
+  .nav-right .hide-mobile{display:none}
+  .hero{padding-top:62px}
+  .composer-wrap{padding:22px}
+  .wall{grid-template-columns:repeat(2,minmax(0,1fr));padding:42px 20px}
+  .wall-head{align-items:start;flex-direction:column}
+  footer{flex-direction:column}
+}
+@media(max-width:470px){
+  .wall{grid-template-columns:1fr;gap:24px}
+  .sticky{min-height:185px}
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <nav>
+    <a href="/" class="brand"><img src="/landing-logo.jpg" alt="Landing Coin logo">LANDING <span>COIN</span></a>
+    <div class="nav-right">
+      <a class="hide-mobile" href="/lander.html">Be a Lander</a>
+      <a href="/">← Home</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <span class="eyebrow">A PUBLIC MARK ON SOLANA</span>
+      <h1>THE LANDING<br><span class="gradient">WALL</span></h1>
+      <p class="hero-copy">A wall of digital post-its left by people who passed through LANDING. Write something short, pay in LANDING, and leave your mark behind.</p>
+      <p class="price-line"><strong>5,000 LANDING.</strong> One post-it.</p>
+    </section>
+
+    <section class="composer-wrap" aria-labelledby="leave-title">
+      <div class="composer-copy">
+        <h2 id="leave-title">Leave your mark.</h2>
+        <p>The payment and your message are placed in the same Solana transaction. Once confirmed, the mark can be reconstructed from the public chain history.</p>
+        <div class="rules">
+          <strong>140 characters max.</strong><br>
+          Text only. No links. One payment creates one Mark.<br>
+          A small amount of SOL is also required for the network fee.
+        </div>
+      </div>
+
+      <div class="compose-card">
+        <div class="compose-label"><span>YOUR POST-IT</span><span id="char-count">0 / 140</span></div>
+        <textarea id="mark-message" maxlength="140" placeholder="What do you want to leave behind?" aria-label="Your LANDING Wall message"></textarea>
+        <button class="leave-button" id="leave-mark" type="button">Leave a Mark — 5,000 LANDING</button>
+        <p class="status" id="mark-status" role="status" aria-live="polite">Connect a Solana wallet when you are ready to sign.</p>
+      </div>
+    </section>
+
+    <section class="wall-section" aria-labelledby="wall-title">
+      <div class="wall-head">
+        <div><h2 id="wall-title">Marks left behind.</h2></div>
+        <p id="wall-count">Reading the wall…</p>
+      </div>
+
+      <div class="wall" id="wall">
+        <div class="wall-loading">Reading LANDING Wall transactions from Solana…</div>
+      </div>
+
+      <div class="wall-actions">
+        <button class="more-button" id="load-more" type="button" hidden>Load older marks</button>
+      </div>
+
+      <p class="chain-note">Marks are public. A Mark may be hidden from this page if it contains links, abuse or illegal content, but an on-chain transaction itself cannot be deleted.</p>
+    </section>
+  </main>
+
+  <footer>
+    <div>Landing Coin (LANDING) · Solana Mainnet</div>
+    <div>Memecoins are speculative and involve risk.</div>
+  </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.98.4/lib/index.iife.min.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  const LANDING_MINT = new solanaWeb3.PublicKey('DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ');
+  const RECIPIENT_OWNER = new solanaWeb3.PublicKey('F7Pio8v6YLwXbwRgQAH8Q7cMqsdaUX3mJeyFyTZbvhhT');
+  const TOKEN_PROGRAM_ID = new solanaWeb3.PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
+  const ASSOCIATED_TOKEN_PROGRAM_ID = new solanaWeb3.PublicKey('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL');
+  const MEMO_PROGRAM_ID = new solanaWeb3.PublicKey('MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr');
+  const MARK_PRICE_RAW = 5000000000n;
+  const TOKEN_DECIMALS = 6;
+  const MEMO_PREFIX = 'LANDING-WALL:v1:';
+  const PAGE_SIZE = 25;
+  const RPC_ENDPOINTS = [
+    'https://solana-rpc.publicnode.com',
+    'https://api.mainnet-beta.solana.com'
+  ];
+
+  // Add a transaction signature here if a Mark ever needs to be hidden from the website.
+  const HIDDEN_SIGNATURES = new Set([]);
+
+  const messageInput = document.getElementById('mark-message');
+  const charCount = document.getElementById('char-count');
+  const leaveButton = document.getElementById('leave-mark');
+  const markStatus = document.getElementById('mark-status');
+  const wall = document.getElementById('wall');
+  const wallCount = document.getElementById('wall-count');
+  const loadMoreButton = document.getElementById('load-more');
+
+  let connection = null;
+  let recipientAta = null;
+  let beforeSignature = null;
+  let marksShown = 0;
+  let loading = false;
+
+  function setStatus(message, state) {
+    markStatus.textContent = message;
+    markStatus.dataset.state = state || 'idle';
+  }
+
+  function normalizeMessage(value) {
+    return String(value || '')
+      .replace(/[\u0000-\u001f\u007f]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .slice(0, 140);
+  }
+
+  function containsLink(value) {
+    return /(?:https?:\/\/|www\.|t\.me\/|discord\.gg\/)/i.test(value);
+  }
+
+  function shortenWallet(value) {
+    if (!value || value.length < 12) return value || 'unknown';
+    return value.slice(0, 4) + '…' + value.slice(-4);
+  }
+
+  function formatDate(unixSeconds) {
+    if (!unixSeconds) return 'Solana';
+    return new Intl.DateTimeFormat('en', {
+      year: 'numeric',
+      month: 'short',
+      day: '2-digit'
+    }).format(new Date(unixSeconds * 1000));
+  }
+
+  function associatedTokenAddress(owner) {
+    return solanaWeb3.PublicKey.findProgramAddressSync(
+      [owner.toBuffer(), TOKEN_PROGRAM_ID.toBuffer(), LANDING_MINT.toBuffer()],
+      ASSOCIATED_TOKEN_PROGRAM_ID
+    )[0];
+  }
+
+  async function selectConnection() {
+    if (connection) return connection;
+
+    for (const endpoint of RPC_ENDPOINTS) {
+      try {
+        const candidate = new solanaWeb3.Connection(endpoint, 'confirmed');
+        await candidate.getLatestBlockhash('confirmed');
+        connection = candidate;
+        return connection;
+      } catch (error) {
+        console.warn('LANDING Wall RPC unavailable:', endpoint, error);
+      }
+    }
+
+    throw new Error('Solana is temporarily unavailable. Please try again later.');
+  }
+
+  function provider() {
+    return (window.phantom && window.phantom.solana) || window.solana || null;
+  }
+
+  function encodeTransferChecked(amount, decimals) {
+    const data = new Uint8Array(10);
+    data[0] = 12;
+    let value = BigInt(amount);
+
+    for (let index = 0; index < 8; index += 1) {
+      data[1 + index] = Number(value & 255n);
+      value >>= 8n;
+    }
+
+    data[9] = decimals;
+    return data;
+  }
+
+  function createAtaInstruction(payer, ata) {
+    return new solanaWeb3.TransactionInstruction({
+      programId: ASSOCIATED_TOKEN_PROGRAM_ID,
+      keys: [
+        { pubkey: payer, isSigner: true, isWritable: true },
+        { pubkey: ata, isSigner: false, isWritable: true },
+        { pubkey: RECIPIENT_OWNER, isSigner: false, isWritable: false },
+        { pubkey: LANDING_MINT, isSigner: false, isWritable: false },
+        { pubkey: solanaWeb3.SystemProgram.programId, isSigner: false, isWritable: false },
+        { pubkey: TOKEN_PROGRAM_ID, isSigner: false, isWritable: false }
+      ],
+      data: new Uint8Array(0)
+    });
+  }
+
+  function createTransferInstruction(source, destination, owner) {
+    return new solanaWeb3.TransactionInstruction({
+      programId: TOKEN_PROGRAM_ID,
+      keys: [
+        { pubkey: source, isSigner: false, isWritable: true },
+        { pubkey: LANDING_MINT, isSigner: false, isWritable: false },
+        { pubkey: destination, isSigner: false, isWritable: true },
+        { pubkey: owner, isSigner: true, isWritable: false }
+      ],
+      data: encodeTransferChecked(MARK_PRICE_RAW, TOKEN_DECIMALS)
+    });
+  }
+
+  function createMemoInstruction(message, signer) {
+    return new solanaWeb3.TransactionInstruction({
+      programId: MEMO_PROGRAM_ID,
+      keys: [{ pubkey: signer, isSigner: true, isWritable: false }],
+      data: new TextEncoder().encode(MEMO_PREFIX + message)
+    });
+  }
+
+  async function findSourceAccount(conn, wallet) {
+    const result = await conn.getParsedTokenAccountsByOwner(
+      wallet,
+      { mint: LANDING_MINT },
+      'confirmed'
+    );
+
+    let best = null;
+
+    for (const item of result.value) {
+      const info = item.account && item.account.data && item.account.data.parsed
+        ? item.account.data.parsed.info
+        : null;
+      const amount = info && info.tokenAmount && typeof info.tokenAmount.amount === 'string'
+        ? BigInt(info.tokenAmount.amount)
+        : 0n;
+
+      if (amount >= MARK_PRICE_RAW && (!best || amount > best.amount)) {
+        best = { pubkey: item.pubkey, amount: amount };
+      }
+    }
+
+    if (!best) throw new Error('This wallet does not have 5,000 LANDING available.');
+    return best.pubkey;
+  }
+
+  async function leaveMark() {
+    const message = normalizeMessage(messageInput.value);
+
+    if (!message) {
+      setStatus('Write something on the post-it first.', 'error');
+      messageInput.focus();
+      return;
+    }
+
+    if (containsLink(message)) {
+      setStatus('The LANDING Wall is text-only. Links are not accepted.', 'error');
+      return;
+    }
+
+    const walletProvider = provider();
+    if (!walletProvider || typeof walletProvider.connect !== 'function') {
+      setStatus('Open this page in a Solana wallet browser or install a compatible wallet such as Phantom.', 'error');
+      return;
+    }
+
+    leaveButton.disabled = true;
+
+    try {
+      setStatus('Connecting wallet…');
+      const connected = await walletProvider.connect();
+      const payer = connected && connected.publicKey
+        ? connected.publicKey
+        : walletProvider.publicKey;
+
+      if (!payer) throw new Error('The wallet did not return a public key.');
+      if (payer.toBase58() === RECIPIENT_OWNER.toBase58()) {
+        throw new Error('The receiving wallet cannot create a paid Mark for itself.');
+      }
+
+      const conn = await selectConnection();
+      const source = await findSourceAccount(conn, payer);
+      const destination = associatedTokenAddress(RECIPIENT_OWNER);
+
+      setStatus('Preparing the 5,000 LANDING transaction…');
+
+      const transaction = new solanaWeb3.Transaction();
+      const destinationInfo = await conn.getAccountInfo(destination, 'confirmed');
+
+      if (!destinationInfo) {
+        transaction.add(createAtaInstruction(payer, destination));
+      }
+
+      transaction.add(createTransferInstruction(source, destination, payer));
+      transaction.add(createMemoInstruction(message, payer));
+
+      const latest = await conn.getLatestBlockhash('confirmed');
+      transaction.recentBlockhash = latest.blockhash;
+      transaction.feePayer = payer;
+
+      setStatus('Check the transaction in your wallet. The message will be public once signed.');
+
+      let signature;
+      if (typeof walletProvider.signAndSendTransaction === 'function') {
+        const result = await walletProvider.signAndSendTransaction(transaction);
+        signature = typeof result === 'string' ? result : result && result.signature;
+      } else if (typeof walletProvider.signTransaction === 'function') {
+        const signed = await walletProvider.signTransaction(transaction);
+        signature = await conn.sendRawTransaction(signed.serialize());
+      } else {
+        throw new Error('This wallet cannot sign Solana transactions from the browser.');
+      }
+
+      if (!signature) throw new Error('The wallet did not return a transaction signature.');
+
+      setStatus('Transaction sent. Waiting for final confirmation…');
+      const confirmation = await conn.confirmTransaction({
+        signature: signature,
+        blockhash: latest.blockhash,
+        lastValidBlockHeight: latest.lastValidBlockHeight
+      }, 'finalized');
+
+      if (confirmation.value && confirmation.value.err) {
+        throw new Error('The transaction failed on-chain.');
+      }
+
+      messageInput.value = '';
+      charCount.textContent = '0 / 140';
+      setStatus('Mark confirmed. It is now part of the LANDING Wall.', 'success');
+
+      await new Promise(function (resolve) { window.setTimeout(resolve, 1200); });
+      await loadNewest();
+    } catch (error) {
+      console.error('Unable to leave LANDING Wall Mark:', error);
+      setStatus(error instanceof Error ? error.message : 'Unable to create the Mark. Please try again.', 'error');
+    } finally {
+      leaveButton.disabled = false;
+    }
+  }
+
+  const BASE58_ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+
+  function base58Decode(value) {
+    if (!value) return new Uint8Array(0);
+    const bytes = [0];
+
+    for (let i = 0; i < value.length; i += 1) {
+      const digit = BASE58_ALPHABET.indexOf(value[i]);
+      if (digit < 0) return new Uint8Array(0);
+
+      let carry = digit;
+      for (let j = 0; j < bytes.length; j += 1) {
+        carry += bytes[j] * 58;
+        bytes[j] = carry & 255;
+        carry >>= 8;
+      }
+
+      while (carry > 0) {
+        bytes.push(carry & 255);
+        carry >>= 8;
+      }
+    }
+
+    for (let i = 0; i < value.length - 1 && value[i] === '1'; i += 1) {
+      bytes.push(0);
+    }
+
+    return Uint8Array.from(bytes.reverse());
+  }
+
+  function extractMemo(transaction) {
+    const instructions = transaction && transaction.transaction && transaction.transaction.message
+      ? transaction.transaction.message.instructions || []
+      : [];
+
+    for (const instruction of instructions) {
+      if (instruction && instruction.program === 'spl-memo' && typeof instruction.parsed === 'string') {
+        if (instruction.parsed.indexOf(MEMO_PREFIX) === 0) return instruction.parsed.slice(MEMO_PREFIX.length);
+      }
+
+      const programId = instruction && instruction.programId && typeof instruction.programId.toBase58 === 'function'
+        ? instruction.programId.toBase58()
+        : '';
+
+      if (programId === MEMO_PROGRAM_ID.toBase58() && typeof instruction.data === 'string') {
+        try {
+          const decoded = new TextDecoder().decode(base58Decode(instruction.data));
+          if (decoded.indexOf(MEMO_PREFIX) === 0) return decoded.slice(MEMO_PREFIX.length);
+        } catch (error) {
+          console.warn('Unable to decode memo:', error);
+        }
+      }
+    }
+
+    return '';
+  }
+
+  function tokenOwnerDeltas(meta) {
+    const byIndex = new Map();
+    const deltas = new Map();
+    const pre = meta && Array.isArray(meta.preTokenBalances) ? meta.preTokenBalances : [];
+    const post = meta && Array.isArray(meta.postTokenBalances) ? meta.postTokenBalances : [];
+
+    pre.forEach(function (item) {
+      if (item.mint !== LANDING_MINT.toBase58()) return;
+      byIndex.set(item.accountIndex, {
+        pre: BigInt(item.uiTokenAmount && item.uiTokenAmount.amount ? item.uiTokenAmount.amount : '0'),
+        post: 0n,
+        owner: item.owner || ''
+      });
+    });
+
+    post.forEach(function (item) {
+      if (item.mint !== LANDING_MINT.toBase58()) return;
+      const row = byIndex.get(item.accountIndex) || { pre: 0n, post: 0n, owner: item.owner || '' };
+      row.post = BigInt(item.uiTokenAmount && item.uiTokenAmount.amount ? item.uiTokenAmount.amount : '0');
+      if (item.owner) row.owner = item.owner;
+      byIndex.set(item.accountIndex, row);
+    });
+
+    byIndex.forEach(function (row) {
+      if (!row.owner) return;
+      deltas.set(row.owner, (deltas.get(row.owner) || 0n) + (row.post - row.pre));
+    });
+
+    return deltas;
+  }
+
+  function markFromTransaction(signatureInfo, transaction) {
+    if (!transaction || !transaction.meta || transaction.meta.err) return null;
+    if (HIDDEN_SIGNATURES.has(signatureInfo.signature)) return null;
+
+    const message = normalizeMessage(extractMemo(transaction));
+    if (!message || containsLink(message)) return null;
+
+    const deltas = tokenOwnerDeltas(transaction.meta);
+    const received = deltas.get(RECIPIENT_OWNER.toBase58()) || 0n;
+    if (received < MARK_PRICE_RAW) return null;
+
+    let payer = '';
+    let payerDelta = 0n;
+    deltas.forEach(function (delta, owner) {
+      if (delta < payerDelta) {
+        payer = owner;
+        payerDelta = delta;
+      }
+    });
+
+    if (!payer || -payerDelta < MARK_PRICE_RAW) return null;
+
+    return {
+      signature: signatureInfo.signature,
+      message: message,
+      wallet: payer,
+      blockTime: transaction.blockTime || signatureInfo.blockTime || null
+    };
+  }
+
+  function styleForSignature(signature) {
+    let hash = 0;
+    for (let i = 0; i < signature.length; i += 1) {
+      hash = ((hash << 5) - hash + signature.charCodeAt(i)) | 0;
+    }
+
+    const colors = ['var(--yellow)', 'var(--pink)', 'var(--blue)', 'var(--green)'];
+    const color = colors[Math.abs(hash) % colors.length];
+    const rotation = ((Math.abs(hash >> 3) % 9) - 4) * 0.55;
+
+    return { color: color, rotation: rotation };
+  }
+
+  function renderMark(mark, prepend) {
+    const style = styleForSignature(mark.signature);
+    const note = document.createElement('article');
+    note.className = 'sticky';
+    note.style.setProperty('--note', style.color);
+    note.style.setProperty('--rot', style.rotation + 'deg');
+
+    const tag = document.createElement('div');
+    tag.className = 'sticky-tag';
+    tag.textContent = 'LANDING MARK';
+
+    const copy = document.createElement('p');
+    copy.textContent = mark.message;
+
+    const meta = document.createElement('div');
+    meta.className = 'sticky-meta';
+
+    const wallet = document.createElement('span');
+    wallet.textContent = shortenWallet(mark.wallet);
+
+    const date = document.createElement('span');
+    date.textContent = formatDate(mark.blockTime);
+
+    meta.appendChild(wallet);
+    meta.appendChild(date);
+    note.appendChild(tag);
+    note.appendChild(copy);
+    note.appendChild(meta);
+
+    if (prepend && wall.firstChild) wall.insertBefore(note, wall.firstChild);
+    else wall.appendChild(note);
+  }
+
+  async function fetchTransactionsInChunks(conn, signatures) {
+    const transactions = [];
+
+    for (let start = 0; start < signatures.length; start += 10) {
+      const chunk = signatures.slice(start, start + 10);
+      const result = await conn.getParsedTransactions(chunk, {
+        commitment: 'confirmed',
+        maxSupportedTransactionVersion: 0
+      });
+      transactions.push.apply(transactions, result);
+    }
+
+    return transactions;
+  }
+
+  async function loadPage(reset) {
+    if (loading) return;
+    loading = true;
+    loadMoreButton.disabled = true;
+
+    try {
+      const conn = await selectConnection();
+      recipientAta = recipientAta || associatedTokenAddress(RECIPIENT_OWNER);
+
+      const options = { limit: PAGE_SIZE };
+      if (!reset && beforeSignature) options.before = beforeSignature;
+
+      const signatures = await conn.getSignaturesForAddress(recipientAta, options, 'confirmed');
+
+      if (reset) {
+        wall.innerHTML = '';
+        marksShown = 0;
+        beforeSignature = null;
+      }
+
+      if (!signatures.length) {
+        if (!marksShown) {
+          wall.innerHTML = '<div class="wall-empty">No Marks yet. The first post-it is still waiting for someone to leave it.</div>';
+        }
+        loadMoreButton.hidden = true;
+        wallCount.textContent = marksShown ? marksShown + ' Mark' + (marksShown === 1 ? '' : 's') + ' loaded' : 'No Marks yet';
+        return;
+      }
+
+      const transactions = await fetchTransactionsInChunks(
+        conn,
+        signatures.map(function (item) { return item.signature; })
+      );
+
+      const marks = [];
+      for (let index = 0; index < signatures.length; index += 1) {
+        const mark = markFromTransaction(signatures[index], transactions[index]);
+        if (mark) marks.push(mark);
+      }
+
+      marks.forEach(function (mark) {
+        renderMark(mark, false);
+        marksShown += 1;
+      });
+
+      beforeSignature = signatures[signatures.length - 1].signature;
+      loadMoreButton.hidden = signatures.length < PAGE_SIZE;
+      wallCount.textContent = marksShown + ' Mark' + (marksShown === 1 ? '' : 's') + ' loaded';
+
+      if (!marksShown) {
+        wall.innerHTML = '<div class="wall-empty">No Marks yet. The first post-it is still waiting for someone to leave it.</div>';
+      }
+    } catch (error) {
+      console.error('Unable to read LANDING Wall:', error);
+      if (!marksShown) {
+        wall.innerHTML = '<div class="wall-empty">The Wall could not be read from Solana right now. Try again in a moment.</div>';
+      }
+      wallCount.textContent = 'Solana temporarily unavailable';
+      loadMoreButton.hidden = true;
+    } finally {
+      loading = false;
+      loadMoreButton.disabled = false;
+    }
+  }
+
+  async function loadNewest() {
+    await loadPage(true);
+  }
+
+  messageInput.addEventListener('input', function () {
+    const normalizedLength = messageInput.value.length;
+    charCount.textContent = normalizedLength + ' / 140';
+  });
+
+  leaveButton.addEventListener('click', leaveMark);
+  loadMoreButton.addEventListener('click', function () { loadPage(false); });
+
+  loadNewest();
+})();
+</script>
+</body>
+</html>
