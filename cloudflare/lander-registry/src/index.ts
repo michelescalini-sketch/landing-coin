@@ -10,6 +10,10 @@ const ORCA_POOL = "GyCQYByuUEMEWErDX6xFSpKC3stsfXJRDsFy4fQb1prq";
 const ORCA_SOL_VAULT = "9ke7GbPNwyK5Pb8gYN4Yob5sVvvX3yQXKT2AD1FkH5ZS";
 const ORCA_LANDING_VAULT = "Dbuvyfmnf66cdZ5AwmQwDMFwbFGshEnxKyFHnoY9P6kN";
 const GECKOTERMINAL_POOL_API = `https://api.geckoterminal.com/api/v2/networks/solana/pools/${ORCA_POOL}`;
+const WALL_RECIPIENT_OWNER = "F7Pio8v6YLwXbwRgQAH8Q7cMqsdaUX3mJeyFyTZbvhhT";
+const WALL_PRICE_RAW = 5_000_000_000n;
+const WALL_MEMO_PREFIX = "LANDING-WALL:v1:";
+const WALL_HIDDEN_SIGNATURES = new Set<string>([]);
 
 const PROJECT_WALLETS = new Set([
   "CBPwvUZrDQThyM6a54shKPpywvpTyYQQ2Ng7FWPZPM88",
@@ -283,6 +287,193 @@ async function fetchMarketState(): Promise<JsonRecord | null> {
     return null;
   }
 }
+
+function isSolanaAddress(value: string): boolean {
+  return /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(value);
+}
+function wallNormalizeMessage(value: string): string {
+  return value
+    .replace(/[\u0000-\u001f\u007f]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 140);
+}
+function wallContainsLink(value: string): boolean {
+  return /(?:https?:\/\/|www\.|t\.me\/|discord\.gg\/)/i.test(value);
+}
+async function wallTokenAccounts(owner: string): Promise<Array<{ pubkey: string; amount: bigint }>> {
+  const result = await solanaRpc("getTokenAccountsByOwner", [
+    owner,
+    { mint: LANDING_MINT },
+    { commitment: "confirmed", encoding: "jsonParsed" },
+  ]);
+  if (!isRecord(result) || !Array.isArray(result.value)) throw new Error("Invalid token account response");
+  const accounts: Array<{ pubkey: string; amount: bigint }> = [];
+  for (const entry of result.value) {
+    if (!isRecord(entry) || typeof entry.pubkey !== "string") continue;
+    const account = asRecord(entry.account);
+    const data = account ? asRecord(account.data) : null;
+    const parsed = data ? asRecord(data.parsed) : null;
+    const info = parsed ? asRecord(parsed.info) : null;
+    const tokenAmount = info ? asRecord(info.tokenAmount) : null;
+    const amount = tokenAmount && typeof tokenAmount.amount === "string" && /^\d+$/.test(tokenAmount.amount)
+      ? BigInt(tokenAmount.amount)
+      : 0n;
+    accounts.push({ pubkey: entry.pubkey, amount });
+  }
+  return accounts;
+}
+async function wallWalletState(request: Request, url: URL): Promise<Response> {
+  const wallet = (url.searchParams.get("wallet") ?? "").trim();
+  if (!isSolanaAddress(wallet)) return json(request, { status: "invalid", message: "Invalid Solana wallet." }, 400);
+  const accounts = await wallTokenAccounts(wallet);
+  let total = 0n;
+  let source: { pubkey: string; amount: bigint } | null = null;
+  for (const account of accounts) {
+    total += account.amount;
+    if (account.amount >= WALL_PRICE_RAW && (!source || account.amount > source.amount)) source = account;
+  }
+  return json(request, {
+    status: "ok",
+    wallet,
+    totalRaw: total.toString(),
+    sourceTokenAccount: source?.pubkey ?? null,
+    canMark: Boolean(source),
+    priceRaw: WALL_PRICE_RAW.toString(),
+  });
+}
+async function wallBlockhash(request: Request): Promise<Response> {
+  const result = await solanaRpc("getLatestBlockhash", [{ commitment: "confirmed" }]);
+  const root = asRecord(result);
+  const value = root ? asRecord(root.value) : null;
+  if (!value || typeof value.blockhash !== "string" || typeof value.lastValidBlockHeight !== "number") {
+    throw new Error("Invalid blockhash response");
+  }
+  return json(request, {
+    status: "ok",
+    blockhash: value.blockhash,
+    lastValidBlockHeight: value.lastValidBlockHeight,
+  });
+}
+async function wallSignatureStatus(request: Request, url: URL): Promise<Response> {
+  const signature = (url.searchParams.get("signature") ?? "").trim();
+  if (!/^[1-9A-HJ-NP-Za-km-z]{64,100}$/.test(signature)) {
+    return json(request, { status: "invalid", message: "Invalid Solana transaction signature." }, 400);
+  }
+  const result = await solanaRpc("getSignatureStatuses", [[signature], { searchTransactionHistory: true }]);
+  const root = asRecord(result);
+  const values = root && Array.isArray(root.value) ? root.value : null;
+  const current = values ? values[0] : null;
+  if (!isRecord(current)) return json(request, { status: "waiting" }, 202, { "Retry-After": "2" });
+  if (current.err) return json(request, { status: "invalid", message: "The transaction failed on-chain." }, 422);
+  if (current.confirmationStatus !== "finalized") {
+    return json(request, { status: "waiting" }, 202, { "Retry-After": "2" });
+  }
+  return json(request, { status: "confirmed", signature });
+}
+function wallMemo(transaction: SolanaTransaction): string {
+  const instructions = transaction.transaction?.message?.instructions ?? [];
+  for (const instruction of instructions) {
+    if (!isRecord(instruction)) continue;
+    if (instruction.program === "spl-memo" && typeof instruction.parsed === "string") {
+      const parsed = wallNormalizeMessage(instruction.parsed);
+      if (parsed.startsWith(WALL_MEMO_PREFIX)) return wallNormalizeMessage(parsed.slice(WALL_MEMO_PREFIX.length));
+    }
+  }
+  return "";
+}
+function wallOwnerDeltas(transaction: SolanaTransaction): Map<string, bigint> {
+  const preByIndex = new Map<number, { amount: bigint; owner: string }>();
+  const postByIndex = new Map<number, { amount: bigint; owner: string }>();
+  for (const item of transaction.meta?.preTokenBalances ?? []) {
+    if (item.mint !== LANDING_MINT || typeof item.accountIndex !== "number") continue;
+    const amount = typeof item.uiTokenAmount?.amount === "string" ? BigInt(item.uiTokenAmount.amount) : 0n;
+    preByIndex.set(item.accountIndex, { amount, owner: typeof item.owner === "string" ? item.owner : "" });
+  }
+  for (const item of transaction.meta?.postTokenBalances ?? []) {
+    if (item.mint !== LANDING_MINT || typeof item.accountIndex !== "number") continue;
+    const amount = typeof item.uiTokenAmount?.amount === "string" ? BigInt(item.uiTokenAmount.amount) : 0n;
+    postByIndex.set(item.accountIndex, { amount, owner: typeof item.owner === "string" ? item.owner : "" });
+  }
+  const indexes = new Set([...preByIndex.keys(), ...postByIndex.keys()]);
+  const deltas = new Map<string, bigint>();
+  for (const index of indexes) {
+    const pre = preByIndex.get(index) ?? { amount: 0n, owner: "" };
+    const post = postByIndex.get(index) ?? { amount: 0n, owner: "" };
+    const owner = post.owner || pre.owner;
+    if (!owner) continue;
+    deltas.set(owner, (deltas.get(owner) ?? 0n) + post.amount - pre.amount);
+  }
+  return deltas;
+}
+function wallMarkFromTransaction(signature: string, transaction: SolanaTransaction): JsonRecord | null {
+  if (transaction.meta?.err || WALL_HIDDEN_SIGNATURES.has(signature)) return null;
+  const message = wallMemo(transaction);
+  if (!message || wallContainsLink(message)) return null;
+  const deltas = wallOwnerDeltas(transaction);
+  const received = deltas.get(WALL_RECIPIENT_OWNER) ?? 0n;
+  if (received < WALL_PRICE_RAW) return null;
+  let payer = "";
+  let payerDelta = 0n;
+  for (const [owner, delta] of deltas) {
+    if (delta < payerDelta) {
+      payer = owner;
+      payerDelta = delta;
+    }
+  }
+  if (!payer || -payerDelta < WALL_PRICE_RAW) return null;
+  const txRecord = transaction as unknown as JsonRecord;
+  return {
+    signature,
+    message,
+    wallet: payer,
+    blockTime: typeof txRecord.blockTime === "number" ? txRecord.blockTime : null,
+  };
+}
+async function wallMarks(request: Request, url: URL): Promise<Response> {
+  const requestedLimit = Number(url.searchParams.get("limit") ?? "25");
+  const limit = Number.isInteger(requestedLimit) ? Math.min(Math.max(requestedLimit, 1), 25) : 25;
+  const before = (url.searchParams.get("before") ?? "").trim();
+  if (before && !/^[1-9A-HJ-NP-Za-km-z]{64,100}$/.test(before)) {
+    return json(request, { status: "invalid", message: "Invalid pagination signature." }, 400);
+  }
+
+  const recipientAccounts = await wallTokenAccounts(WALL_RECIPIENT_OWNER);
+  if (!recipientAccounts.length) {
+    return json(request, { status: "ok", marks: [], nextBefore: null, hasMore: false });
+  }
+  recipientAccounts.sort((a, b) => (a.amount > b.amount ? -1 : a.amount < b.amount ? 1 : 0));
+  const recipientTokenAccount = recipientAccounts[0].pubkey;
+
+  const signatureConfig: JsonRecord = { limit, commitment: "confirmed" };
+  if (before) signatureConfig.before = before;
+  const signaturesResult = await solanaRpc("getSignaturesForAddress", [recipientTokenAccount, signatureConfig]);
+  if (!Array.isArray(signaturesResult)) throw new Error("Invalid signature history response");
+
+  const signatures = signaturesResult
+    .filter(isRecord)
+    .map((item) => typeof item.signature === "string" ? item.signature : "")
+    .filter(Boolean);
+
+  const marks: JsonRecord[] = [];
+  for (const signature of signatures) {
+    const transaction = await solanaRpc("getTransaction", [
+      signature,
+      { commitment: "confirmed", encoding: "jsonParsed", maxSupportedTransactionVersion: 0 },
+    ]);
+    if (!isSolanaTransaction(transaction)) continue;
+    const mark = wallMarkFromTransaction(signature, transaction);
+    if (mark) marks.push(mark);
+  }
+
+  return json(request, {
+    status: "ok",
+    marks,
+    nextBefore: signatures.length ? signatures[signatures.length - 1] : null,
+    hasMore: signatures.length === limit,
+  });
+}
+
 async function transparencySnapshot(request: Request): Promise<Response> {
   const updatedAt = new Date().toISOString();
   const [mintResult, holderResult, landingVaultResult, solVaultResult, marketResult] = await Promise.allSettled([fetchMintState(), fetchHolderSnapshot(), fetchTokenAccountState(ORCA_LANDING_VAULT), fetchTokenAccountState(ORCA_SOL_VAULT), fetchMarketState()]);
@@ -319,6 +510,10 @@ export default {
       if (request.method === "OPTIONS") return new Response(null, { status: 204, headers: corsHeaders(request) });
       if (url.pathname === "/" && request.method === "GET") return new Response(servicePage, { headers: { "Content-Type": "text/html; charset=utf-8", "X-Content-Type-Options": "nosniff" } });
       if (url.pathname === "/api/transparency" && request.method === "GET") return await transparencySnapshot(request);
+      if (url.pathname === "/api/wall/wallet" && request.method === "GET") return await wallWalletState(request, url);
+      if (url.pathname === "/api/wall/blockhash" && request.method === "GET") return await wallBlockhash(request);
+      if (url.pathname === "/api/wall/status" && request.method === "GET") return await wallSignatureStatus(request, url);
+      if (url.pathname === "/api/wall/marks" && request.method === "GET") return await wallMarks(request, url);
       if (url.pathname === "/api/claim" && request.method === "POST") return await claimLander(request, env);
       if (url.pathname === "/api/lander" && request.method === "GET") return await findLander(request, env, url);
       return json(request, { status: "not_found" }, 404);
