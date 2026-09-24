@@ -450,9 +450,7 @@ footer{
   const TOKEN_DECIMALS = 6;
   const MEMO_PREFIX = 'LANDING-WALL:v1:';
   const PAGE_SIZE = 25;
-  const RPC_ENDPOINTS = [
-    'https://api.mainnet-beta.solana.com'
-  ];
+  const WALL_API = 'https://landing-lander-registry.michelescalini.workers.dev';
 
   // Add a transaction signature here if a Mark ever needs to be hidden from the website.
   const HIDDEN_SIGNATURES = new Set([]);
@@ -515,21 +513,27 @@ footer{
     )[0];
   }
 
-  async function selectConnection() {
-    if (connection) return connection;
+  async function api(path) {
+    const response = await fetch(WALL_API + path, { cache: 'no-store' });
+    let payload = null;
 
-    for (const endpoint of RPC_ENDPOINTS) {
-      try {
-        const candidate = new solanaWeb3.Connection(endpoint, 'confirmed');
-        await candidate.getLatestBlockhash('confirmed');
-        connection = candidate;
-        return connection;
-      } catch (error) {
-        console.warn('LANDING Wall RPC unavailable:', endpoint, error);
-      }
+    try {
+      payload = await response.json();
+    } catch (error) {
+      throw new Error('LANDING network service returned an invalid response.');
     }
 
-    throw new Error('Solana is temporarily unavailable. Please try again later.');
+    if (!response.ok && response.status !== 202) {
+      throw new Error(payload && payload.message ? payload.message : 'LANDING network service is temporarily unavailable.');
+    }
+
+    return payload;
+  }
+
+  async function selectConnection() {
+    if (connection) return connection;
+    connection = new solanaWeb3.Connection(WALL_API + '/api/wall/rpc-disabled', 'confirmed');
+    return connection;
   }
 
   function provider() {
@@ -548,21 +552,6 @@ footer{
 
     data[9] = decimals;
     return data;
-  }
-
-  function createAtaInstruction(payer, ata) {
-    return new solanaWeb3.TransactionInstruction({
-      programId: ASSOCIATED_TOKEN_PROGRAM_ID,
-      keys: [
-        { pubkey: payer, isSigner: true, isWritable: true },
-        { pubkey: ata, isSigner: false, isWritable: true },
-        { pubkey: RECIPIENT_OWNER, isSigner: false, isWritable: false },
-        { pubkey: LANDING_MINT, isSigner: false, isWritable: false },
-        { pubkey: solanaWeb3.SystemProgram.programId, isSigner: false, isWritable: false },
-        { pubkey: TOKEN_PROGRAM_ID, isSigner: false, isWritable: false }
-      ],
-      data: new Uint8Array(0)
-    });
   }
 
   function createTransferInstruction(source, destination, owner) {
@@ -586,36 +575,6 @@ footer{
     });
   }
 
-  async function getLandingPosition(conn, wallet) {
-    const result = await conn.getParsedTokenAccountsByOwner(
-      wallet,
-      { mint: LANDING_MINT },
-      'confirmed'
-    );
-
-    let best = null;
-    let total = 0n;
-
-    for (const item of result.value) {
-      const info = item.account && item.account.data && item.account.data.parsed
-        ? item.account.data.parsed.info
-        : null;
-      const amount = info && info.tokenAmount && typeof info.tokenAmount.amount === 'string'
-        ? BigInt(info.tokenAmount.amount)
-        : 0n;
-
-      total += amount;
-      if (!best || amount > best.amount) {
-        best = { pubkey: item.pubkey, amount: amount };
-      }
-    }
-
-    return {
-      total: total,
-      source: best && best.amount >= MARK_PRICE_RAW ? best.pubkey : null
-    };
-  }
-
   function formatLandingRaw(raw) {
     const base = 1000000n;
     const whole = raw / base;
@@ -636,16 +595,18 @@ footer{
   }
 
   async function refreshConnectedWallet(payer) {
-    const conn = await selectConnection();
-    const position = await getLandingPosition(conn, payer);
+    const payload = await api('/api/wall/wallet?wallet=' + encodeURIComponent(payer.toBase58()));
+    const total = BigInt(payload.totalRaw || '0');
 
     connectedWallet = payer;
-    connectedSourceAccount = position.source;
-    connectedBalanceRaw = position.total;
+    connectedSourceAccount = payload.sourceTokenAccount
+      ? new solanaWeb3.PublicKey(payload.sourceTokenAccount)
+      : null;
+    connectedBalanceRaw = total;
 
     walletAddress.textContent = shortenWallet(payer.toBase58());
     walletAddress.title = payer.toBase58();
-    walletBalance.textContent = 'LANDING balance: ' + formatLandingRaw(position.total);
+    walletBalance.textContent = 'LANDING balance: ' + formatLandingRaw(total);
     connectButton.textContent = 'Connected';
 
     if (payer.toBase58() === RECIPIENT_OWNER.toBase58()) {
@@ -654,7 +615,7 @@ footer{
       return;
     }
 
-    if (!position.source) {
+    if (!connectedSourceAccount) {
       leaveButton.disabled = true;
       setStatus('This wallet needs at least 5,000 LANDING to leave a Mark.', 'error');
       return;
@@ -716,19 +677,19 @@ footer{
 
     try {
       const payer = connectedWallet;
-      const conn = await selectConnection();
-      const currentPosition = await getLandingPosition(conn, payer);
+      const state = await api('/api/wall/wallet?wallet=' + encodeURIComponent(payer.toBase58()));
+      const total = BigInt(state.totalRaw || '0');
 
-      if (!currentPosition.source) {
+      if (!state.sourceTokenAccount) {
         connectedSourceAccount = null;
-        connectedBalanceRaw = currentPosition.total;
-        walletBalance.textContent = 'LANDING balance: ' + formatLandingRaw(currentPosition.total);
+        connectedBalanceRaw = total;
+        walletBalance.textContent = 'LANDING balance: ' + formatLandingRaw(total);
         throw new Error('This wallet no longer has 5,000 LANDING available.');
       }
 
-      connectedSourceAccount = currentPosition.source;
-      connectedBalanceRaw = currentPosition.total;
-      walletBalance.textContent = 'LANDING balance: ' + formatLandingRaw(currentPosition.total);
+      connectedSourceAccount = new solanaWeb3.PublicKey(state.sourceTokenAccount);
+      connectedBalanceRaw = total;
+      walletBalance.textContent = 'LANDING balance: ' + formatLandingRaw(total);
 
       const source = connectedSourceAccount;
       const destination = associatedTokenAddress(RECIPIENT_OWNER);
@@ -736,16 +697,11 @@ footer{
       setStatus('Preparing the 5,000 LANDING transaction…');
 
       const transaction = new solanaWeb3.Transaction();
-      const destinationInfo = await conn.getAccountInfo(destination, 'confirmed');
-
-      if (!destinationInfo) {
-        transaction.add(createAtaInstruction(payer, destination));
-      }
 
       transaction.add(createTransferInstruction(source, destination, payer));
       transaction.add(createMemoInstruction(message, payer));
 
-      const latest = await conn.getLatestBlockhash('confirmed');
+      const latest = await api('/api/wall/blockhash');
       transaction.recentBlockhash = latest.blockhash;
       transaction.feePayer = payer;
 
@@ -755,9 +711,8 @@ footer{
       if (typeof walletProvider.signAndSendTransaction === 'function') {
         const result = await walletProvider.signAndSendTransaction(transaction);
         signature = typeof result === 'string' ? result : result && result.signature;
-      } else if (typeof walletProvider.signTransaction === 'function') {
-        const signed = await walletProvider.signTransaction(transaction);
-        signature = await conn.sendRawTransaction(signed.serialize());
+      } else if (typeof walletProvider.signTransaction === 'function' && typeof walletProvider.signAndSendTransaction !== 'function') {
+        throw new Error('This wallet must support signAndSendTransaction for the LANDING Wall.');
       } else {
         throw new Error('This wallet cannot sign Solana transactions from the browser.');
       }
@@ -765,14 +720,22 @@ footer{
       if (!signature) throw new Error('The wallet did not return a transaction signature.');
 
       setStatus('Transaction sent. Waiting for final confirmation…');
-      const confirmation = await conn.confirmTransaction({
-        signature: signature,
-        blockhash: latest.blockhash,
-        lastValidBlockHeight: latest.lastValidBlockHeight
-      }, 'finalized');
 
-      if (confirmation.value && confirmation.value.err) {
-        throw new Error('The transaction failed on-chain.');
+      let confirmed = false;
+      for (let attempt = 0; attempt < 60; attempt += 1) {
+        const status = await api('/api/wall/status?signature=' + encodeURIComponent(signature));
+        if (status.status === 'confirmed') {
+          confirmed = true;
+          break;
+        }
+        if (status.status === 'invalid') {
+          throw new Error(status.message || 'The transaction failed on-chain.');
+        }
+        await new Promise(function (resolve) { window.setTimeout(resolve, 2000); });
+      }
+
+      if (!confirmed) {
+        throw new Error('Confirmation is taking longer than expected. Check the transaction in your wallet and reload the Wall.');
       }
 
       messageInput.value = '';
@@ -974,13 +937,11 @@ footer{
     loadMoreButton.disabled = true;
 
     try {
-      const conn = await selectConnection();
-      recipientAta = recipientAta || associatedTokenAddress(RECIPIENT_OWNER);
+      const query = new URLSearchParams();
+      query.set('limit', String(PAGE_SIZE));
+      if (!reset && beforeSignature) query.set('before', beforeSignature);
 
-      const options = { limit: PAGE_SIZE };
-      if (!reset && beforeSignature) options.before = beforeSignature;
-
-      const signatures = await conn.getSignaturesForAddress(recipientAta, options, 'confirmed');
+      const payload = await api('/api/wall/marks?' + query.toString());
 
       if (reset) {
         wall.innerHTML = '';
@@ -988,44 +949,27 @@ footer{
         beforeSignature = null;
       }
 
-      if (!signatures.length) {
-        if (!marksShown) {
-          wall.innerHTML = '<div class="wall-empty">No Marks yet. The first post-it is still waiting for someone to leave it.</div>';
-        }
-        loadMoreButton.hidden = true;
-        wallCount.textContent = marksShown ? marksShown + ' Mark' + (marksShown === 1 ? '' : 's') + ' loaded' : 'No Marks yet';
-        return;
-      }
-
-      const transactions = await fetchTransactionsInChunks(
-        conn,
-        signatures.map(function (item) { return item.signature; })
-      );
-
-      const marks = [];
-      for (let index = 0; index < signatures.length; index += 1) {
-        const mark = markFromTransaction(signatures[index], transactions[index]);
-        if (mark) marks.push(mark);
-      }
+      const marks = Array.isArray(payload.marks) ? payload.marks : [];
 
       marks.forEach(function (mark) {
         renderMark(mark, false);
         marksShown += 1;
       });
 
-      beforeSignature = signatures[signatures.length - 1].signature;
-      loadMoreButton.hidden = signatures.length < PAGE_SIZE;
+      beforeSignature = payload.nextBefore || null;
+      loadMoreButton.hidden = !payload.hasMore;
       wallCount.textContent = marksShown + ' Mark' + (marksShown === 1 ? '' : 's') + ' loaded';
 
       if (!marksShown) {
         wall.innerHTML = '<div class="wall-empty">No Marks yet. The first post-it is still waiting for someone to leave it.</div>';
+        wallCount.textContent = 'No Marks yet';
       }
     } catch (error) {
       console.error('Unable to read LANDING Wall:', error);
       if (!marksShown) {
         wall.innerHTML = '<div class="wall-empty">The Wall could not be read from Solana right now. Try again in a moment.</div>';
       }
-      wallCount.textContent = 'Solana temporarily unavailable';
+      wallCount.textContent = 'Network service temporarily unavailable';
       loadMoreButton.hidden = true;
     } finally {
       loading = false;
