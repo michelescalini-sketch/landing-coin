@@ -169,6 +169,51 @@ textarea{
   line-height:1.45;
 }
 textarea::placeholder{color:rgba(41,39,31,.42)}
+.wallet-box{
+  margin-top:18px;
+  padding:13px 14px;
+  border:1px solid rgba(41,39,31,.16);
+  border-radius:16px;
+  background:rgba(255,255,255,.28);
+}
+.wallet-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+}
+.connect-button{
+  padding:11px 17px;
+  border:0;
+  border-radius:999px;
+  background:#151823;
+  color:#fff;
+  font-weight:900;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.connect-button:hover{filter:brightness(1.12)}
+.connect-button:disabled{opacity:.55;cursor:wait}
+.wallet-details{
+  min-width:0;
+  color:rgba(41,39,31,.70);
+  font-size:.76rem;
+  line-height:1.45;
+}
+.wallet-details strong{
+  display:block;
+  color:#29271f;
+  font-size:.84rem;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.wallet-balance{
+  margin-top:8px;
+  color:rgba(41,39,31,.72);
+  font-size:.78rem;
+  font-weight:800;
+}
 .leave-button{
   width:100%;
   margin-top:20px;
@@ -350,8 +395,20 @@ footer{
       <div class="compose-card">
         <div class="compose-label"><span>YOUR POST-IT</span><span id="char-count">0 / 140</span></div>
         <textarea id="mark-message" maxlength="140" placeholder="What do you want to leave behind?" aria-label="Your LANDING Wall message"></textarea>
-        <button class="leave-button" id="leave-mark" type="button">Leave a Mark — 5,000 LANDING</button>
-        <p class="status" id="mark-status" role="status" aria-live="polite">Connect a Solana wallet when you are ready to sign.</p>
+
+        <div class="wallet-box">
+          <div class="wallet-row">
+            <div class="wallet-details">
+              <strong id="wallet-address">Wallet not connected</strong>
+              <span id="wallet-network">Solana Mainnet</span>
+            </div>
+            <button class="connect-button" id="connect-wallet" type="button">Connect Wallet</button>
+          </div>
+          <div class="wallet-balance" id="wallet-balance">LANDING balance: —</div>
+        </div>
+
+        <button class="leave-button" id="leave-mark" type="button" disabled>Leave a Mark — 5,000 LANDING</button>
+        <p class="status" id="mark-status" role="status" aria-live="polite">Connect your wallet to leave a Mark.</p>
       </div>
     </section>
 
@@ -404,6 +461,9 @@ footer{
   const messageInput = document.getElementById('mark-message');
   const charCount = document.getElementById('char-count');
   const leaveButton = document.getElementById('leave-mark');
+  const connectButton = document.getElementById('connect-wallet');
+  const walletAddress = document.getElementById('wallet-address');
+  const walletBalance = document.getElementById('wallet-balance');
   const markStatus = document.getElementById('mark-status');
   const wall = document.getElementById('wall');
   const wallCount = document.getElementById('wall-count');
@@ -414,6 +474,9 @@ footer{
   let beforeSignature = null;
   let marksShown = 0;
   let loading = false;
+  let connectedWallet = null;
+  let connectedSourceAccount = null;
+  let connectedBalanceRaw = 0n;
 
   function setStatus(message, state) {
     markStatus.textContent = message;
@@ -524,7 +587,7 @@ footer{
     });
   }
 
-  async function findSourceAccount(conn, wallet) {
+  async function getLandingPosition(conn, wallet) {
     const result = await conn.getParsedTokenAccountsByOwner(
       wallet,
       { mint: LANDING_MINT },
@@ -532,6 +595,7 @@ footer{
     );
 
     let best = null;
+    let total = 0n;
 
     for (const item of result.value) {
       const info = item.account && item.account.data && item.account.data.parsed
@@ -541,13 +605,92 @@ footer{
         ? BigInt(info.tokenAmount.amount)
         : 0n;
 
-      if (amount >= MARK_PRICE_RAW && (!best || amount > best.amount)) {
+      total += amount;
+      if (!best || amount > best.amount) {
         best = { pubkey: item.pubkey, amount: amount };
       }
     }
 
-    if (!best) throw new Error('This wallet does not have 5,000 LANDING available.');
-    return best.pubkey;
+    return {
+      total: total,
+      source: best && best.amount >= MARK_PRICE_RAW ? best.pubkey : null
+    };
+  }
+
+  function formatLandingRaw(raw) {
+    const base = 1000000n;
+    const whole = raw / base;
+    const fraction = (raw % base).toString().padStart(6, '0').replace(/0+$/, '');
+    const value = fraction ? whole.toString() + '.' + fraction : whole.toString();
+    return new Intl.NumberFormat('en-US', { maximumFractionDigits: 6 }).format(Number(value));
+  }
+
+  function resetWalletUi() {
+    connectedWallet = null;
+    connectedSourceAccount = null;
+    connectedBalanceRaw = 0n;
+    walletAddress.textContent = 'Wallet not connected';
+    walletBalance.textContent = 'LANDING balance: —';
+    connectButton.textContent = 'Connect Wallet';
+    leaveButton.disabled = true;
+    setStatus('Connect your wallet to leave a Mark.');
+  }
+
+  async function refreshConnectedWallet(payer) {
+    const conn = await selectConnection();
+    const position = await getLandingPosition(conn, payer);
+
+    connectedWallet = payer;
+    connectedSourceAccount = position.source;
+    connectedBalanceRaw = position.total;
+
+    walletAddress.textContent = shortenWallet(payer.toBase58());
+    walletAddress.title = payer.toBase58();
+    walletBalance.textContent = 'LANDING balance: ' + formatLandingRaw(position.total);
+    connectButton.textContent = 'Connected';
+
+    if (payer.toBase58() === RECIPIENT_OWNER.toBase58()) {
+      leaveButton.disabled = true;
+      setStatus('The receiving wallet cannot create a paid Mark for itself.', 'error');
+      return;
+    }
+
+    if (!position.source) {
+      leaveButton.disabled = true;
+      setStatus('This wallet needs at least 5,000 LANDING to leave a Mark.', 'error');
+      return;
+    }
+
+    leaveButton.disabled = false;
+    setStatus('Wallet connected. Write your message and leave your Mark.', 'success');
+  }
+
+  async function connectWallet() {
+    const walletProvider = provider();
+
+    if (!walletProvider || typeof walletProvider.connect !== 'function') {
+      setStatus('Open this page in a Solana wallet browser or install a compatible wallet such as Phantom.', 'error');
+      return;
+    }
+
+    connectButton.disabled = true;
+
+    try {
+      setStatus('Connecting wallet…');
+      const connected = await walletProvider.connect();
+      const payer = connected && connected.publicKey
+        ? connected.publicKey
+        : walletProvider.publicKey;
+
+      if (!payer) throw new Error('The wallet did not return a public key.');
+      await refreshConnectedWallet(payer);
+    } catch (error) {
+      console.error('Unable to connect wallet:', error);
+      resetWalletUi();
+      setStatus(error instanceof Error ? error.message : 'Unable to connect the wallet.', 'error');
+    } finally {
+      connectButton.disabled = false;
+    }
   }
 
   async function leaveMark() {
@@ -565,27 +708,30 @@ footer{
     }
 
     const walletProvider = provider();
-    if (!walletProvider || typeof walletProvider.connect !== 'function') {
-      setStatus('Open this page in a Solana wallet browser or install a compatible wallet such as Phantom.', 'error');
+    if (!walletProvider || !connectedWallet || !connectedSourceAccount) {
+      setStatus('Connect a wallet with at least 5,000 LANDING first.', 'error');
       return;
     }
 
     leaveButton.disabled = true;
 
     try {
-      setStatus('Connecting wallet…');
-      const connected = await walletProvider.connect();
-      const payer = connected && connected.publicKey
-        ? connected.publicKey
-        : walletProvider.publicKey;
+      const payer = connectedWallet;
+      const conn = await selectConnection();
+      const currentPosition = await getLandingPosition(conn, payer);
 
-      if (!payer) throw new Error('The wallet did not return a public key.');
-      if (payer.toBase58() === RECIPIENT_OWNER.toBase58()) {
-        throw new Error('The receiving wallet cannot create a paid Mark for itself.');
+      if (!currentPosition.source) {
+        connectedSourceAccount = null;
+        connectedBalanceRaw = currentPosition.total;
+        walletBalance.textContent = 'LANDING balance: ' + formatLandingRaw(currentPosition.total);
+        throw new Error('This wallet no longer has 5,000 LANDING available.');
       }
 
-      const conn = await selectConnection();
-      const source = await findSourceAccount(conn, payer);
+      connectedSourceAccount = currentPosition.source;
+      connectedBalanceRaw = currentPosition.total;
+      walletBalance.textContent = 'LANDING balance: ' + formatLandingRaw(currentPosition.total);
+
+      const source = connectedSourceAccount;
       const destination = associatedTokenAddress(RECIPIENT_OWNER);
 
       setStatus('Preparing the 5,000 LANDING transaction…');
@@ -640,7 +786,7 @@ footer{
       console.error('Unable to leave LANDING Wall Mark:', error);
       setStatus(error instanceof Error ? error.message : 'Unable to create the Mark. Please try again.', 'error');
     } finally {
-      leaveButton.disabled = false;
+      if (connectedSourceAccount) leaveButton.disabled = false;
     }
   }
 
@@ -897,8 +1043,23 @@ footer{
     charCount.textContent = normalizedLength + ' / 140';
   });
 
+  connectButton.addEventListener('click', connectWallet);
   leaveButton.addEventListener('click', leaveMark);
   loadMoreButton.addEventListener('click', function () { loadPage(false); });
+
+  const walletProvider = provider();
+  if (walletProvider && typeof walletProvider.on === 'function') {
+    walletProvider.on('accountChanged', function (publicKey) {
+      if (publicKey) {
+        refreshConnectedWallet(publicKey).catch(function (error) {
+          console.error('Unable to refresh changed wallet:', error);
+          resetWalletUi();
+        });
+      } else {
+        resetWalletUi();
+      }
+    });
+  }
 
   loadNewest();
 })();
