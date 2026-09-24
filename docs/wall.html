@@ -214,6 +214,79 @@ textarea::placeholder{color:rgba(41,39,31,.42)}
   font-size:.78rem;
   font-weight:800;
 }
+.get-landing{
+  margin-top:12px;
+  padding-top:11px;
+  border-top:1px solid rgba(41,39,31,.13);
+  color:rgba(41,39,31,.68);
+  font-size:.75rem;
+  line-height:1.45;
+}
+.get-landing strong{color:#29271f}
+.get-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+.get-action{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:7px 10px;
+  border:1px solid rgba(41,39,31,.18);
+  border-radius:999px;
+  background:rgba(255,255,255,.33);
+  color:#29271f;
+  font-weight:850;
+}
+.get-action:hover{background:rgba(255,255,255,.55)}
+.wallet-modal[hidden]{display:none}
+.wallet-modal{
+  position:fixed;
+  z-index:1000;
+  inset:0;
+  display:grid;
+  place-items:center;
+  padding:20px;
+  background:rgba(3,5,11,.76);
+  backdrop-filter:blur(9px);
+}
+.wallet-dialog{
+  width:min(430px,100%);
+  padding:24px;
+  border:1px solid var(--line);
+  border-radius:24px;
+  background:#101522;
+  color:var(--text);
+  box-shadow:0 35px 90px rgba(0,0,0,.55);
+}
+.wallet-dialog h3{margin:0;font-size:1.55rem;letter-spacing:-.035em}
+.wallet-dialog-copy{margin:7px 0 18px;color:var(--muted);font-size:.86rem;line-height:1.5}
+.wallet-options{display:grid;gap:9px}
+.wallet-option{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 14px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:rgba(255,255,255,.04);
+  color:#fff;
+  font:inherit;
+  text-align:left;
+  cursor:pointer;
+}
+.wallet-option:hover{background:rgba(255,255,255,.08)}
+.wallet-option img{width:30px;height:30px;border-radius:8px}
+.wallet-option span{font-weight:850}
+.wallet-none{padding:18px 8px;color:var(--muted);font-size:.86rem;line-height:1.5}
+.wallet-dialog-footer{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:18px}
+.wallet-directory{color:var(--teal);font-size:.78rem;font-weight:800}
+.wallet-close{
+  padding:8px 12px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:transparent;
+  color:#fff;
+  cursor:pointer;
+}
 .leave-button{
   width:100%;
   margin-top:20px;
@@ -405,6 +478,14 @@ footer{
             <button class="connect-button" id="connect-wallet" type="button">Connect Wallet</button>
           </div>
           <div class="wallet-balance" id="wallet-balance">LANDING balance: —</div>
+          <div class="get-landing">
+            <strong>Don't have LANDING?</strong>
+            <div class="get-actions">
+              <a class="get-action" href="https://jup.ag/?buy=DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ&sell=So11111111111111111111111111111111111111112" target="_blank" rel="noopener">Buy on Jupiter</a>
+              <a class="get-action" href="/buy/">Buy on Poloniex</a>
+            </div>
+            <div style="margin-top:7px">Jupiter delivers LANDING to your Solana wallet. LANDING bought on Poloniex must be withdrawn to your Solana wallet before it can be used here.</div>
+          </div>
         </div>
 
         <button class="leave-button" id="leave-mark" type="button" disabled>Leave a Mark — 5,000 LANDING</button>
@@ -436,7 +517,120 @@ footer{
   </footer>
 </div>
 
+<div class="wallet-modal" id="wallet-modal" hidden>
+  <div class="wallet-dialog" role="dialog" aria-modal="true" aria-labelledby="wallet-dialog-title">
+    <h3 id="wallet-dialog-title">Choose a Solana wallet</h3>
+    <p class="wallet-dialog-copy">LANDING Wall uses the Solana Wallet Standard, so it is not tied to Phantom.</p>
+    <div class="wallet-options" id="wallet-options">
+      <div class="wallet-none">Detecting compatible wallets…</div>
+    </div>
+    <div class="wallet-dialog-footer">
+      <a class="wallet-directory" href="https://solana.com/wallets" target="_blank" rel="noopener">Find a Solana wallet →</a>
+      <button class="wallet-close" id="wallet-close" type="button">Cancel</button>
+    </div>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.98.4/lib/index.iife.min.js"></script>
+<script type="module">
+import { getWallets } from 'https://esm.sh/@wallet-standard/app@1.1.1?bundle';
+
+const registry = getWallets();
+let selectedWallet = null;
+let selectedAccount = null;
+let offEvents = null;
+
+function listWallets() {
+  return registry.get().filter((wallet) => {
+    const chains = Array.isArray(wallet.chains) ? wallet.chains : [];
+    return chains.some((chain) => String(chain).startsWith('solana:')) &&
+      wallet.features &&
+      wallet.features['standard:connect'] &&
+      wallet.features['solana:signAndSendTransaction'];
+  });
+}
+
+function emitRegistryChange() {
+  window.dispatchEvent(new CustomEvent('landing-wallets-changed'));
+}
+
+registry.on('register', emitRegistryChange);
+registry.on('unregister', emitRegistryChange);
+
+window.LandingWalletStandard = {
+  list: listWallets,
+  async connect(name) {
+    const wallet = listWallets().find((item) => item.name === name);
+    if (!wallet) throw new Error('That wallet is no longer available.');
+
+    const feature = wallet.features['standard:connect'];
+    const result = await feature.connect();
+    const account = (result.accounts && result.accounts[0]) || (wallet.accounts && wallet.accounts[0]);
+
+    if (!account || !account.address) throw new Error('The wallet did not return a Solana account.');
+
+    if (offEvents) {
+      try { offEvents(); } catch (error) {}
+      offEvents = null;
+    }
+
+    selectedWallet = wallet;
+    selectedAccount = account;
+
+    const events = wallet.features['standard:events'];
+    if (events && typeof events.on === 'function') {
+      offEvents = events.on('change', (properties) => {
+        const accounts = properties && Array.isArray(properties.accounts)
+          ? properties.accounts
+          : wallet.accounts;
+        selectedAccount = accounts && accounts[0] ? accounts[0] : null;
+        window.dispatchEvent(new CustomEvent('landing-wallet-account-changed', {
+          detail: { address: selectedAccount ? selectedAccount.address : null }
+        }));
+      });
+    }
+
+    return { name: wallet.name, icon: wallet.icon || '', address: account.address };
+  },
+  async send(transaction) {
+    if (!selectedWallet || !selectedAccount) throw new Error('Connect a wallet first.');
+
+    const feature = selectedWallet.features['solana:signAndSendTransaction'];
+    if (!feature || typeof feature.signAndSendTransaction !== 'function') {
+      throw new Error('This wallet cannot send Solana transactions from this page.');
+    }
+
+    const serialized = new Uint8Array(transaction.serialize({
+      requireAllSignatures: false,
+      verifySignatures: false
+    }));
+
+    const outputs = await feature.signAndSendTransaction({
+      account: selectedAccount,
+      transaction: serialized,
+      chain: 'solana:mainnet',
+      options: { skipPreflight: false }
+    });
+
+    const output = outputs && outputs[0];
+    if (!output || !output.signature) throw new Error('The wallet did not return a transaction signature.');
+    return output.signature;
+  },
+  async disconnect() {
+    if (selectedWallet && selectedWallet.features['standard:disconnect']) {
+      try { await selectedWallet.features['standard:disconnect'].disconnect(); } catch (error) {}
+    }
+    selectedWallet = null;
+    selectedAccount = null;
+    if (offEvents) {
+      try { offEvents(); } catch (error) {}
+      offEvents = null;
+    }
+  }
+};
+
+window.dispatchEvent(new CustomEvent('landing-wallet-standard-ready'));
+</script>
 <script>
 (function () {
   'use strict';
@@ -461,6 +655,9 @@ footer{
   const connectButton = document.getElementById('connect-wallet');
   const walletAddress = document.getElementById('wallet-address');
   const walletBalance = document.getElementById('wallet-balance');
+  const walletModal = document.getElementById('wallet-modal');
+  const walletOptions = document.getElementById('wallet-options');
+  const walletClose = document.getElementById('wallet-close');
   const markStatus = document.getElementById('mark-status');
   const wall = document.getElementById('wall');
   const wallCount = document.getElementById('wall-count');
@@ -474,6 +671,7 @@ footer{
   let connectedWallet = null;
   let connectedSourceAccount = null;
   let connectedBalanceRaw = 0n;
+  let connectedWalletName = '';
 
   function setStatus(message, state) {
     markStatus.textContent = message;
@@ -536,8 +734,63 @@ footer{
     return connection;
   }
 
-  function provider() {
-    return (window.phantom && window.phantom.solana) || window.solana || null;
+  async function waitForWalletStandard() {
+    if (window.LandingWalletStandard) return window.LandingWalletStandard;
+
+    for (let attempt = 0; attempt < 50; attempt += 1) {
+      await new Promise(function (resolve) { window.setTimeout(resolve, 100); });
+      if (window.LandingWalletStandard) return window.LandingWalletStandard;
+    }
+
+    throw new Error('Wallet discovery did not load. Refresh the page and try again.');
+  }
+
+  async function renderWalletOptions() {
+    try {
+      const bridge = await waitForWalletStandard();
+      const wallets = bridge.list();
+
+      walletOptions.innerHTML = '';
+
+      if (!wallets.length) {
+        walletOptions.innerHTML = '<div class="wallet-none">No compatible Solana wallet was detected in this browser. You can install any Wallet Standard compatible Solana wallet, then reload this page.</div>';
+        return;
+      }
+
+      wallets.forEach(function (wallet) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'wallet-option';
+
+        if (wallet.icon) {
+          const img = document.createElement('img');
+          img.src = wallet.icon;
+          img.alt = '';
+          button.appendChild(img);
+        }
+
+        const label = document.createElement('span');
+        label.textContent = wallet.name;
+        button.appendChild(label);
+
+        button.addEventListener('click', function () {
+          connectSelectedWallet(wallet.name);
+        });
+
+        walletOptions.appendChild(button);
+      });
+    } catch (error) {
+      walletOptions.innerHTML = '<div class="wallet-none">Wallet discovery is temporarily unavailable. Refresh the page and try again.</div>';
+    }
+  }
+
+  function openWalletModal() {
+    walletModal.hidden = false;
+    renderWalletOptions();
+  }
+
+  function closeWalletModal() {
+    walletModal.hidden = true;
   }
 
   function encodeTransferChecked(amount, decimals) {
@@ -552,6 +805,21 @@ footer{
 
     data[9] = decimals;
     return data;
+  }
+
+  function createAtaIdempotentInstruction(payer, ata) {
+    return new solanaWeb3.TransactionInstruction({
+      programId: ASSOCIATED_TOKEN_PROGRAM_ID,
+      keys: [
+        { pubkey: payer, isSigner: true, isWritable: true },
+        { pubkey: ata, isSigner: false, isWritable: true },
+        { pubkey: RECIPIENT_OWNER, isSigner: false, isWritable: false },
+        { pubkey: LANDING_MINT, isSigner: false, isWritable: false },
+        { pubkey: solanaWeb3.SystemProgram.programId, isSigner: false, isWritable: false },
+        { pubkey: TOKEN_PROGRAM_ID, isSigner: false, isWritable: false }
+      ],
+      data: Uint8Array.from([1])
+    });
   }
 
   function createTransferInstruction(source, destination, owner) {
@@ -587,6 +855,7 @@ footer{
     connectedWallet = null;
     connectedSourceAccount = null;
     connectedBalanceRaw = 0n;
+    connectedWalletName = '';
     walletAddress.textContent = 'Wallet not connected';
     walletBalance.textContent = 'LANDING balance: —';
     connectButton.textContent = 'Connect Wallet';
@@ -625,24 +894,18 @@ footer{
     setStatus('Wallet connected. Write your message and leave your Mark.', 'success');
   }
 
-  async function connectWallet() {
-    const walletProvider = provider();
-
-    if (!walletProvider || typeof walletProvider.connect !== 'function') {
-      setStatus('Open this page in a Solana wallet browser or install a compatible wallet such as Phantom.', 'error');
-      return;
-    }
-
+  async function connectSelectedWallet(walletName) {
     connectButton.disabled = true;
 
     try {
-      setStatus('Connecting wallet…');
-      const connected = await walletProvider.connect();
-      const payer = connected && connected.publicKey
-        ? connected.publicKey
-        : walletProvider.publicKey;
+      setStatus('Connecting ' + walletName + '…');
+      const bridge = await waitForWalletStandard();
+      const connected = await bridge.connect(walletName);
+      const payer = new solanaWeb3.PublicKey(connected.address);
 
-      if (!payer) throw new Error('The wallet did not return a public key.');
+      connectedWalletName = connected.name || walletName;
+      connectButton.textContent = connectedWalletName;
+      closeWalletModal();
       await refreshConnectedWallet(payer);
     } catch (error) {
       console.error('Unable to connect wallet:', error);
@@ -651,6 +914,10 @@ footer{
     } finally {
       connectButton.disabled = false;
     }
+  }
+
+  async function connectWallet() {
+    openWalletModal();
   }
 
   async function leaveMark() {
@@ -667,8 +934,7 @@ footer{
       return;
     }
 
-    const walletProvider = provider();
-    if (!walletProvider || !connectedWallet || !connectedSourceAccount) {
+    if (!connectedWallet || !connectedSourceAccount || !connectedWalletName) {
       setStatus('Connect a wallet with at least 5,000 LANDING first.', 'error');
       return;
     }
@@ -698,6 +964,7 @@ footer{
 
       const transaction = new solanaWeb3.Transaction();
 
+      transaction.add(createAtaIdempotentInstruction(payer, destination));
       transaction.add(createTransferInstruction(source, destination, payer));
       transaction.add(createMemoInstruction(message, payer));
 
@@ -707,15 +974,9 @@ footer{
 
       setStatus('Check the transaction in your wallet. The message will be public once signed.');
 
-      let signature;
-      if (typeof walletProvider.signAndSendTransaction === 'function') {
-        const result = await walletProvider.signAndSendTransaction(transaction);
-        signature = typeof result === 'string' ? result : result && result.signature;
-      } else if (typeof walletProvider.signTransaction === 'function' && typeof walletProvider.signAndSendTransaction !== 'function') {
-        throw new Error('This wallet must support signAndSendTransaction for the LANDING Wall.');
-      } else {
-        throw new Error('This wallet cannot sign Solana transactions from the browser.');
-      }
+      const bridge = await waitForWalletStandard();
+      const signatureBytes = await bridge.send(transaction);
+      const signature = base58Encode(signatureBytes);
 
       if (!signature) throw new Error('The wallet did not return a transaction signature.');
 
@@ -753,6 +1014,29 @@ footer{
   }
 
   const BASE58_ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+
+  function base58Encode(bytes) {
+    if (!bytes || !bytes.length) return '';
+
+    const digits = [0];
+    for (let i = 0; i < bytes.length; i += 1) {
+      let carry = bytes[i];
+      for (let j = 0; j < digits.length; j += 1) {
+        carry += digits[j] << 8;
+        digits[j] = carry % 58;
+        carry = Math.floor(carry / 58);
+      }
+      while (carry > 0) {
+        digits.push(carry % 58);
+        carry = Math.floor(carry / 58);
+      }
+    }
+
+    let result = '';
+    for (let i = 0; i < bytes.length - 1 && bytes[i] === 0; i += 1) result += '1';
+    for (let i = digits.length - 1; i >= 0; i -= 1) result += BASE58_ALPHABET[digits[i]];
+    return result;
+  }
 
   function base58Decode(value) {
     if (!value) return new Uint8Array(0);
@@ -990,19 +1274,29 @@ footer{
   leaveButton.addEventListener('click', leaveMark);
   loadMoreButton.addEventListener('click', function () { loadPage(false); });
 
-  const walletProvider = provider();
-  if (walletProvider && typeof walletProvider.on === 'function') {
-    walletProvider.on('accountChanged', function (publicKey) {
-      if (publicKey) {
-        refreshConnectedWallet(publicKey).catch(function (error) {
-          console.error('Unable to refresh changed wallet:', error);
-          resetWalletUi();
-        });
-      } else {
+  walletClose.addEventListener('click', closeWalletModal);
+  walletModal.addEventListener('click', function (event) {
+    if (event.target === walletModal) closeWalletModal();
+  });
+  window.addEventListener('landing-wallets-changed', function () {
+    if (!walletModal.hidden) renderWalletOptions();
+  });
+  window.addEventListener('landing-wallet-account-changed', function (event) {
+    const address = event.detail && event.detail.address;
+    if (!address) {
+      resetWalletUi();
+      return;
+    }
+
+    try {
+      refreshConnectedWallet(new solanaWeb3.PublicKey(address)).catch(function (error) {
+        console.error('Unable to refresh changed wallet:', error);
         resetWalletUi();
-      }
-    });
-  }
+      });
+    } catch (error) {
+      resetWalletUi();
+    }
+  });
 
   loadNewest();
 })();
