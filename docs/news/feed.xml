@@ -5,8 +5,15 @@
   <link>https://landingcoin.fun/news/</link>
   <description>Official LANDING Coin news, listings, project updates and milestones.</description>
   <language>en</language>
-  <lastBuildDate>Mon, 21 Sep 2026 07:40:00 GMT</lastBuildDate>
+  <lastBuildDate>Fri, 25 Sep 2026 08:00:00 GMT</lastBuildDate>
   <atom:link href="https://landingcoin.fun/news/feed.xml" rel="self" type="application/rss+xml"/>
+  <item>
+    <title>From the LANDING Wall to a Future LANDING Merch Store</title>
+    <link>https://landingcoin.fun/news/landing-wall-and-future-merch-store.html</link>
+    <guid isPermaLink="true">https://landingcoin.fun/news/landing-wall-and-future-merch-store.html</guid>
+    <pubDate>Fri, 25 Sep 2026 08:00:00 GMT</pubDate>
+    <description>The LANDING Wall is live on Solana, while the project explores future community utility including branded merchandise and a possible LANDING-powered checkout flow.</description>
+  </item>
   <item>
     <title>LANDING Coin (LANDING) Listed on Poloniex</title>
     <link>https://landingcoin.fun/news/landing-coin-poloniex-listing.html</link>
