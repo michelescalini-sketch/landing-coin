@@ -452,17 +452,42 @@ footer{
   .wall{grid-template-columns:1fr;gap:24px}
   .sticky{min-height:185px}
 }
+
+.site-header{position:sticky;top:0;z-index:1000;margin:0 -12px;padding:8px 12px;background:rgba(5,7,13,.88);border-bottom:1px solid rgba(255,255,255,.10);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.site-nav{min-height:68px!important;height:auto!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:22px!important}
+.site-brand{display:flex;align-items:center;gap:11px;flex:0 0 auto;text-decoration:none!important;font-weight:950;letter-spacing:-.02em;color:#fff!important}
+.site-brand img{width:44px!important;height:44px!important;border-radius:50%;object-fit:cover;box-shadow:0 0 24px rgba(92,80,255,.24)}
+.site-brand-name{white-space:nowrap}
+.site-brand-name b{background:linear-gradient(90deg,var(--cyan,#22e6c7),var(--blue,#4da4ff),var(--violet,#a855f7));-webkit-background-clip:text;background-clip:text;color:transparent}
+.site-nav-links{display:flex;align-items:center;justify-content:flex-end;gap:5px;min-width:0}
+.site-nav-links a{display:inline-flex;align-items:center;min-height:38px;padding:0 10px;border:1px solid transparent;border-radius:10px;text-decoration:none!important;color:#b9c2d0!important;font-size:.78rem;font-weight:800;white-space:nowrap;transition:background .18s ease,border-color .18s ease,color .18s ease}
+.site-nav-links a:hover{color:#fff!important;background:rgba(255,255,255,.055);border-color:rgba(255,255,255,.08)}
+.site-nav-links .site-nav-active{color:#fff!important;background:rgba(34,230,199,.08);border-color:rgba(34,230,199,.26)}
+.site-nav-links .site-rss-link{color:#ffbf4b!important;border-color:rgba(255,173,36,.22);background:rgba(255,173,36,.05)}
+@media(max-width:940px){.site-header{margin:0 -6px;padding:7px 6px}.site-nav{align-items:flex-start!important;flex-direction:column!important;gap:7px!important;padding:4px 0 7px}.site-brand{padding-left:4px}.site-nav-links{width:100%;justify-content:flex-start;overflow-x:auto;padding:2px 4px 5px;scrollbar-width:thin}.site-nav-links a{flex:0 0 auto}.site-brand img{width:40px!important;height:40px!important}}
+
 </style>
 </head>
 <body>
 <div class="wrapper">
-  <nav>
-    <a href="/" class="brand"><img src="/landing-logo.jpg" alt="Landing Coin logo">LANDING <span>COIN</span></a>
-    <div class="nav-right">
-      <a class="hide-mobile" href="/lander.html">Be a Lander</a>
-      <a href="/">← Home</a>
+  <header class="site-header">
+  <nav class="site-nav" aria-label="Primary navigation">
+    <a class="site-brand" href="/" aria-label="Landing Coin home">
+      <img src="/landing-logo.jpg" alt="Landing Coin logo">
+      <span class="site-brand-name">LANDING <b>COIN</b></span>
+    </a>
+    <div class="site-nav-links">
+      <a href="/">Home</a>
+      <a href="/news/">News</a>
+      <a href="/wall.html" class="site-nav-active" aria-current="page">Wall</a>
+      <a href="/flight-plan.html">Flight Plan</a>
+      <a href="/transparency.html">Transparency</a>
+      <a href="/lander.html">Lander</a>
+      <a href="/team.html">Team</a>
+      <a class="site-rss-link" href="/news/feed.xml" type="application/rss+xml" title="LANDING Coin RSS feed">RSS</a>
     </div>
   </nav>
+</header>
 
   <main>
     <section class="hero">
