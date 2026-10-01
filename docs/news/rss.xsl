@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0"
-  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-  xmlns:atom="http://www.w3.org/2005/Atom">
+<?xml version='1.0' encoding='UTF-8'?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:atom="http://www.w3.org/2005/Atom" version="1.0">
 <xsl:output method="html" encoding="UTF-8"/>
 <xsl:template match="/">
 <html lang="en">
@@ -10,23 +8,19 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>LANDING Coin News — RSS Feed</title>
   <style>
-    *{box-sizing:border-box}
-    body{margin:0;background:radial-gradient(circle at 85% 12%,rgba(122,58,237,.20),transparent 32%),radial-gradient(circle at 8% 20%,rgba(0,210,190,.14),transparent 28%),linear-gradient(145deg,#02040a,#080b16 45%,#080511);color:#f7f7f8;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
-    a{color:inherit;text-decoration:none}
-    .wrap{width:min(920px,calc(100% - 32px));margin:0 auto;padding:30px 0 70px}
-    .top{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:12px 0 34px}
-    .brand{display:flex;align-items:center;gap:12px;font-weight:950}.brand img{width:48px;height:48px;border-radius:50%}.home{padding:10px 14px;border:1px solid rgba(255,255,255,.12);border-radius:10px;color:#c4cad5}
-    .hero{padding:42px 0}.eyebrow{color:#ffb33a;font-size:.72rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase}.hero h1{margin:14px 0 18px;font-size:clamp(2.8rem,7vw,5.4rem);line-height:.95;letter-spacing:-.06em}.hero p{max-width:720px;margin:0;color:#9aa3b5;line-height:1.7}
-    .note{margin:0 0 30px;padding:18px 20px;border:1px solid rgba(255,173,36,.22);border-radius:16px;background:rgba(255,173,36,.05);color:#cfd6e2;line-height:1.6}
-    .item{display:block;margin:16px 0;padding:26px;border:1px solid rgba(255,255,255,.10);border-radius:22px;background:linear-gradient(145deg,rgba(18,25,42,.84),rgba(7,10,18,.82))}
-    .item:hover{border-color:rgba(34,230,199,.28)}.item h2{margin:0 0 10px;font-size:1.55rem;letter-spacing:-.035em}.item .date{color:#22e6c7;font-size:.76rem;font-weight:850;margin-bottom:12px}.item p{margin:0;color:#9aa3b5;line-height:1.7}
-    footer{margin-top:45px;padding-top:25px;border-top:1px solid rgba(255,255,255,.10);color:#697386;font-size:.82rem}
-  </style>
+@import url('/style.css');
+body{margin:0;background:#0b0d12;color:#f4f3ec;font-family:'DM Sans',Arial,sans-serif;min-height:100vh}
+.wrap{max-width:1000px;width:calc(100% - 48px);margin:auto;padding-bottom:50px}
+.top{display:flex;justify-content:space-between;align-items:center;padding:26px 0;border-bottom:1px solid #2c3038;gap:20px}
+.brand{display:flex;gap:12px;align-items:center;font-family:'Space Grotesk',Arial,sans-serif;font-size:1.25rem;font-weight:700;letter-spacing:.06em}.brand img{width:38px;height:38px;border-radius:50%}.home{padding:10px 16px;border:1px solid #62646b;border-radius:7px;font-size:.875rem}
+.wrap .hero{display:block;min-height:0;padding:50px 0 30px;margin:0}.wrap .hero h1{font-family:'Space Grotesk',Arial,sans-serif;font-size:clamp(2.5rem,7vw,4rem);line-height:1.1;letter-spacing:-.06em;margin:20px 0}.eyebrow{font-size:.75rem;letter-spacing:.12em;color:#ffc44f}.wrap .hero p{max-width:760px;line-height:1.7;font-size:1rem;color:#a5a8b1}
+.note{padding:20px 24px;background:#191813;border:1px solid #393326;border-radius:8px;font-size:.9375rem;line-height:1.7;color:#d4d4cf;overflow-wrap:anywhere}.item{display:block;padding:28px;background:#12151b;border:1px solid #2c3038;border-radius:10px;margin-top:20px}.item:hover{border-color:#ffc44f}.item h2{font-family:'Space Grotesk',Arial,sans-serif;font-size:1.8rem;line-height:1.2;letter-spacing:-.04em;margin:12px 0}.date{color:#a5a8b1;font-size:.8125rem}.item p{font-size:1rem;line-height:1.7;color:#a5a8b1}footer{margin-top:45px;padding-top:24px;border-top:1px solid #2c3038;color:#a5a8b1;font-size:.8125rem}@media(max-width:560px){.wrap{width:calc(100% - 40px)}.brand{font-size:1rem}.item{padding:24px}.item h2{font-size:1.5rem}}
+</style>
 </head>
 <body>
 <div class="wrap">
   <div class="top">
-    <a class="brand" href="/"><img src="/landing-logo.jpg" alt="Landing Coin logo"/>LANDING COIN</a>
+    <a class="brand" href="/"><img src="/assets/landing-logo-96.webp" alt="Landing Coin logo"/>LANDING COIN</a>
     <a class="home" href="/news/">News</a>
   </div>
   <section class="hero">

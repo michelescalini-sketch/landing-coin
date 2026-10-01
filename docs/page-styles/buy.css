@@ -1,0 +1,191 @@
+.page-content *{box-sizing:border-box}
+.page-content a{text-decoration:none;color:inherit}
+.page-content .wrap{width:min(980px,calc(100% - 34px));margin:0 auto}
+.page-content .top{display:flex;align-items:center;justify-content:space-between;padding:24px 0;gap:18px}
+.page-content .brand{font-weight:950;letter-spacing:.05em}
+.page-content .brand span{background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;color:transparent}
+.page-content .home{font-size:.78rem;color:var(--muted);border-bottom:1px solid transparent}
+.page-content .home:hover{color:#fff;border-color:rgba(255,255,255,.25)}
+.page-content .hero{
+  min-height:810px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  text-align:center;
+  padding:48px 0 76px;
+}
+.page-content .exchange-badge{
+  align-self:center;
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  padding:9px 14px;
+  border:1px solid rgba(44,230,195,.28);
+  border-radius:999px;
+  background:rgba(44,230,195,.05);
+  color:#cbfff5;
+  font-weight:900;
+  font-size:.76rem;
+  letter-spacing:.10em;
+  text-transform:uppercase;
+}
+.page-content .exchange-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--cyan);
+  box-shadow:0 0 14px var(--cyan);
+}
+.page-content .orb{
+  width:122px;height:122px;
+  margin:28px auto 22px;
+  padding:7px;
+  border-radius:50%;
+  background:linear-gradient(145deg,rgba(44,230,195,.18),rgba(165,92,255,.24));
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:0 25px 70px rgba(0,0,0,.45),0 0 65px rgba(165,92,255,.15);
+  overflow:hidden;
+}
+.page-content .orb img{display:block;width:100%;height:100%;border-radius:50%;object-fit:cover}
+.page-content .eyebrow{
+  margin:0 0 15px;
+  color:var(--muted);
+  font-size:.8rem;
+  font-weight:850;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+.page-content h1{
+  margin:0;
+  font-size:clamp(3.7rem,9vw,7.6rem);
+  line-height:.90;
+  letter-spacing:-.065em;
+  font-weight:1000;
+}
+.page-content .grad{
+  background:linear-gradient(90deg,var(--cyan),var(--blue),var(--violet));
+  -webkit-background-clip:text;
+  color:transparent;
+}
+.page-content .lead{
+  max-width:760px;
+  margin:28px auto 0;
+  font-size:clamp(1.35rem,2.8vw,2.15rem);
+  font-weight:850;
+  line-height:1.16;
+  letter-spacing:-.03em;
+}
+.page-content .sub{
+  max-width:720px;
+  margin:18px auto 0;
+  color:var(--muted);
+  font-size:1.03rem;
+  line-height:1.65;
+}
+.page-content .launch-line{
+  margin:20px auto 0;
+  font-size:.92rem;
+  color:#dbe7f7;
+  font-weight:800;
+}
+.page-content .cta{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:66px;
+  width:min(540px,100%);
+  margin:28px auto 0;
+  padding:17px 26px;
+  border-radius:16px;
+  background:linear-gradient(100deg,var(--cyan),var(--blue),var(--violet));
+  color:#05070d;
+  font-weight:1000;
+  font-size:1.05rem;
+  box-shadow:0 20px 50px rgba(78,156,255,.20),0 0 55px rgba(44,230,195,.11);
+  transition:transform .18s ease,filter .18s ease;
+}
+.page-content .cta:hover{transform:translateY(-2px);filter:brightness(1.06)}
+.page-content .secondary-cta{
+  display:inline-flex;
+  margin-top:14px;
+  color:#b7c2d4;
+  font-size:.82rem;
+  border-bottom:1px solid rgba(255,255,255,.16);
+  padding-bottom:3px;
+}
+.page-content .note{margin-top:11px;color:#768198;font-size:.78rem}
+.page-content .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:34px}
+.page-content .fact{
+  padding:20px 15px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:rgba(255,255,255,.04);
+  backdrop-filter:blur(12px);
+}
+.page-content .fact strong{display:block;font-size:1rem}
+.page-content .fact span{display:block;color:var(--muted);font-size:.78rem;margin-top:5px;line-height:1.4}
+.page-content .section{padding:68px 0}
+.page-content .panel{
+  border:1px solid var(--line);
+  border-radius:28px;
+  padding:42px;
+  background:
+    radial-gradient(circle at 90% 0%,rgba(165,92,255,.10),transparent 30%),
+    linear-gradient(145deg,rgba(18,25,42,.92),rgba(8,11,20,.94));
+  box-shadow:0 24px 75px rgba(0,0,0,.22);
+}
+.page-content h2{margin:0;font-size:clamp(2.5rem,6.5vw,4.8rem);line-height:.97;letter-spacing:-.052em}
+.page-content .copy{margin:22px 0 0;color:var(--muted);font-size:1.06rem;line-height:1.72}
+.page-content .copy strong{color:#fff}
+.page-content .verify-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:26px}
+.page-content .verify{
+  display:block;
+  padding:18px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:rgba(255,255,255,.035);
+  transition:background .18s ease,transform .18s ease;
+}
+.page-content .verify:hover{background:rgba(255,255,255,.065);transform:translateY(-2px)}
+.page-content .verify strong{display:block;font-size:.95rem}
+.page-content .verify span{display:block;margin-top:5px;color:var(--muted);font-size:.78rem}
+.page-content .contract{
+  margin-top:26px;
+  padding:18px;
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:rgba(0,0,0,.24);
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  color:#d6dbea;
+  overflow-wrap:anywhere;
+  font-size:.84rem;
+}
+.page-content .philosophy{
+  margin-top:24px;
+  padding:22px;
+  border-left:3px solid var(--cyan);
+  background:rgba(44,230,195,.04);
+  border-radius:0 14px 14px 0;
+  color:#dce6f5;
+  line-height:1.65;
+}
+.page-content .final{text-align:center;padding:82px 0 105px}
+.page-content .final h2{font-size:clamp(3rem,8vw,6.5rem)}
+.page-content .final .copy{max-width:700px;margin-left:auto;margin-right:auto}
+.page-content .risk{
+  max-width:800px;
+  margin:28px auto 0;
+  padding:18px 20px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;
+  background:rgba(255,255,255,.025);
+  color:#7f8a9e;
+  font-size:.77rem;
+  line-height:1.6;
+}
+.page-content .footer{border-top:1px solid var(--line);padding:26px 0 40px;text-align:center;color:#7c8799;font-size:.8rem}
+@media(max-width:700px){.page-content .top{padding-top:18px}
+.page-content .home{display:none}
+.page-content .hero{min-height:auto;padding-top:45px}
+.page-content .facts,.page-content .verify-grid{grid-template-columns:1fr}
+.page-content .panel{padding:28px 20px}
+.page-content .section{padding:46px 0}
+.page-content .orb{width:104px;height:104px}}

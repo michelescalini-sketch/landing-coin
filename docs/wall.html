@@ -1,498 +1,21 @@
 <!doctype html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The LANDING Wall | Landing Coin</title>
-<meta name="description" content="Leave a public mark on the LANDING Wall. One post-it costs 5,000 LANDING and is recorded with the payment on Solana.">
-<link rel="canonical" href="https://landingcoin.fun/wall.html">
-<link rel="icon" type="image/jpeg" href="/landing-logo.jpg">
+<title>LANDING Wall | Community Messages on Solana</title>
+<link rel="icon" type="image/jpeg" href="/assets/landing-logo.jpg">
 
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://landingcoin.fun/wall.html">
-<meta property="og:title" content="The LANDING Wall">
-<meta property="og:description" content="5,000 LANDING. One message. One mark left behind.">
-<meta property="og:image" content="https://landingcoin.fun/landing-social.jpg">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The LANDING Wall">
-<meta name="twitter:description" content="5,000 LANDING. One message. One mark left behind.">
-<meta name="twitter:image" content="https://landingcoin.fun/landing-social.jpg">
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "@id": "https://landingcoin.fun/wall.html#webpage",
-  "url": "https://landingcoin.fun/wall.html",
-  "name": "The LANDING Wall",
-  "description": "A public LANDING Coin community wall where messages are linked to LANDING payments recorded on Solana.",
-  "isPartOf": {
-    "@id": "https://landingcoin.fun/#website"
-  },
-  "about": {
-    "@id": "https://landingcoin.fun/#organization"
-  },
-  "inLanguage": "en"
-}
-</script>
-
-<style>
-:root{
-  --bg:#070913;
-  --panel:#0f1422;
-  --line:rgba(255,255,255,.11);
-  --text:#f7f4ec;
-  --muted:#aab3c3;
-  --teal:#34e3c1;
-  --violet:#9f72ff;
-  --yellow:#f4dfa0;
-  --pink:#f2becb;
-  --blue:#b8d9ee;
-  --green:#bee0c1;
-  --max:1180px;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;
-  min-height:100vh;
-  color:var(--text);
-  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:
-    radial-gradient(circle at 12% 0%,rgba(52,227,193,.12),transparent 28%),
-    radial-gradient(circle at 90% 12%,rgba(159,114,255,.14),transparent 31%),
-    var(--bg);
-}
-a{color:inherit;text-decoration:none}
-button,textarea{font:inherit}
-.wrapper{width:min(var(--max),calc(100% - 40px));margin:0 auto}
-nav{
-  min-height:86px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:24px;
-  border-bottom:1px solid var(--line);
-}
-.brand{display:flex;align-items:center;gap:13px;font-weight:900;letter-spacing:-.02em;font-size:1.2rem}
-.brand img{width:50px;height:50px;border-radius:50%;object-fit:cover;box-shadow:0 0 30px rgba(92,80,255,.28)}
-.brand span{background:linear-gradient(90deg,var(--teal),#4da4ff,var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
-.nav-right{display:flex;align-items:center;gap:16px;color:#c4cad5;font-size:.88rem}
-.nav-right a:hover{color:#fff}
-.hero{
-  padding:88px 0 56px;
-  text-align:center;
-}
-.eyebrow{
-  display:inline-block;
-  padding:8px 14px;
-  border:1px solid rgba(52,227,193,.34);
-  border-radius:999px;
-  color:var(--teal);
-  font-size:.75rem;
-  font-weight:900;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-}
-h1{
-  margin:24px 0 0;
-  font-size:clamp(3.8rem,9vw,8rem);
-  line-height:.88;
-  letter-spacing:-.065em;
-}
-.gradient{
-  background:linear-gradient(90deg,var(--teal),#4da4ff,var(--violet));
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-}
-.hero-copy{
-  max-width:700px;
-  margin:28px auto 0;
-  color:var(--muted);
-  font-size:clamp(1.05rem,2vw,1.25rem);
-  line-height:1.7;
-}
-.price-line{
-  margin:26px auto 0;
-  font-weight:900;
-  font-size:clamp(1.2rem,2.4vw,1.55rem);
-}
-.price-line strong{color:var(--teal)}
-.composer-wrap{
-  display:grid;
-  grid-template-columns:minmax(0,430px) 1fr;
-  gap:34px;
-  align-items:center;
-  padding:34px;
-  margin:12px 0 70px;
-  border:1px solid var(--line);
-  border-radius:30px;
-  background:linear-gradient(145deg,rgba(18,25,42,.86),rgba(7,10,18,.88));
-  box-shadow:0 35px 90px rgba(0,0,0,.28);
-}
-.composer-copy h2{
-  margin:0 0 12px;
-  font-size:clamp(2rem,4vw,3.3rem);
-  letter-spacing:-.05em;
-}
-.composer-copy p{margin:0;color:var(--muted);line-height:1.7}
-.rules{margin-top:18px;color:#c8d0dc;font-size:.88rem;line-height:1.65}
-.rules strong{color:#fff}
-.compose-card{
-  position:relative;
-  max-width:520px;
-  width:100%;
-  margin:0 auto;
-  padding:28px;
-  min-height:300px;
-  color:#29271f;
-  background:var(--yellow);
-  box-shadow:0 25px 55px rgba(0,0,0,.35);
-  transform:rotate(-1deg);
-}
-.compose-card::before,.sticky::before{
-  content:"";
-  position:absolute;
-  width:52px;
-  height:14px;
-  top:-8px;
-  left:50%;
-  transform:translateX(-50%) rotate(-2deg);
-  background:rgba(238,232,209,.62);
-  border:1px solid rgba(90,80,50,.10);
-}
-.compose-label{
-  display:flex;
-  justify-content:space-between;
-  gap:16px;
-  margin-bottom:14px;
-  color:rgba(41,39,31,.65);
-  font-size:.72rem;
-  font-weight:900;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-}
-textarea{
-  width:100%;
-  height:140px;
-  resize:none;
-  border:0;
-  border-bottom:1px solid rgba(41,39,31,.17);
-  outline:0;
-  background:transparent;
-  color:#29271f;
-  font-size:1.2rem;
-  line-height:1.45;
-}
-textarea::placeholder{color:rgba(41,39,31,.42)}
-.wallet-box{
-  margin-top:18px;
-  padding:13px 14px;
-  border:1px solid rgba(41,39,31,.16);
-  border-radius:16px;
-  background:rgba(255,255,255,.28);
-}
-.wallet-row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:14px;
-}
-.connect-button{
-  padding:11px 17px;
-  border:0;
-  border-radius:999px;
-  background:#151823;
-  color:#fff;
-  font-weight:900;
-  cursor:pointer;
-  white-space:nowrap;
-}
-.connect-button:hover{filter:brightness(1.12)}
-.connect-button:disabled{opacity:.55;cursor:wait}
-.wallet-details{
-  min-width:0;
-  color:rgba(41,39,31,.70);
-  font-size:.76rem;
-  line-height:1.45;
-}
-.wallet-details strong{
-  display:block;
-  color:#29271f;
-  font-size:.84rem;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-}
-.wallet-balance{
-  margin-top:8px;
-  color:rgba(41,39,31,.72);
-  font-size:.78rem;
-  font-weight:800;
-}
-.get-landing{
-  margin-top:12px;
-  padding-top:11px;
-  border-top:1px solid rgba(41,39,31,.13);
-  color:rgba(41,39,31,.68);
-  font-size:.75rem;
-  line-height:1.45;
-}
-.get-landing strong{color:#29271f}
-.get-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
-.get-action{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:7px 10px;
-  border:1px solid rgba(41,39,31,.18);
-  border-radius:999px;
-  background:rgba(255,255,255,.33);
-  color:#29271f;
-  font-weight:850;
-}
-.get-action:hover{background:rgba(255,255,255,.55)}
-.wallet-modal[hidden]{display:none}
-.wallet-modal{
-  position:fixed;
-  z-index:1000;
-  inset:0;
-  display:grid;
-  place-items:center;
-  padding:20px;
-  background:rgba(3,5,11,.76);
-  backdrop-filter:blur(9px);
-}
-.wallet-dialog{
-  width:min(430px,100%);
-  padding:24px;
-  border:1px solid var(--line);
-  border-radius:24px;
-  background:#101522;
-  color:var(--text);
-  box-shadow:0 35px 90px rgba(0,0,0,.55);
-}
-.wallet-dialog h3{margin:0;font-size:1.55rem;letter-spacing:-.035em}
-.wallet-dialog-copy{margin:7px 0 18px;color:var(--muted);font-size:.86rem;line-height:1.5}
-.wallet-options{display:grid;gap:9px}
-.wallet-option{
-  width:100%;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:12px 14px;
-  border:1px solid var(--line);
-  border-radius:14px;
-  background:rgba(255,255,255,.04);
-  color:#fff;
-  font:inherit;
-  text-align:left;
-  cursor:pointer;
-}
-.wallet-option:hover{background:rgba(255,255,255,.08)}
-.wallet-option img{width:30px;height:30px;border-radius:8px}
-.wallet-option span{font-weight:850}
-.wallet-none{padding:18px 8px;color:var(--muted);font-size:.86rem;line-height:1.5}
-.wallet-dialog-footer{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:18px}
-.wallet-directory{color:var(--teal);font-size:.78rem;font-weight:800}
-.wallet-close{
-  padding:8px 12px;
-  border:1px solid var(--line);
-  border-radius:999px;
-  background:transparent;
-  color:#fff;
-  cursor:pointer;
-}
-.leave-button{
-  width:100%;
-  margin-top:20px;
-  padding:14px 18px;
-  border:0;
-  border-radius:999px;
-  background:#151823;
-  color:#fff;
-  font-weight:900;
-  cursor:pointer;
-}
-.leave-button:hover{filter:brightness(1.12)}
-.leave-button:disabled{opacity:.55;cursor:wait}
-.status{
-  min-height:1.5em;
-  margin:14px 0 0;
-  color:rgba(41,39,31,.68);
-  font-size:.82rem;
-  line-height:1.45;
-}
-.status[data-state="error"]{color:#8b1f2b;font-weight:700}
-.status[data-state="success"]{color:#13644f;font-weight:700}
-.wall-section{padding:0 0 90px}
-.wall-head{
-  display:flex;
-  align-items:end;
-  justify-content:space-between;
-  gap:22px;
-  margin-bottom:24px;
-}
-.wall-head h2{margin:0;font-size:clamp(2.3rem,5vw,4rem);letter-spacing:-.055em}
-.wall-head p{margin:0;color:var(--muted)}
-.wall{
-  position:relative;
-  min-height:520px;
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:28px 24px;
-  align-items:start;
-  padding:52px 34px;
-  border:1px solid rgba(255,255,255,.09);
-  border-radius:32px;
-  overflow:hidden;
-  background:
-    linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px),
-    radial-gradient(circle at 50% 0%,rgba(255,255,255,.04),transparent 45%),
-    #12131a;
-  background-size:42px 42px,42px 42px,auto,auto;
-  box-shadow:inset 0 0 90px rgba(0,0,0,.34),0 30px 80px rgba(0,0,0,.24);
-}
-.sticky{
-  position:relative;
-  min-height:205px;
-  padding:24px 21px 19px;
-  color:#29271f;
-  background:var(--note,var(--yellow));
-  transform:rotate(var(--rot,0deg));
-  box-shadow:0 14px 28px rgba(0,0,0,.28);
-  transition:transform .18s ease,box-shadow .18s ease;
-}
-.sticky:hover{
-  z-index:2;
-  transform:rotate(0deg) translateY(-4px) scale(1.025);
-  box-shadow:0 20px 38px rgba(0,0,0,.34);
-}
-.sticky p{
-  margin:12px 0 20px;
-  font-size:1.03rem;
-  line-height:1.5;
-  overflow-wrap:anywhere;
-}
-.sticky-meta{
-  margin-top:auto;
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  color:rgba(41,39,31,.58);
-  font-size:.68rem;
-  font-weight:800;
-  letter-spacing:.025em;
-}
-.sticky-tag{
-  color:rgba(41,39,31,.55);
-  font-size:.66rem;
-  font-weight:950;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-}
-.wall-empty,.wall-loading{
-  grid-column:1/-1;
-  align-self:center;
-  justify-self:center;
-  max-width:520px;
-  padding:50px 20px;
-  text-align:center;
-  color:#9aa3b5;
-  line-height:1.65;
-}
-.wall-actions{text-align:center;margin-top:26px}
-.more-button{
-  padding:13px 22px;
-  border:1px solid var(--line);
-  border-radius:999px;
-  background:rgba(255,255,255,.04);
-  color:#fff;
-  font-weight:800;
-  cursor:pointer;
-}
-.more-button:hover{background:rgba(255,255,255,.08)}
-.more-button:disabled{opacity:.5;cursor:wait}
-.chain-note{
-  max-width:760px;
-  margin:24px auto 0;
-  color:var(--muted);
-  text-align:center;
-  font-size:.82rem;
-  line-height:1.65;
-}
-footer{
-  padding:30px 0 46px;
-  border-top:1px solid var(--line);
-  color:#7d8798;
-  display:flex;
-  justify-content:space-between;
-  gap:20px;
-  font-size:.8rem;
-}
-@media(max-width:940px){
-  .composer-wrap{grid-template-columns:1fr}
-  .wall{grid-template-columns:repeat(3,minmax(0,1fr))}
-}
-@media(max-width:720px){
-  .wrapper{width:min(100% - 26px,var(--max))}
-  nav{min-height:76px}
-  .brand img{width:42px;height:42px}
-  .nav-right .hide-mobile{display:none}
-  .hero{padding-top:62px}
-  .composer-wrap{padding:22px}
-  .wall{grid-template-columns:repeat(2,minmax(0,1fr));padding:42px 20px}
-  .wall-head{align-items:start;flex-direction:column}
-  footer{flex-direction:column}
-}
-@media(max-width:470px){
-  .wall{grid-template-columns:1fr;gap:24px}
-  .sticky{min-height:185px}
-}
-
-.site-header{position:sticky;top:0;z-index:1000;margin:0 -12px;padding:8px 12px;background:rgba(5,7,13,.88);border-bottom:1px solid rgba(255,255,255,.10);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
-.site-nav{min-height:68px!important;height:auto!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:22px!important}
-.site-brand{display:flex;align-items:center;gap:11px;flex:0 0 auto;text-decoration:none!important;font-weight:950;letter-spacing:-.02em;color:#fff!important}
-.site-brand img{width:44px!important;height:44px!important;border-radius:50%;object-fit:cover;box-shadow:0 0 24px rgba(92,80,255,.24)}
-.site-brand-name{white-space:nowrap}
-.site-brand-name b{background:linear-gradient(90deg,var(--cyan,#22e6c7),var(--blue,#4da4ff),var(--violet,#a855f7));-webkit-background-clip:text;background-clip:text;color:transparent}
-.site-nav-links{display:flex;align-items:center;justify-content:flex-end;gap:5px;min-width:0}
-.site-nav-links a{display:inline-flex;align-items:center;min-height:38px;padding:0 10px;border:1px solid transparent;border-radius:10px;text-decoration:none!important;color:#b9c2d0!important;font-size:.78rem;font-weight:800;white-space:nowrap;transition:background .18s ease,border-color .18s ease,color .18s ease}
-.site-nav-links a:hover{color:#fff!important;background:rgba(255,255,255,.055);border-color:rgba(255,255,255,.08)}
-.site-nav-links .site-nav-active{color:#fff!important;background:rgba(34,230,199,.08);border-color:rgba(34,230,199,.26)}
-.site-nav-links .site-rss-link{color:#ffbf4b!important;border-color:rgba(255,173,36,.22);background:rgba(255,173,36,.05)}
-@media(max-width:940px){.site-header{margin:0 -6px;padding:7px 6px}.site-nav{align-items:flex-start!important;flex-direction:column!important;gap:7px!important;padding:4px 0 7px}.site-brand{padding-left:4px}.site-nav-links{width:100%;justify-content:flex-start;overflow-x:auto;padding:2px 4px 5px;scrollbar-width:thin}.site-nav-links a{flex:0 0 auto}.site-brand img{width:40px!important;height:40px!important}}
-
-</style>
-</head>
-<body>
-<div class="wrapper">
-  <header class="site-header">
-  <nav class="site-nav" aria-label="Primary navigation">
-    <a class="site-brand" href="/" aria-label="Landing Coin home">
-      <img src="/landing-logo.jpg" alt="Landing Coin logo">
-      <span class="site-brand-name">LANDING <b>COIN</b></span>
-    </a>
-    <div class="site-nav-links">
-      <a href="/">Home</a>
-      <a href="/news/">News</a>
-      <a href="/wall.html" class="site-nav-active" aria-current="page">Wall</a>
-      <a href="/flight-plan.html">Flight Plan</a>
-      <a href="/transparency.html">Transparency</a>
-      <a href="/lander/">Lander</a>
-      <a href="/team.html">Team</a>
-      <a class="site-rss-link" href="/news/feed.xml" type="application/rss+xml" title="LANDING Coin RSS feed">RSS</a>
-    </div>
-  </nav>
+<script src="/app.js" defer></script><link rel="alternate" href="https://landingcoin.fun/news/feed.xml" type="application/rss+xml" title="Landing Coin News"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"><meta name="description" content="Explore the LANDING Wall or leave a public message for 5,000 LANDING plus the Solana network fee. One payment, one message, verified on-chain."><meta name="robots" content="index,follow,max-image-preview:large"><link rel="canonical" href="https://landingcoin.fun/wall.html"><meta property="og:type" content="website"><meta property="og:url" content="https://landingcoin.fun/wall.html"><meta property="og:title" content="LANDING Wall | Community Messages on Solana"><meta property="og:description" content="Explore the LANDING Wall or leave a public message for 5,000 LANDING plus the Solana network fee. One payment, one message, verified on-chain."><meta property="og:site_name" content="Landing Coin"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://landingcoin.fun/landing-social.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Landing Coin — Everyone is going to the moon. We are landing."><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="LANDING Wall | Community Messages on Solana"><meta name="twitter:description" content="Explore the LANDING Wall or leave a public message for 5,000 LANDING plus the Solana network fee. One payment, one message, verified on-chain."><meta name="twitter:image" content="https://landingcoin.fun/landing-social.jpg"><meta name="twitter:image:alt" content="Landing Coin — No moon. No promises. Just landing."><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap"><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/page-styles/wall.css"><link rel="stylesheet" href="/pages.css"><link rel="stylesheet" href="/seo.css"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://landingcoin.fun/wall.html#webpage","url":"https://landingcoin.fun/wall.html","name":"LANDING Wall | Community Messages on Solana","description":"Explore the LANDING Wall or leave a public message for 5,000 LANDING plus the Solana network fee. One payment, one message, verified on-chain.","inLanguage":"en","isPartOf":{"@id":"https://landingcoin.fun/#website"},"about":{"@id":"https://landingcoin.fun/#organization"},"breadcrumb":{"@id":"https://landingcoin.fun/wall.html#breadcrumb"}},{"@type":"BreadcrumbList","@id":"https://landingcoin.fun/wall.html#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://landingcoin.fun/"},{"@type":"ListItem","position":2,"name":"Landing Wall","item":"https://landingcoin.fun/wall.html"}]}]}</script></head>
+<body id="top" class="inner-page page-wall"><a class="skip" href="#main">Skip to content</a><header class="header">
+  <a class="brand" href="/" aria-label="LANDING home"><img src="/assets/landing-logo-96.webp" alt="" width="38" height="38" decoding="async"><span>LANDING<span class="brand-sub">GRAVITY STILL WORKS.</span></span></a>
+  <button class="menu-toggle" aria-expanded="false" aria-controls="navigation">Menu <span aria-hidden="true">☰</span></button>
+  <nav id="navigation" aria-label="Main navigation"><a href="/#buy">Buy &amp; markets</a><a href="/#community">Community</a><a href="/transparency.html">Transparency</a><a href="/news/">News</a></nav>
+  <a class="button button-small header-buy" href="/#buy">Buy LANDING</a>
 </header>
-
-  <main>
+<nav class="section-nav container" aria-label="Explore LANDING"><a href="/wall.html" aria-current="page">Wall</a><a href="/lander/">Certified Lander</a><a href="/flight-plan.html">Flight Plan</a><a href="/team.html">Team</a><a href="/media-kit.html">Media Kit</a><a href="/why-landing-doesnt-promise-the-moon.html">The attitude</a></nav><nav class="breadcrumb container" aria-label="Breadcrumb"><a href="/">Home</a><span class="breadcrumb-divider" aria-hidden="true">/</span><span aria-current="page">Landing Wall</span></nav><main id="main" class="page-content container"><div>
     <section class="hero">
       <span class="eyebrow">A PUBLIC MARK ON SOLANA</span>
-      <h1>THE LANDING<br><span class="gradient">WALL</span></h1>
+      <h1>The Landing <span class="gradient">Wall.</span></h1>
       <p class="hero-copy">A wall of digital post-its left by people who passed through LANDING. Write something short, pay in LANDING, and leave your mark behind.</p>
       <p class="price-line"><strong>5,000 LANDING.</strong> One post-it.</p>
     </section>
@@ -524,7 +47,7 @@ footer{
           <div class="get-landing">
             <strong>Don't have LANDING?</strong>
             <div class="get-actions">
-              <a class="get-action" href="https://jup.ag/?buy=DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ&sell=So11111111111111111111111111111111111111112" target="_blank" rel="noopener">Buy on Jupiter</a>
+              <a class="get-action" href="https://jup.ag/?buy=DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ&amp;sell=So11111111111111111111111111111111111111112" target="_blank" rel="noopener">Buy on Jupiter</a>
               <a class="get-action" href="/buy/">Buy on Poloniex</a>
             </div>
             <div style="margin-top:7px">Jupiter delivers LANDING to your Solana wallet. LANDING bought on Poloniex must be withdrawn to your Solana wallet before it can be used here.</div>
@@ -552,26 +75,9 @@ footer{
 
       <p class="chain-note">Marks are public. A Mark may be hidden from this page if it contains links, abuse or illegal content, but an on-chain transaction itself cannot be deleted.</p>
     </section>
-  </main>
-
-  <footer>
-  <div>
-    <strong>Landing Coin — $LANDING</strong><br>
-    <a href="/">Home</a> ·
-    <a href="/news/">News</a> ·
-    <a href="/flight-plan.html">Flight Plan</a> ·
-    <a href="/transparency.html">Transparency</a><br>
-    <a href="/lander/">What Is a Lander?</a> ·
-    <a href="/wall.html">LANDING Wall</a> ·
-    <a href="/media-kit.html">Media Kit</a> ·
-    <a href="/team.html">Team</a><br>
-    <a href="/why-landing-doesnt-promise-the-moon.html">Why LANDING Doesn't Promise the Moon</a>
   </div>
-  <div>© 2026 Landing Coin.<br>Gravity still works.</div>
-</footer>
-</div>
 
-<div class="wallet-modal" id="wallet-modal" hidden>
+  <div class="wallet-modal" id="wallet-modal" hidden>
   <div class="wallet-dialog" role="dialog" aria-modal="true" aria-labelledby="wallet-dialog-title">
     <h3 id="wallet-dialog-title">Choose a Solana wallet</h3>
     <p class="wallet-dialog-copy">LANDING Wall uses the Solana Wallet Standard, so it is not tied to Phantom.</p>
@@ -579,12 +85,13 @@ footer{
       <div class="wallet-none">Detecting compatible wallets…</div>
     </div>
     <div class="wallet-dialog-footer">
-      <a class="wallet-directory" href="https://solana.com/wallets" target="_blank" rel="noopener">Find a Solana wallet →</a>
+      <a class="wallet-directory" href="https://solana.com/wallets" target="_blank" rel="noopener">Find a Solana wallet</a>
       <button class="wallet-close" id="wallet-close" type="button">Cancel</button>
     </div>
   </div>
 </div>
 
+</main><footer class="footer container"><div class="footer-top"><div><a class="brand" href="/"><img src="/assets/landing-logo-96.webp" alt="" width="38" height="38" decoding="async"><span>LANDING<span class="brand-sub">GRAVITY STILL WORKS.</span></span></a><p>No moon. No promises. Just landing.</p><a href="mailto:contact@landingcoin.fun">contact@landingcoin.fun</a></div><div><span class="eyebrow">THE PROJECT</span><a href="/transparency.html">Transparency</a><a href="/flight-plan.html">Flight Plan</a><a href="/team.html">Team</a><a href="/news/">News</a></div><div><span class="eyebrow">EXPLORE</span><a href="/wall.html">Landing Wall</a><a href="/lander/">Certified Lander</a><a href="/media-kit.html">Media Kit</a><a href="/news/feed.xml">RSS feed</a></div><div><span class="eyebrow">COMMUNITY</span><a href="https://t.me/LandingCoinCommunity" target="_blank" rel="noopener">Telegram</a><a href="https://www.reddit.com/r/LandingCoin/" target="_blank" rel="noopener">Reddit</a><a href="https://bitcointalk.org/index.php?topic=5591610.0" target="_blank" rel="noopener">Bitcointalk</a></div></div><div class="footer-bottom"><span>© 2026 Landing Coin · Solana Mainnet</span><span>Speculative token. No financial promises.</span></div></footer>
 <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.98.4/lib/index.iife.min.js"></script>
 <script type="module">
 import { getWallets } from 'https://esm.sh/@wallet-standard/app@1.1.1?bundle';
@@ -1355,5 +862,4 @@ window.dispatchEvent(new CustomEvent('landing-wallet-standard-ready'));
   loadNewest();
 })();
 </script>
-</body>
-</html>
+</body></html>
