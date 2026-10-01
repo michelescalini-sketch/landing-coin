@@ -6,3 +6,5 @@
 .buy-card>p:not(.route-note),.feature-content p,.project-grid p{font-size:1rem}.risk-note p{font-size:.875rem}.token-name .eyebrow,.contract .micro,.fact .micro,.pill,.feature-content .eyebrow,.project-grid .micro,.footer-top .eyebrow{font-size:.75rem}.route-number+.pill{letter-spacing:.06em}.buy-card li{font-size:.9375rem}.hero-risk,.route-note{font-size:.8125rem}.hero .eyebrow{font-size:.75rem}.footer-top a:not(.brand){font-size:.875rem}.header nav{font-size:.875rem}
 @media(max-width:560px){.hero-image>img{object-position:50% 44%}.fact .micro{font-size:.6875rem}.buy-card .card-top{gap:8px}.buy-card li{font-size:1rem}.hero-risk{font-size:.8125rem}.contract .micro{font-size:.75rem}.token-name .eyebrow{font-size:.6875rem}.header nav a{font-size:1rem}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.button{transition:none}.button:hover{transform:none}}
+
+.manifesto-film{max-width:854px;margin:40px auto 0;text-align:left}.manifesto-film h3{font-size:1.25rem;margin-bottom:16px}.manifesto-film video{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:12px;background:#080a0d;aspect-ratio:854/480}
