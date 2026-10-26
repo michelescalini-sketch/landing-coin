@@ -31,7 +31,7 @@ jobs:
           node redesign/qa/test-live-flows.cjs "$RUNNER_TEMP/landing-qa/node_modules/@solana/web3.js/lib/index.iife.min.js"
           node redesign/qa/preproduction-dom-smoke.cjs
   responsive-browser-qa:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
