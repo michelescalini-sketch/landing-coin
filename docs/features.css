@@ -1,0 +1,577 @@
+/* ==========================================================================
+   LANDING: Wall and Lander
+   The two interactive pages. Markup here is driven by the project's
+   existing wall-live.js and lander-live.js, so the element ids are a fixed
+   contract; only the presentation is ours.
+   ========================================================================== */
+
+/* ---- Shared form furniture ---------------------------------------------- */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.mono-addr {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  word-break: break-all;
+  color: var(--text-2);
+}
+
+/* The Lander's read-only fields are real inputs (the live script reads and
+   writes their .value) but should read as the same quiet figure as the
+   rest of the row, not as a box waiting to be typed in. */
+input.mono-addr {
+  appearance: none;
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: right;
+  text-overflow: ellipsis;
+}
+
+input.mono-addr::placeholder { color: var(--text-muted); opacity: 1; }
+
+.markbox {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: rgba(14, 17, 23, 0.8);
+}
+
+.markbox-head,
+.markbox-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.markbox textarea,
+.field input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--space-4);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-md);
+  background: var(--well);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: var(--leading-body);
+  resize: vertical;
+  transition: border-color var(--dur-fast) var(--ease);
+}
+
+.markbox textarea:focus,
+.field input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* Placeholders are text, so they need the text contrast floor too, not
+   the decorative token. On the field's near-black fill --text-faint read
+   at 2.4:1; --text-muted is the lightest token that clears 4.5:1. */
+.markbox textarea::placeholder,
+.field input::placeholder { color: var(--text-muted); opacity: 1; }
+
+.field { display: grid; gap: var(--space-2); }
+.field input { font-family: var(--font-mono); font-size: var(--step--1); }
+
+.field-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+/* ---- The wall ----------------------------------------------------------- */
+
+.wall-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-4);
+  min-height: 220px;
+}
+
+.wall-empty {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: var(--space-9) var(--space-6);
+  text-align: center;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+}
+
+/* A mark, exactly as wall-live.js builds one:
+
+     <article class="real-mark" style="--note:var(--ink); --rot:-1.1deg">
+       <div class="mono">LANDING MARK</div>
+       <p>the message</p>
+       <footer><span>wallet</span><span>date</span><a>Verify</a></footer>
+     </article>
+
+   This block once targeted .mark, .mark-who and .mark-text, which the
+   script has never produced, so every live mark rendered as bare text in
+   the grid. The selectors below follow the script's real structure, and
+   that structure is the contract: if the script changes, change these.
+
+   The script tints each mark by its signature, writing var(--ink) or
+   var(--yellow) into --note. Those are the project's own token names and
+   do not exist in this design, so they are defined here, scoped to the
+   wall, rather than leaving every tint to resolve to nothing. The tint
+   shows as the top edge rather than as a full paper fill: a wall of cream
+   and yellow notes is exactly the run of light blocks that buries the
+   dark feel on a phone. */
+.wall-grid {
+  --ink: var(--text-3);
+  --yellow: var(--accent);
+}
+
+.real-mark {
+  display: grid;
+  /* Cards in a row share the tallest one's height, so the message row
+     takes the slack and the footer stays on the bottom edge. */
+  grid-template-rows: auto 1fr auto;
+  gap: var(--space-3);
+  min-width: 0;
+  padding: var(--space-5);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--note, var(--accent));
+  border-radius: var(--radius-lg);
+  background: rgba(14, 17, 23, 0.76);
+  rotate: var(--rot, 0deg);
+  transition: border-color var(--dur-fast) var(--ease),
+              translate var(--dur-fast) var(--ease),
+              rotate var(--dur-fast) var(--ease);
+  animation: riseup 0.6s var(--ease) both;
+}
+
+.real-mark:hover { border-color: var(--accent); translate: 0 -3px; rotate: 0deg; }
+
+.real-mark > .mono {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* A message is whatever someone paid to write, so it keeps its own line
+   breaks and a long unbroken string wraps instead of widening the grid. */
+.real-mark > p {
+  margin: 0;
+  color: var(--text-2);
+  line-height: var(--leading-body);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.real-mark > footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  color: var(--text-muted);
+}
+
+.real-mark > footer a { color: var(--accent); }
+
+/* The script's message for an empty batch. Same treatment as the wall's
+   own empty state, which the script also writes on failure. */
+.feed-state {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: var(--space-9) var(--space-6);
+  text-align: center;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+}
+
+/* ---- Wallet picker ------------------------------------------------------ */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: grid;
+  place-items: center;
+  padding: var(--gutter);
+  background: rgba(5, 6, 10, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: fadein 0.25s var(--ease) both;
+}
+
+.modal[hidden] { display: none; }
+
+@keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+
+.modal-card {
+  width: min(460px, 100%);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface-1);
+  box-shadow: var(--shadow-lg);
+  animation: modalin 0.3s var(--ease-out-hard) both;
+}
+
+@keyframes modalin {
+  from { opacity: 0; translate: 0 18px; scale: 0.97; }
+  to   { opacity: 1; translate: 0 0; scale: 1; }
+}
+
+.modal-head,
+.modal-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-5) var(--space-6);
+}
+
+.modal-head { border-bottom: 1px solid var(--line); }
+
+.modal-head h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  letter-spacing: var(--tracking-tight);
+}
+
+.modal-body { display: grid; gap: var(--space-2); padding: var(--space-5) var(--space-6); }
+
+/* Wallet options the script injects. */
+.modal-body button {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: none;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--step-0);
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease),
+              background var(--dur-fast) var(--ease);
+}
+
+.modal-body button:hover { border-color: var(--accent); background: rgba(255, 255, 255, 0.03); }
+
+/* Each option carries the wallet's own icon, at whatever size the wallet
+   ships it. Without a size a large icon would stretch the whole row. */
+.modal-body button img {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  object-fit: contain;
+}
+
+/* Written by the script when no wallet is found or discovery fails. */
+.wallet-none {
+  padding: var(--space-4) 0;
+  color: var(--text-3);
+  font-size: var(--step--1);
+  line-height: var(--leading-body);
+}
+
+.modal-foot {
+  flex-wrap: wrap;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+}
+
+/* ---- Certified Lander --------------------------------------------------- */
+
+.lander-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-8);
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .lander-layout { grid-template-columns: minmax(0, 1fr); }
+}
+
+.lander-card-area { position: sticky; top: 100px; }
+
+/* Sticky only beside the form. Stacked above it on a narrow screen, a
+   sticky card stayed pinned while the form scrolled up underneath it. */
+@media (max-width: 900px) {
+  .lander-card-area { position: static; }
+}
+
+/* The card flips on its own axis. The slot holds both faces; whichever is
+   facing away is hidden from the reader and from assistive tech. */
+.lander-card { perspective: 1400px; }
+
+.card-slot {
+  position: relative;
+  display: grid;
+  aspect-ratio: 1.586;          /* the proportions of a physical card */
+  transform-style: preserve-3d;
+  transition: rotate var(--dur-slow) var(--ease-in-out);
+}
+
+/* lander-live.js flips the card by toggling `hidden` on the two faces,
+   one shown at a time. This design turns the card in 3D instead, so the
+   faces must both stay rendered for the turn to be seen, and the slot
+   rotates to whichever face the script has not hidden.
+
+   This rule once keyed off a data-flipped attribute that nothing ever set,
+   so the Flip button did nothing visible. Keying it off `hidden` follows
+   the script instead of asking it to change.
+
+   The face turned away is hidden from assistive technology as well, but
+   only once the turn has finished: visibility switches after the length
+   of the turn on the way out, and at once on the way back in. */
+.card-slot:has(> .card-back:not([hidden])) { rotate: y 180deg; }
+
+.card-face { visibility: visible; transition: visibility 0s; }
+.card-face[hidden] {
+  display: flex !important;
+  visibility: hidden;
+  transition: visibility 0s linear var(--dur-slow);
+}
+
+/* Both faces sit in the same grid cell rather than being positioned over
+   the slot. The slot keeps the card's proportions, but when a face holds
+   more than fits (a long name, a narrow phone) the slot grows to the taller
+   face instead of cutting off the bottom of the card. */
+.card-face {
+  grid-area: 1 / 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  /* clip, not hidden: a face that is a scroll container is allowed to
+     shrink to nothing in the grid, which put the card back to a fixed
+     height and cut its bottom off. hidden stays first for old Safari. */
+  overflow: hidden;
+  overflow: clip;
+}
+
+.card-front {
+  background:
+    radial-gradient(120% 90% at 100% 0%, rgba(255, 196, 79, 0.22), transparent 62%),
+    linear-gradient(160deg, var(--surface-4), var(--well));
+  border: 1px solid var(--line-strong);
+  box-shadow: 8px 8px 0 rgba(255, 196, 79, 0.22), var(--shadow-lg);
+}
+
+/* A slow sheen across the front, so the card reads as a physical object. */
+.card-front::after {
+  content: '';
+  position: absolute;
+  inset: -40%;
+  background: linear-gradient(68deg, transparent 42%,
+    rgba(255, 255, 255, 0.07) 50%, transparent 58%);
+  animation: sheen 6s var(--ease-in-out) infinite;
+  pointer-events: none;
+}
+
+@keyframes sheen {
+  0%, 100% { translate: -42% 0; }
+  50%      { translate: 42% 0; }
+}
+
+.card-back {
+  rotate: y 180deg;
+  background: linear-gradient(160deg, var(--surface-2), var(--well-deep));
+  border: 1px solid var(--line-strong);
+  box-shadow: 8px 8px 0 rgba(255, 196, 79, 0.1), var(--shadow-lg);
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.card-brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  font-size: var(--step--1);
+}
+
+.card-state {
+  padding: 3px 11px;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.card-main { display: grid; gap: var(--space-2); align-content: center; flex: 1; }
+
+.card-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(20px, 2.4vw, 30px);
+  line-height: 1.1;
+  letter-spacing: var(--tracking-tight);
+  /* Names can be 40 characters with no spaces; break them inside the card. */
+  overflow-wrap: anywhere;
+}
+
+.card-foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-6);
+}
+
+.card-foot span { display: grid; gap: 2px; }
+.card-foot i { font-style: normal; }
+
+.card-foot b {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--text);
+}
+
+/* Keep the approved card artwork while retaining main's physical-card
+   proportions. Proof fields scale with the card, not with the viewport;
+   both faces fit the same frame even beside the form or on a phone. */
+.lander-card { container-type: inline-size; }
+.card-slot { aspect-ratio: 85.6 / 53.98; grid-template-rows: minmax(0, 1fr); }
+.card-face { min-width: 0; min-height: 0; height: 100%; gap: 2.2cqw; padding: 5.5cqw; }
+.card-top { gap: 2cqw; }
+.card-brand { font-size: 2.6cqw; }
+.card-state { display: inline-flex; align-items: center; gap: 1cqw; line-height: 1.3; font-size: 1.85cqw; letter-spacing: .1em; padding: .6cqw 2cqw; white-space: nowrap; }
+.card-main { min-height: 0; gap: 1cqw; }
+.card-name { font-size: 5cqw; line-height: 1.05; }
+.card-wallet { font-size: 2.2cqw; }
+.card-main > .gauge-label, .card-foot .gauge-label { font-size: 1.75cqw; letter-spacing: .14em; }
+.card-foot { display: grid; grid-template-columns: 1.25fr .7fr 1.05fr .9fr; gap: 2cqw; }
+.card-foot span { min-width: 0; }
+.card-foot b { font-size: 2.1cqw; white-space: nowrap; }
+.card-back .card-note { font-size: 2cqw; }
+.card-back .card-name { font-size: 7cqw; }
+
+.card-note { margin: 0; font-size: var(--step--2); color: var(--text-muted); }
+
+/* The newer lander-live.js writes its state as "<i></i> LABEL"; the <i> is
+   a status light. */
+.card-state i {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  vertical-align: 1px;
+  opacity: 0.6;
+}
+#lander-card[data-certification="confirmed"] .card-state i { opacity: 1; }
+.card-state i { flex: none; width: 1.2cqw; height: 1.2cqw; margin-right: 0; vertical-align: initial; }
+.card-state > span { display: block; line-height: 1.3; }
+
+/* Proof line: verification state on the left, transaction on the right. */
+.card-proof {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.card-proof span:last-child { overflow-wrap: anywhere; }
+.card-proof { font-size: 1.6cqw; gap: 1cqw; padding-top: 1.8cqw; }
+
+.card-back-proof {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* The preview label and the lock note belong to an unconfirmed card. The
+   older script hides the label itself; the newer one leaves it, so the
+   confirmed state hides both here. */
+#lander-card[data-certification="confirmed"] .card-preview,
+.lander-card-area:has(#lander-card[data-certification="confirmed"]) .card-lock-locked {
+  display: none;
+}
+
+.card-lock-note {
+  margin: var(--space-3) 0 0;
+  text-align: center;
+  font-size: var(--step--1);
+  color: var(--text-muted);
+}
+.card-lock-proof:has(> a[hidden]) { display: none; }
+.card-lock-note a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+
+.card-preview,
+.card-motto {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.card-preview { font-size: 2cqw; }
+.card-back .card-back-proof { font-size: 1.8cqw; }
+.card-back .card-motto { font-size: 3.4cqw; margin-top: 2cqw; }
+
+.card-motto {
+  margin-top: var(--space-4);
+  font-family: var(--font-display);
+  font-size: var(--step-0);
+  letter-spacing: var(--tracking-tight);
+  text-transform: none;
+  color: var(--text-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-front::after, .real-mark, .modal, .modal-card { animation: none !important; }
+  .real-mark { rotate: 0deg; }
+  .card-slot { transition: none; }
+}

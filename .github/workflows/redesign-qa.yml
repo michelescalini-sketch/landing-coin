@@ -4,7 +4,7 @@ on:
   push:
     branches: [sites-redesign]
   pull_request:
-    branches: [main]
+    branches: [main, sites-redesign]
 
 permissions:
   contents: read
@@ -25,12 +25,13 @@ jobs:
           python3 redesign/qa/verify-migration.py
           python3 redesign/qa/verify-content.py
           python3 redesign/qa/audit-final.py
+          python3 redesign/qa/verify-generator.py
       - name: Offline wallet contracts and all-page startup
         run: |
           node redesign/qa/test-live-flows.cjs "$RUNNER_TEMP/landing-qa/node_modules/@solana/web3.js/lib/index.iife.min.js"
           node redesign/qa/preproduction-dom-smoke.cjs
   responsive-browser-qa:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
@@ -47,6 +48,7 @@ jobs:
           export WEB3_IIFE="$RUNNER_TEMP/landing-qa/node_modules/@solana/web3.js/lib/index.iife.min.js"
           export HTML2CANVAS_FILE="$RUNNER_TEMP/landing-qa/node_modules/html2canvas/dist/html2canvas.min.js"
           node redesign/qa/browser-qa.cjs
+          node redesign/qa/browser-data-qa.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

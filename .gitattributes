@@ -1,0 +1,3 @@
+* text=auto eol=lf
+# Preserve the upstream license document's exact original bytes.
+docs/assets/FONT-LICENSES.txt -text

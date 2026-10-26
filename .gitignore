@@ -5,6 +5,10 @@ orca/node_modules/
 *.log
 .DS_Store
 
+# Local QA artifacts
+redesign/qa-output/
+__pycache__/
+
 # Solana / LANDING private keypairs — NEVER COMMIT
 landing-mainnet-admin.json
 landing-creator.json

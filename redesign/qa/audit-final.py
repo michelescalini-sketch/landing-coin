@@ -17,7 +17,8 @@ def assert_schema(d,route):
  assert any('WebPage'in(e.get('@type')if isinstance(e.get('@type'),list)else[e.get('@type')])and e.get('url')==ORIGIN+route for e in graphs),route
  return graphs
 
-for route in CORE+ARTICLES:
+NEW_ARTICLES=['/news/the-argument-behind-the-joke.html']
+for route in CORE+ARTICLES+NEW_ARTICLES:
  d=html.fromstring(file(route).read_text());assert d.get('lang')=='en';assert len(d.xpath('//main'))==1
  assert len(d.xpath('//h1'))==1
  robots=d.xpath('//meta[@name="robots"]')[0].get('content');assert 'noindex' not in robots,(route,robots)
@@ -35,13 +36,19 @@ for route in CORE+ARTICLES:
  for button in d.xpath('//button'):
   assert norm(button)or button.get('aria-label')or button.get('aria-labelledby'),(route,'unnamed button')
  header=d.xpath('//header')[0]
- for nav in header.xpath('./nav'):
-  urls={a.get('href')for a in nav.xpath('.//a')}|{a.get('href')for a in header.xpath('./div[contains(@class,"header-actions")]//a')}
+ navs=header.xpath('.//nav');assert navs,(route,'desktop navigation missing')
+ drawer=d.xpath('//*[@id="drawer"]');assert len(drawer)==1,(route,'mobile drawer missing')
+ for nav in navs+drawer:
+  urls={a.get('href')for a in nav.xpath('.//a')}
   assert set(CORE)-{'/','/privacy.html','/cookie-policy.html','/terms-of-service.html'}<=urls,(route,'navigation')
+ assert header.xpath('.//button[@aria-controls="drawer" and @aria-label="Open menu" and @aria-expanded="false"]'),route
+ assert not d.xpath('//*[contains(concat(" ",normalize-space(@class)," ")," motion-toggle ")]'),route
  for social in ['https://x.com/LandingCoin2026','https://www.linkedin.com/company/146683351']:
   assert d.xpath('//footer//a[@href="'+social+'"]'),(route,social)
  if route in ARTICLES:
   article=next(x for x in graphs if x.get('@type')=='NewsArticle');date=d.xpath('//time')[0].get('datetime');assert article['datePublished']==date
+ if route in NEW_ARTICLES:
+  article=next(x for x in graphs if x.get('@type')=='Article');assert article['mainEntityOfPage']==ORIGIN+route
 
 # All 18 routes are reachable from the homepage's actual internal links.
 visited=set();pending=['/']
@@ -53,10 +60,10 @@ while pending:
   u=urlsplit(a.get('href'))
   if u.scheme or u.netloc:continue
   target=u.path
-  if target in CORE+ARTICLES and target not in visited:pending.append(target)
+  if target in CORE+ARTICLES+NEW_ARTICLES and target not in visited:pending.append(target)
 assert set(CORE)<=visited
 urls={e.text for e in ET.parse(P/'sitemap.xml').iter()if e.tag.endswith('}loc')}
-assert urls=={ORIGIN+x for x in CORE+ARTICLES}
+assert urls=={ORIGIN+x for x in CORE+ARTICLES+NEW_ARTICLES}
 
 # Exact original article bodies and publication dates survive the presentation migration.
 for key,route in zip(['discordArticle','wallArticle','poloArticle'],ARTICLES):
@@ -87,7 +94,12 @@ for f in P.rglob('*.html'):
  assert 'LandingCoinFun'not in s
 assert 'Allow: /' in (P/'robots.txt').read_text() and 'Disallow: /' not in (P/'robots.txt').read_text()
 assert not (P/'review.html').exists()
-print('PASS: all 19 pages plus three articles are production-indexable; routes/navigation; metadata/Open Graph/canonicals/schemas; labels/alt/button names; exact news bodies/dates; five factual phases; source ZIP/RSS; reduced-motion safeguards; private review utility removed.')
+print('PASS: all 19 pages plus four articles are production-indexable; routes/navigation; metadata/Open Graph/canonicals/schemas; labels/alt/button names; exact news bodies/dates; five factual phases; source ZIP/RSS; reduced-motion safeguards; private review utility removed.')
 print('RELEASE NOTES: production metadata and crawl policy prepared; no merge or deployment performed.')
 
-assert 'furqan' not in team.lower(), 'Team must not list Furqan'
+assert all(x in team for x in ['Furqan','Brand Designer &amp; Senior Community Manager','Development','Community','Communications','Partnerships','not current','planned']), 'Current team and planned collaborator areas must survive'
+for policy in ['privacy.html','cookie-policy.html']:
+ text=(P/policy).read_text()
+ assert 'landing:lander-wallet' in text and 'landing:pending-signature' in text
+ assert 'rather than personal identifiers' not in text
+assert 'may constitute personal data' in (P/'cookie-policy.html').read_text()

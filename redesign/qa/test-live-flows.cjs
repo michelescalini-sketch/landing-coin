@@ -133,4 +133,68 @@ async function walletDialogTests(){
  await modal.emit('keydown',{key:'Escape',preventDefault(){}});assert.equal(modal.hidden,true);assert.equal(env.document.activeElement,opener);
  console.log('PASS: simulated wallet-dialog focus entry, forward/reverse Tab boundaries, Escape/return focus, no-wallet and connection-cancellation recovery. No browser keyboard or real wallet action asserted.');
 }
-(async()=>{await wallTests();await landerTests();await walletDialogTests();console.log('PASS: offline production-flow contract tests. Real wallet signing, finalization and browser rendering still require end-to-end verification.');})().catch(e=>{console.error(e);process.exit(1)});
+async function recoveryTests(){
+ const fixture={id:42,wallet:WALLET,balanceRaw:'123456789',signature:'A'.repeat(88),confirmedSlot:345678901,createdAt:'2026-10-19 12:00:00'};
+ function boot(fetcher,seed={}){
+  const env=environment('lander/index.html',fetcher);
+  for(const [k,v]of Object.entries(seed))env.storage.set(k,v);
+  env.context.html2canvas=async()=>{throw new Error('ISOLATED EXPORT FAILURE')};
+  compile(env,'docs/lander-live.js',s=>s.replace('  updateCard();\n  restoreLander();','  globalThis.recoveryTest={verifyAndClaim,applyLander};\n  updateCard();\n  restoreLander();'));
+  return env;
+ }
+ for(const scenario of ['waiting','network','incomplete','invalid']){
+  let attempts=0;
+  const env=boot(async(url,options)=>{
+   assert.equal(url,API+'/api/claim');assert.equal(options.method,'POST');attempts++;
+   if(scenario==='network')throw new Error('ISOLATED OFFLINE');
+   if(scenario==='incomplete')return Response.json({status:'confirmed',lander:{...fixture,confirmedSlot:null}});
+   if(scenario==='invalid')return Response.json({status:'invalid',message:'The transaction failed on-chain.'},{status:400});
+   return Response.json({status:'waiting'});
+  });
+  await env.context.recoveryTest.verifyAndClaim('B'.repeat(88));
+  assert.equal(env.nodes.get('download-card').disabled,true,scenario);
+  assert.equal(env.nodes.get('lander-card').dataset.certification,'preview',scenario);
+  assert.equal(env.nodes.get('buy-landing').disabled,false,scenario);
+  assert.equal(env.storage.has('landing:pending-signature'),scenario!=='invalid',scenario);
+  assert.equal(attempts,scenario==='invalid'?1:60,scenario);
+ }
+ const pending=boot(async(url,options)=>{
+  assert.equal(url,API+'/api/claim');assert.equal(JSON.parse(options.body).signature,'B'.repeat(88));
+  return Response.json({status:'confirmed',lander:fixture});
+ },{'landing:pending-signature':'B'.repeat(88)});
+ await settle();assert.equal(pending.nodes.get('card-id').textContent,'0042');assert(!pending.storage.has('landing:pending-signature'));
+ const restore=boot(async(url,options)=>{
+  assert.equal(url,API+'/api/lander?wallet='+WALLET);assert(!options.method);
+  return Response.json({status:'confirmed',lander:fixture});
+ },{'landing:lander-wallet':WALLET});
+ await settle();assert.equal(restore.nodes.get('card-id').textContent,'0042');assert.equal(restore.nodes.get('download-card').disabled,false);
+ for(const [key,value]of [['id',0],['wallet','invalid'],['signature','invalid'],['balanceRaw','0'],['confirmedSlot',0],['createdAt','invalid']]){
+  const env=boot(async()=>{throw new Error('No automatic request expected')});
+  assert.throws(()=>env.context.recoveryTest.applyLander({...fixture,[key]:value}),key);
+  assert.equal(env.nodes.get('download-card').disabled,true,key);
+ }
+ await restore.nodes.get('live-card-flip').emit('click');
+ await restore.nodes.get('download-card').emit('click');
+ assert.equal(restore.nodes.get('download-card').disabled,false,'Export failure allows retry');
+ assert.equal(restore.nodes.get('registered-card-front').hidden,true,'Export failure restores reverse');
+ console.log('PASS: 60-attempt waiting/network/incomplete-proof limits; invalid claim clears pending state; reload resumes pending claim; saved-wallet automatic restore; every proof field required; PNG failure recovery. All responses mocked.');
+}
+async function wallReadingTests(){
+ let stage=0;const requests=[];
+ const env=environment('wall.html',async(url,options={})=>{
+  requests.push(url);assert(!options.method||options.method==='GET');
+  if(stage===2)throw new Error('ISOLATED NETWORK FAILURE');
+  if(stage===3)return Response.json({status:'ok',marks:null});
+  return Response.json({status:'ok',marks:stage===0?[]:[{signature:'A'.repeat(88),wallet:WALLET,message:'<img src=x onerror=alert(1)>',blockTime:1}],hasMore:stage===0,nextBefore:stage===0?'B'.repeat(88):null});
+ });
+ vm.runInContext(fs.readFileSync(web3File,'utf8'),env.context);env.window.solanaWeb3=env.context.solanaWeb3;
+ compile(env,'docs/wall-live.js',s=>s.replace('  loadNewest();','  globalThis.readingTest={loadPage};\n  loadNewest();'));
+ await settle();assert.equal(env.nodes.get('load-more').hidden,false);assert(env.nodes.get('wall-count').textContent.includes('Earlier transactions'));
+ stage=1;await env.context.readingTest.loadPage(false);assert(requests.at(-1).includes('before='+ 'B'.repeat(88)));
+ const wall=env.nodes.get('wall');assert.equal(wall.children.length,1);assert.equal(wall.children[0].children[1].textContent,'<img src=x onerror=alert(1)>');assert.equal(wall.children[0].children[1].children.length,0,'Wall content remains literal text');
+ assert.equal(env.nodes.get('load-more').hidden,true);
+ stage=2;await env.context.readingTest.loadPage(false);assert.equal(wall.children.length,1,'Retain loaded marks on service failure');assert.equal(env.nodes.get('load-more').disabled,false);
+ stage=3;await env.context.readingTest.loadPage(true);assert(env.nodes.get('wall-count').textContent.includes('unavailable'));
+ console.log('PASS: empty transaction batch, pagination cursor, literal message rendering, service failure retaining loaded records, malformed source and retry controls. No real Wall requests.');
+}
+(async()=>{await wallTests();await landerTests();await walletDialogTests();await recoveryTests();await wallReadingTests();console.log('PASS: offline production-flow contract tests. No real wallet signing, blockchain finalization or live writes were performed.');})().catch(e=>{console.error(e);process.exit(1)});

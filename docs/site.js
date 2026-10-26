@@ -1,6 +1,6 @@
 'use strict';
 (() => {
- const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+ const $=(s,r=document)=>r?.querySelector(s), $$=(s,r=document)=>[...(r?.querySelectorAll(s)||[])];
  const root=document.documentElement, home=!!$('#hero-title');
  const motion=$('.motion-toggle');let paused=matchMedia('(prefers-reduced-motion: reduce)').matches;
  let toastTimer;
@@ -11,13 +11,13 @@
   motion?.addEventListener('click',()=>{root.classList.toggle('motion-opt-in',paused);motionState(!paused);updatePageMotion();});
   matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',ev=>{root.classList.remove('motion-opt-in');motionState(ev.matches);updatePageMotion();});
   const menu=$('.menu-toggle'),nav=$('#mobile-nav');
-  function closeMenu(){nav.hidden=true;menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Open navigation');}
+  function closeMenu(){if(!nav||!menu)return;nav.hidden=true;menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Open navigation');}
   menu?.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')==='true';nav.hidden=open;menu.setAttribute('aria-expanded',String(!open));menu.setAttribute('aria-label',open?'Open navigation':'Close navigation');});
   $$('a',nav).forEach(a=>a.addEventListener('click',closeMenu));
   document.addEventListener('click',ev=>{if(!ev.target.closest('.site-header'))closeMenu();});
-  document.addEventListener('keydown',ev=>{if(ev.key==='Escape'&&!nav.hidden){closeMenu();menu.focus();}});
+  document.addEventListener('keydown',ev=>{if(ev.key==='Escape'&&nav&&!nav.hidden){closeMenu();menu.focus();}});
   matchMedia('(min-width:761px)').addEventListener('change',ev=>{if(ev.matches)closeMenu();});
-  $$('[data-copy]').forEach(button=>button.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(button.dataset.copy);toast('Copied. Check the coordinates before you use them.');}catch(_){toast('Copy unavailable. Select the text to copy it manually.');}}));
+  $$('.site-header [data-copy]').forEach(button=>button.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(button.dataset.copy);toast('Copied. Check the coordinates before you use them.');}catch(_){toast('Copy unavailable. Select the text to copy it manually.');}}));
  }
  // Native details give keyboard/touch access without hover-only navigation.
  const groups=$$('.site-header .nav-group');
