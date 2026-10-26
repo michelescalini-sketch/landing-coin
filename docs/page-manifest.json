@@ -1,112 +1,117 @@
 [
   {
+    "path": "/",
+    "title": "Landing Coin (LANDING) | Everyone Is Going to the Moon. We Are Landing.",
+    "description": "An independent Solana memecoin with a fixed 404,000,000 supply, mint and freeze disabled, and every project wallet published. No price targets. No rocket emojis."
+  },
+  {
     "path": "/about.html",
-    "title": "About LANDING | A Memecoin Without the Hype",
-    "description": "What is LANDING? An independent, openly speculative SPL memecoin on Solana Mainnet, built around transparency, dry humor and realistic expectations."
+    "title": "About LANDING | The Memecoin That Admits What It Is",
+    "description": "LANDING is a Solana memecoin with no roadmap to riches, no price targets and no rocket emojis. Here is what it is, what we built, and what we will never tell you."
   },
   {
     "path": "/buy/",
-    "title": "How to Buy LANDING | Jupiter & Poloniex",
-    "description": "Buy LANDING through Jupiter with a Solana wallet or trade LANDING/USDT on Poloniex. Verify the official mint and review fees, quotes and risks."
+    "title": "Buy LANDING | Start Here",
+    "description": "The short version of how to buy LANDING, the mint address to verify, and an honest note about what you are buying."
   },
   {
     "path": "/community.html",
-    "title": "LANDING Community | Discord & Official Channels",
-    "description": "Find the official LANDING Discord, Telegram, Reddit, LinkedIn and X channels. Discord is the main community hub. No follower counts or invented statistics."
+    "title": "LANDING Community | Where Everyone Actually Is",
+    "description": "Discord, Telegram, Reddit and X. What each one is for, what gets you removed, and how to spot someone impersonating the project."
   },
   {
     "path": "/cookie-policy.html",
-    "title": "LANDING Cookie & Local Storage Policy | Functional Storage",
-    "description": "LANDING browser storage and external scripts explained: card recovery, wallet integrations and provider limits. No advertising or profiling added."
+    "title": "Cookie & Local Storage Policy | LANDING",
+    "description": "LANDING sets no cookies. The only things stored in your browser are two entries the Certified Lander page uses to find your card again."
   },
   {
     "path": "/faq.html",
-    "title": "LANDING FAQ | Token, Buying, Wall & Lander Answers",
-    "description": "Factual answers about LANDING: Solana, official mint, maximum supply, authorities, liquidity, buying routes, Wall fees, Certified Lander, team and community."
+    "title": "LANDING FAQ | The Questions We Keep Getting",
+    "description": "Straight answers on supply, liquidity, project wallets, wallet safety and why the market data sometimes shows nothing at all."
   },
   {
     "path": "/flight-plan.html",
-    "title": "LANDING Flight Plan | Development & Direction",
-    "description": "Read LANDING’s published Flight Plan: completed work, active phases and longer-term direction. No invented ETAs or guaranteed destinations. A direction, not a prophecy."
-  },
-  {
-    "path": "/",
-    "title": "LANDING | Independent Solana Memecoin",
-    "description": "LANDING is an independent Solana Mainnet memecoin. Verify the mint, supply, markets, public Wall and Certified Lander. No moon. No promises. Just landing."
+    "title": "LANDING Flight Plan | Direction, Not Prophecy",
+    "description": "What LANDING has finished, what is active now and what may come later. No dates, no guaranteed listings and no invented utility."
   },
   {
     "path": "/lander/",
-    "title": "Certified Lander | Permanent LANDING ID & Card",
-    "description": "Certified Lander verifies eligible finalized LANDING swaps, then issues or retrieves one permanent ID per wallet and a downloadable card. No NFT or promised utility."
+    "title": "Certified Lander | One Permanent ID Per Wallet",
+    "description": "Swap for LANDING through Jupiter on this page and get one permanent Lander ID per wallet and a card you can download. Not an NFT. No promised utility."
   },
   {
     "path": "/markets.html",
-    "title": "LANDING Markets | Trading Routes & Market Sources",
-    "description": "Find LANDING trading routes on Jupiter and Poloniex, plus existing market-viewing sources. External venues provide quotes; no live prices are invented."
+    "title": "Where to Buy LANDING | Markets and Routes",
+    "description": "LANDING trades on Poloniex, Jupiter and Orca. Compare the routes, understand the trade-offs, and verify the mint address before you buy anything."
   },
   {
     "path": "/media-kit.html",
-    "title": "LANDING Media Kit | Official Assets, Facts & Links",
-    "description": "Download existing LANDING logos and artwork. Find project descriptions, approved slogans, token facts, the official mint and verified project channels."
+    "title": "LANDING Media Kit | Logos, Facts and Approved Language",
+    "description": "Official LANDING descriptions, token facts, brand assets and verified links for journalists, exchanges and creators. Copy-ready and checkable."
   },
   {
     "path": "/news/",
-    "title": "LANDING News | Listings, Community & Project Updates",
-    "description": "Read the LANDING news archive: published exchange, community and project updates with their original dates, source content and links. News from the ground."
+    "title": "LANDING News | Updates and Write-ups",
+    "description": "Project updates and longer write-ups from LANDING. Published when something happened, not on a schedule."
   },
   {
     "path": "/news/landing-coin-discord-community.html",
-    "title": "LANDING Discord Community Is Open | LANDING News",
-    "description": "Published October 7, 2026: LANDING’s official Discord community opens alongside its existing channels. Read the original article and official community links."
+    "title": "The LANDING Discord Is Open | Community",
+    "description": "Published 7 October 2026. A Discord server joins the existing LANDING channels, with room for topics that a fast-moving chat buries."
   },
   {
     "path": "/news/landing-coin-poloniex-listing.html",
-    "title": "LANDING Listed on Poloniex | LANDING/USDT News",
-    "description": "Published September 21, 2026: LANDING/USDT spot trading on Poloniex, scheduled for 12:00 UTC. Read the original listing article and official market links."
+    "title": "LANDING Listed on Poloniex | LANDING/USDT",
+    "description": "Published 21 September 2026. LANDING/USDT spot trading opened on Poloniex at 12:00 UTC. What the listing changes, and the much longer list of what it does not."
   },
   {
     "path": "/news/landing-wall-and-future-merch-store.html",
-    "title": "LANDING Wall & a Future Merch Store | LANDING News",
-    "description": "Published September 25, 2026: the LANDING Wall is live on Solana. The original article distinguishes the working Wall from a possible future merchandise store."
+    "title": "The LANDING Wall Is Live | And a Store That Is Not",
+    "description": "Published 25 September 2026. The LANDING Wall is live on Solana at 5,000 LANDING per post. A merchandise store is a maybe, and is described as one."
+  },
+  {
+    "path": "/news/the-argument-behind-the-joke.html",
+    "title": "Why LANDING Does Not Promise the Moon",
+    "description": "The argument behind the joke: why a memecoin that promises nothing is harder to run, and why we think it is the only honest version."
   },
   {
     "path": "/privacy.html",
-    "title": "LANDING Privacy Policy | Wallets, Registry & Your Data",
-    "description": "How LANDING handles public wallet data, Wall messages, Certified Lander records, functional browser storage, retention and privacy requests."
+    "title": "Privacy Policy | LANDING",
+    "description": "What LANDING collects, what it does not, and what happens to a wallet address when you use the Wall or Certified Lander."
   },
   {
     "path": "/routes/jupiter.html",
-    "title": "Buy LANDING on Jupiter | Solana Wallet Route",
-    "description": "How to buy LANDING through Jupiter: use a compatible Solana wallet, keep SOL for network fees, verify the official mint and review the swap before signing."
+    "title": "Buy LANDING on Jupiter | Solana Wallet Walkthrough",
+    "description": "Step-by-step: swap SOL for LANDING on Jupiter from your own Solana wallet, with the mint address to verify and the mistakes to avoid."
   },
   {
     "path": "/routes/poloniex.html",
-    "title": "LANDING on Poloniex | LANDING/USDT Trading Guide",
-    "description": "Trade LANDING/USDT on Poloniex. Check account eligibility, fund with USDT, verify the market and review the order, fees and exchange terms before trading."
+    "title": "LANDING on Poloniex | LANDING/USDT Walkthrough",
+    "description": "How to buy LANDING on Poloniex against USDT, what an exchange listing does and does not mean, and how to move tokens to your own wallet afterwards."
   },
   {
     "path": "/team.html",
-    "title": "LANDING Team | Michele Scalini & Furqan",
-    "description": "Michele Scalini is LANDING’s Founder & Project Operator. Furqan is Growth & Community Manager. A small independent project, with verified roles and contact links."
+    "title": "The LANDING Team | Small, Named and Reachable",
+    "description": "LANDING is run by Michele Scalini, Founder & Project Operator, with Furqan on brand design and community. A small independent project that says so rather than inventing departments."
   },
   {
     "path": "/terms-of-service.html",
-    "title": "LANDING Terms of Service | Website, Wall & Certified Lander",
-    "description": "LANDING terms covering speculation, wallet transactions, Wall messages, Certified Lander, independent services, Italian governing law and mandatory rights."
+    "title": "Terms of Service | LANDING",
+    "description": "The terms covering use of the LANDING site and features, and a plain statement of what LANDING is not."
   },
   {
     "path": "/tokenomics.html",
-    "title": "LANDING Supply & Tokenomics | 404 Million Tokens",
-    "description": "LANDING has a maximum supply of 404,000,000 tokens and 6 decimals. Check original allocation, disabled authorities, project wallets and unlocked liquidity."
+    "title": "LANDING Supply & Allocation | 404,000,000 Fixed",
+    "description": "The full LANDING supply breakdown: 404,000,000 fixed, mint and freeze disabled, and where every allocation line went at launch."
   },
   {
     "path": "/transparency.html",
-    "title": "LANDING Transparency | Token Facts & On-Chain Sources",
-    "description": "Verify LANDING token configuration, original allocation, project wallets and liquidity. Current backend readings label partial coverage and unavailable metrics."
+    "title": "LANDING Transparency | Token Facts and On-Chain Sources",
+    "description": "Five fixed token facts, the original allocation, the four project wallets and live readings that say so when they fail. Nothing is estimated to fill a gap."
   },
   {
     "path": "/wall.html",
-    "title": "LANDING Wall | Public On-Chain Messages on Solana",
-    "description": "Read real LANDING Wall messages or post up to 140 characters for 5,000 LANDING plus the Solana network fee. Compatible Wallet Standard wallet required to post."
+    "title": "The LANDING Wall | Everyone Who Touched Down",
+    "description": "A public message wall on Solana. One line of up to 140 characters costs 5,000 LANDING plus the network fee. Reading is free and nothing is ranked by balance."
   }
 ]

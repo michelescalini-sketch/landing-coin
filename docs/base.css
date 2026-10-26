@@ -1,0 +1,119 @@
+/* ==========================================================================
+   LANDING: base
+   Element defaults for the whole site. The home page sets its own type and
+   colour on an inner wrapper; every other page needs those defaults on the
+   document itself, which is what this file provides. It loads before
+   style.css so the home page can still override anything it owns.
+   ========================================================================== */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: var(--leading-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: var(--leading-tight);
+  color: var(--text);
+}
+
+p { line-height: var(--leading-body); }
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover { color: var(--accent); }
+
+img, svg, video { max-width: 100%; }
+img { height: auto; display: block; }
+
+button, input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+button { cursor: pointer; }
+
+ul, ol { margin: 0; padding: 0; }
+li { line-height: var(--leading-body); }
+
+hr { border: 0; border-top: 1px solid var(--line); }
+
+table { border-collapse: collapse; }
+
+/* A visible focus ring is the one piece of interface a keyboard user
+   cannot work without, so it is defined once here and never removed. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+:focus:not(:focus-visible) { outline: none; }
+
+::selection {
+  background: var(--accent);
+  color: var(--ground);
+}
+
+/* The width every page's content sits in. */
+.page-wrap {
+  width: 100%;
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  box-sizing: border-box;
+}
+
+/* Main gets top clearance for the sticky header, which floats rather than
+   occupying space in the flow. */
+main { position: relative; z-index: var(--z-content); }
+
+/* Set by ui.js on a top-level block of the page while it is well off
+   screen, so the browser stops animating what nobody can see. Cleared a
+   quarter of a screen before the block scrolls back in. */
+.is-offscreen,
+.is-offscreen * {
+  animation-play-state: paused !important;
+}
+
+/* The hidden attribute has to win. The browser's own [hidden] rule is the
+   weakest kind there is, so any class that sets display quietly overrides
+   it, and the element stays on screen. The project's scripts hide and show
+   things this way: the Wall's "Load more marks" once nothing more exists,
+   the Lander's proof link and card faces. Without this, all of them stayed
+   visible whatever the script decided. The project's own stylesheet
+   carries the same rule. */
+[hidden] { display: none !important; }
+
+/* A disabled control has to look it. The Wall's "Leave mark" and the
+   Lander's "Download" start disabled until a wallet or a card exists, and
+   without this they looked identical to live buttons, so they read as
+   broken when clicked. Pointer events are off as well, so a disabled
+   button does not lift or glow on hover as if it were about to work.
+   Disabled controls are exempt from contrast minimums, which is what lets
+   the fade be this strong. */
+button:disabled {
+  opacity: 0.45;
+  pointer-events: none;
+}

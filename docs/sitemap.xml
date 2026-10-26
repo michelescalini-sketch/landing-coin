@@ -1,25 +1,2 @@
-<?xml version='1.0' encoding='utf-8'?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://landingcoin.fun/</loc><lastmod>2026-10-19</lastmod></url>
-  <url><loc>https://landingcoin.fun/about.html</loc><lastmod>2026-10-19</lastmod></url>
-  <url><loc>https://landingcoin.fun/buy/</loc><lastmod>2026-10-19</lastmod></url>
-  <url><loc>https://landingcoin.fun/markets.html</loc><lastmod>2026-10-19</lastmod></url>
-  <url><loc>https://landingcoin.fun/tokenomics.html</loc><lastmod>2026-10-19</lastmod></url>
-  <url><loc>https://landingcoin.fun/transparency.html</loc><lastmod>2026-10-19</lastmod></url>
-  <url><loc>https://landingcoin.fun/media-kit.html</loc><lastmod>2026-10-19</lastmod></url>
-  <url><loc>https://landingcoin.fun/routes/jupiter.html</loc><lastmod>2026-10-19</lastmod></url>
-  <url><loc>https://landingcoin.fun/routes/poloniex.html</loc><lastmod>2026-10-19</lastmod></url>
-  <url><loc>https://landingcoin.fun/wall.html</loc><lastmod>2026-10-19</lastmod></url>
-  <url><loc>https://landingcoin.fun/lander/</loc><lastmod>2026-10-19</lastmod></url>
-  <url><loc>https://landingcoin.fun/community.html</loc><lastmod>2026-10-19</lastmod></url>
-  <url><loc>https://landingcoin.fun/flight-plan.html</loc><lastmod>2026-10-19</lastmod></url>
-  <url><loc>https://landingcoin.fun/news/</loc><lastmod>2026-10-19</lastmod></url>
-  <url><loc>https://landingcoin.fun/news/landing-coin-discord-community.html</loc><lastmod>2026-10-19</lastmod></url>
-  <url><loc>https://landingcoin.fun/news/landing-wall-and-future-merch-store.html</loc><lastmod>2026-10-19</lastmod></url>
-  <url><loc>https://landingcoin.fun/news/landing-coin-poloniex-listing.html</loc><lastmod>2026-10-19</lastmod></url>
-  <url><loc>https://landingcoin.fun/team.html</loc><lastmod>2026-10-19</lastmod></url>
-  <url><loc>https://landingcoin.fun/faq.html</loc><lastmod>2026-10-19</lastmod></url>
-  <url><loc>https://landingcoin.fun/privacy.html</loc><lastmod>2026-10-19</lastmod></url>
-  <url><loc>https://landingcoin.fun/cookie-policy.html</loc><lastmod>2026-10-19</lastmod></url>
-  <url><loc>https://landingcoin.fun/terms-of-service.html</loc><lastmod>2026-10-19</lastmod></url>
-</urlset>
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://landingcoin.fun/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url><url><loc>https://landingcoin.fun/about.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url><url><loc>https://landingcoin.fun/tokenomics.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url><url><loc>https://landingcoin.fun/transparency.html</loc><changefreq>daily</changefreq><priority>0.9</priority></url><url><loc>https://landingcoin.fun/markets.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url><url><loc>https://landingcoin.fun/routes/jupiter.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url><url><loc>https://landingcoin.fun/routes/poloniex.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url><url><loc>https://landingcoin.fun/buy/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url><url><loc>https://landingcoin.fun/wall.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url><url><loc>https://landingcoin.fun/lander/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url><url><loc>https://landingcoin.fun/community.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url><url><loc>https://landingcoin.fun/flight-plan.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url><url><loc>https://landingcoin.fun/team.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url><url><loc>https://landingcoin.fun/media-kit.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url><url><loc>https://landingcoin.fun/faq.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url><url><loc>https://landingcoin.fun/news/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url><url><loc>https://landingcoin.fun/news/landing-coin-discord-community.html</loc><changefreq>yearly</changefreq><priority>0.6</priority></url><url><loc>https://landingcoin.fun/news/landing-wall-and-future-merch-store.html</loc><changefreq>yearly</changefreq><priority>0.6</priority></url><url><loc>https://landingcoin.fun/news/landing-coin-poloniex-listing.html</loc><changefreq>yearly</changefreq><priority>0.6</priority></url><url><loc>https://landingcoin.fun/privacy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url><url><loc>https://landingcoin.fun/cookie-policy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url><url><loc>https://landingcoin.fun/terms-of-service.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url></urlset>

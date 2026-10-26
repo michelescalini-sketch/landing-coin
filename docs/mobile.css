@@ -1,0 +1,554 @@
+/* ==========================================================================
+   LANDING: responsive overrides
+
+   This sheet deliberately re-declares classes that style.css owns. That is
+   the one place in the project where doing so is intentional, so it is
+   excluded from the class-collision check in build.py.
+
+   The home page was drawn at 1440px. Its illustrated scenes are absolutely
+   positioned SVGs that fill a container sized by aspect-ratio, and several
+   carry an inline style="display:block;position:absolute;inset:0". An
+   inline style beats a stylesheet rule, so style.css's own mobile rule
+   (.scn.stk > svg { display: none }) never took effect: on a phone the
+   scene stretched to fill a tall narrow box, and the drawing inside it
+   shrank to a thumbnail floating in empty space.
+
+   Everything here is scoped to a width query, so desktop is untouched.
+   ========================================================================== */
+
+@media (max-width: 900px) {
+
+  /* ---- Scenes ----------------------------------------------------------
+     Take the scene out of the absolute-fill arrangement and let it be a
+     normal block that keeps the proportions of its own viewBox. The cards
+     that used to float on top of it stack underneath instead.          */
+
+  .scn.stk {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: 0;
+    aspect-ratio: auto !important;
+  }
+
+  /* !important is required here: these elements carry their layout in an
+     inline style attribute, which nothing else can outrank. */
+  .scn.stk > svg {
+    display: block !important;
+    position: relative !important;
+    inset: auto !important;
+    height: auto !important;
+  }
+
+  /* The scenes are drawn about 2:1, so shrinking one to fit a phone makes
+     the figures in it too small to read. Instead it runs full bleed and is
+     scaled up past the screen edge, with the container cropping the sides.
+     The subject of every scene sits in the middle, so the crop costs
+     nothing and the detail roughly doubles. */
+  .scn.stk {
+    overflow: hidden;
+    margin-left: calc(var(--gutter) * -1);
+    margin-right: calc(var(--gutter) * -1);
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+  }
+
+  .scn.stk > svg {
+    width: 150% !important;
+    max-width: none !important;
+    margin-left: -25%;
+    margin-right: -25%;
+    margin-bottom: var(--space-3);
+  }
+
+
+  /* The amber dashed lines (path.flow) are the drawing's wiring, and they
+     do not all mean the same thing. In the markets scene they are the
+     rocket's three descent trails down to the three pads, with both ends
+     inside the drawing. In the token scene they radiate from the station
+     out to the facts, which stack underneath on a phone.
+
+     An earlier version of this file replaced all of them with a beam that
+     grew outward and faded, on the theory that a connector pointing at a
+     stacked card arrives at nothing. That was wrong twice. It deleted the
+     markets trails, which never pointed at a card and simply vanished,
+     leaving a rocket hovering over three pads with nothing between them.
+     And it left the token sky empty, because the rest state was opacity:0,
+     so any browser that did not run the animation drew no lines at all,
+     including every browser with reduced motion set.
+
+     The lines are now left exactly as the wide layout draws them. The
+     frame gets a soft edge on all four sides instead, so a line that runs
+     out of the drawing fades at the boundary rather than stopping dead,
+     which was the only real problem with keeping them. */
+  .scn.stk > svg {
+    -webkit-mask-image:
+      linear-gradient(to bottom, transparent 0, #000 9%, #000 94%, transparent 100%),
+      linear-gradient(to right, transparent 0, #000 9%, #000 91%, transparent 100%) !important;
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(to bottom, transparent 0, #000 9%, #000 94%, transparent 100%),
+      linear-gradient(to right, transparent 0, #000 9%, #000 91%, transparent 100%) !important;
+    mask-composite: intersect;
+  }
+
+  /* ---- The closing scene ----------------------------------------------
+     .scn.mt is built differently from .scn.stk: its drawing is the ground
+     underneath the call to action rather than a panel of its own. Its
+     viewBox is 16:9, so in a tall narrow box the drawing scaled down and
+     centred itself vertically, landing on top of the buttons.
+
+     On a phone there is no room to put content on top of a drawing, so the
+     drawing stops being a backdrop and becomes the closing band of the
+     section: content first, ground last, nothing overlapping. */
+  .scn.mt {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* There are two drawings in this section. The nested one is the ground
+     the lander comes down on, and that belongs in the flow as the closing
+     image. This one is the sky: a starfield with a moon in it, 16:9 and
+     mostly empty space, because on a wide screen it sits behind the whole
+     call to action rather than being looked at directly.
+
+     Stacking it in the flow put 300px of near-empty sky between the lander
+     and the footer. It goes back to being a backdrop, pinned to the top of
+     the section and fading out, so the moon sits behind the line about not
+     going to the moon and the section reads as one piece. */
+  .scn.mt > svg {
+    position: absolute !important;
+    top: 0 !important;
+    bottom: auto !important;
+    right: auto !important;
+    order: 0;
+    z-index: 0;
+    width: 138% !important;
+    max-width: none !important;
+    height: auto !important;
+    left: -19% !important;
+    margin: 0 !important;
+    opacity: 0.9;
+    -webkit-mask-image: linear-gradient(to bottom, #000 52%, transparent 96%) !important;
+    mask-image: linear-gradient(to bottom, #000 52%, transparent 96%) !important;
+  }
+
+  /* Content sits above the backdrop. */
+  .scn.mt > div { position: relative; z-index: 1; }
+
+  .scn.mt .mcin { padding-bottom: var(--space-6); }
+
+  /* The touchdown block is its own little stage: an absolutely positioned
+     drawing, a confirmation pill floating over it, and three step cards
+     placed around it. In a narrow column the stage collapsed to 127px, so
+     the drawing was crushed and the pill landed on the astronauts, while
+     the three steps were hidden outright even though the copy just above
+     promises "three steps to land".
+
+     Unstacking it puts everything back in reading order: the pill, the
+     steps, then the drawing. */
+  .scn.mt > div:last-child {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-3);
+  }
+
+  .scn.mt > div:last-child > svg {
+    position: relative !important;
+    inset: auto !important;
+    order: 99;
+    width: 134% !important;
+    max-width: none !important;
+    height: auto !important;
+    margin: var(--space-5) 0 0 -17%;
+  }
+
+  /* The confirmation pill, and the three steps it confirms. */
+  .scn.mt > div:last-child > div:not(.scard) {
+    position: relative !important;
+    inset: auto !important;
+    width: auto !important;
+    margin: 0 auto !important;
+    transform: none !important;
+  }
+
+  .scn.mt .scard {
+    display: flex !important;
+    position: relative !important;
+    inset: auto !important;
+    width: auto !important;
+    margin: 0 !important;
+    transform: none !important;
+  }
+
+  /* ---- Cards the home page hides on a phone ----------------------------
+     style.css drops .fcard.hm below 900px. On the hero that is right: the
+     cards there repeat what the headline already says. In the About
+     section it left a tall empty column beside the text, so there they
+     come back as a stacked row. */
+  section .fcard.hm {
+    display: grid !important;
+    gap: 2px;
+    margin: 0 var(--gutter) var(--space-3) !important;
+    width: auto !important;
+  }
+
+  section .fcard.hm:last-of-type { margin-bottom: 0 !important; }
+
+  .plc .fcard.hm { display: none !important; }
+
+  .scn.stk > .tcard,
+  .scn.stk > a.tcard {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: auto !important;
+    margin: 0 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  /* ---- Floating fact cards --------------------------------------------
+     .fcard is positioned by percentage against the hero illustration. At
+     phone width those percentages put cards on top of the headline, so
+     they become a normal stack below it.                               */
+
+  .plc {
+    position: static !important;
+    display: grid;
+    gap: var(--space-3);
+    padding: 0 var(--gutter) var(--space-7);
+  }
+
+  .fcard {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+    width: auto !important;
+    margin: 0 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  /* ---- Hero status badge ----------------------------------------------
+     On a wide screen this is one row: a live dot, "Independent memecoin on
+     Solana", a hairline separator, then the Mainnet live pill. It needs
+     469px to say that, and a phone offers 350, so it wrapped onto two or
+     three rows and left the separator stranded at the end of a line.
+
+     It stays one row instead, scaling with the viewport. The type is a
+     wide-tracked mono label, which stays legible small, and the separator
+     goes because a divider only earns its place between two things on the
+     same line that are both comfortable. */
+  .badge {
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    gap: 0 7px;
+    padding: 6px 6px 6px 12px;
+    font-size: clamp(7px, 2.15vw, 12px);
+    letter-spacing: 0.05em;
+  }
+
+  /* The badge is capped at its parent's width, so if the content needs
+     more the flex items have to give it back. The pill must not shrink,
+     or its text would be clipped, so the label carries the whole
+     adjustment. Sized to leave room at every phone width, this should
+     never actually be called on. */
+  .badge > span:not(.dot):not(.btag) {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .badge .bsep { display: none; }
+
+  .badge .dot {
+    width: 7px;
+    height: 7px;
+    flex: 0 0 auto;
+  }
+
+  .btag {
+    flex: 0 0 auto;
+    padding: 5px 9px;
+    font-size: clamp(6.5px, 1.95vw, 10.5px);
+    letter-spacing: 0.05em;
+  }
+
+  .btag svg { width: 9px; height: 9px; }
+
+/* On the narrowest phones still in use the label needs the few pixels the
+   gaps and padding were holding, so they tighten rather than letting the
+   text ellipsize. */
+}
+
+@media (max-width: 380px) {
+  .badge {
+    gap: 0 5px;
+    padding: 5px 5px 5px 9px;
+    letter-spacing: 0.03em;
+  }
+
+  .badge .dot { width: 6px; height: 6px; }
+
+  .btag {
+    padding: 4px 7px;
+    letter-spacing: 0.03em;
+  }
+
+  .btag svg { width: 8px; height: 8px; }
+}
+
+/* Below this the gaps have nothing left to give, so the type takes the
+   last step down. 320px is the narrowest viewport still in circulation. */
+@media (max-width: 340px) {
+  .badge { font-size: clamp(6px, 1.92vw, 12px); }
+  .btag { font-size: clamp(5.5px, 1.74vw, 10.5px); }
+}
+
+@media (max-width: 900px) {
+  /* ---- Marquees --------------------------------------------------------
+     The scrolling bands are meant to be wider than the screen, but at
+     phone size the type was set for a desktop band. */
+
+  .mq2, .mqa, .mqb { font-size: clamp(26px, 9vw, 44px) !important; }
+  .mqs { flex: 0 0 auto; }
+
+  /* ---- Section rhythm --------------------------------------------------
+     The sticky header floats over the page, so anything a link jumps to
+     needs clearance or it lands underneath the bar. */
+
+  section[id],
+  [id] { scroll-margin-top: 96px; }
+}
+
+/* The same clearance applies at every width. */
+section[id],
+h2[id],
+[id] { scroll-margin-top: 110px; }
+
+/* ==========================================================================
+   Counters
+
+   The home page counts 404, 50 and 6 up from zero. That used to be driven
+   by scroll position, which meant the number read 0 until the reader got
+   to it, and then moved in steps with the scroll wheel.
+
+   It is now driven from ui.js instead, a frame at a time. The reason it is
+   not a CSS animation is that these counters work by animating a
+   registered custom property that feeds counter-reset, and whether the
+   generated content re-renders as that property interpolates is not
+   something every engine agrees on. WebKit does not repaint it, so on an
+   iPhone the number simply sat at its final value. Setting the property
+   from script is an ordinary style change, which every engine repaints.
+
+   The resting value below is the real figure, so with no JavaScript at all
+   the correct number is what shows.
+   ========================================================================== */
+
+.c404, .c6, .c50, .cu {
+  animation: none !important;
+  animation-timeline: auto !important;
+}
+
+/* Once ui.js is writing the digits, the generated content steps aside so
+   the two cannot both render. */
+.c404.counted::before,
+.c6.counted::before,
+.c50.counted::before,
+.cu.counted::before { content: none !important; }
+
+/* ==========================================================================
+   The touchdown sequence on a phone
+
+   The descent, the dust burst, the shockwave and the confirmation are one
+   set, keyed so that the lander meets the ground at 62% of a shared
+   timeline. On a wide screen that timeline is the scroll position, which
+   gives the reader control of the landing.
+
+   A thumb cannot do that. A flick carries momentum, and on iOS the address
+   bar collapsing mid-scroll changes the viewport height, which moves the
+   range the animation is measured against, so the lander jumps up and down
+   instead of coming down. Here it plays once, on its own clock, keeping
+   the same 62% touchdown so all four stay in step.
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  .scn.mt .descend,
+  .scn.mt .fxin,
+  .scn.mt .spark,
+  .scn.mt .shock {
+    animation: none !important;
+  }
+
+  .scn.mt.played .descend,
+  .scn.mt.played .fxin,
+  .scn.mt.played .spark,
+  .scn.mt.played .shock {
+    animation-duration: 3.2s !important;
+    animation-timing-function: linear !important;
+    animation-iteration-count: 1 !important;
+    animation-fill-mode: both !important;
+    animation-timeline: auto !important;
+    animation-range: normal !important;
+  }
+
+  .scn.mt.played .descend { animation-name: descendland !important; }
+  .scn.mt.played .fxin    { animation-name: fxin !important; }
+  .scn.mt.played .spark   { animation-name: burst !important; }
+  .scn.mt.played .shock   { animation-name: shock !important; }
+
+  /* Reaching the ground at 62% keeps it in step with the burst and the
+     shockwave, which are keyed to the same moment. The easing lives in the
+     keyframe spacing: quick at the top, slowing into the pad, then a small
+     settle on the legs. */
+  @keyframes descendland {
+    0%   { transform: translateY(-320px); }
+    30%  { transform: translateY(-150px); }
+    48%  { transform: translateY(-52px); }
+    62%  { transform: translateY(0); }
+    70%  { transform: translateY(-7px); }
+    82%  { transform: translateY(0); }
+    88%  { transform: translateY(-2px); }
+    100% { transform: translateY(0); }
+  }
+}
+
+@media (max-width: 900px) and (prefers-reduced-motion: reduce) {
+  .scn.mt .descend,
+  .scn.mt .fxin,
+  .scn.mt .spark,
+  .scn.mt .shock {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ---------------------------------------------------------------- hero ---
+   The hero backdrop is one 1920x1080 drawing set to `slice`, so it is
+   cropped to whatever fits. On a wide screen that is the whole story: the
+   moon top right, a dashed descent arc curving down, and the lander
+   touching down below it.
+
+   On a phone the crop keeps only the middle quarter, x=710 to 1210 in the
+   drawing's own coordinates. The moon sits at x=1200 and the lander at
+   x=1200, so both land on the right-hand edge and get sliced in half, and
+   all that survives of the descent arc is its first thirty units, which
+   reads as a stray diagonal going nowhere.
+
+   The fix is not a redraw. The moon and the lander are already stacked on
+   the same column, so the portrait composition exists in the artwork; the
+   crop was simply centred on the wrong column. Sliding the contents 240
+   units left puts x=1200 where the crop is already looking, at x=960.
+
+   Two things make this work and are worth knowing before editing it.
+
+   A CSS length on an element INSIDE an svg is in the drawing's own user
+   units, not screen pixels, so -240px here means 240 viewBox units at any
+   screen size. Trying the same thing on the <svg> element itself does not
+   work: there a percentage resolves against the container, and `width:auto`
+   is pinned by the element's own width="100%" attribute.
+
+   Widening the crop is not a fix either. The moon and the lander share a
+   column, so any window wide enough to hold them both puts them directly
+   behind the headline.
+
+   So the phone gets its own arrangement of the same parts, built in
+   scene.py: moon above the text, the descent arc falling the length of the
+   screen, the lander on the ground below. Only one backdrop is ever in the
+   page. The wide one carries `display:block` inline, which is why hiding it
+   needs !important. */
+.hero-portrait { display: none; }
+
+@media (max-width: 900px) {
+  .hero2 > svg:not(.hero-portrait) { display: none !important; }
+  .hero-portrait {
+    display: block !important;
+    position: absolute;
+    inset: 0;
+  }
+}
+
+/* --------------------------------------------------- stacked card runs ---
+   Nothing in this design was scaled for a phone: the cream cards keep the
+   same padding and the same height they have at 1440, and the gaps between
+   them stay at the desktop values of 12 to 30px. That is fine in a grid,
+   where each card is one cell among several and the dark ground shows all
+   around it. Stacked in a single column it stops being fine. Measured over
+   a phone-height window, one screen of /about was 54% cream and three
+   screens of the home page were over 40%, which is the run of near
+   identical light blocks reading as one wall rather than as a set of
+   cards.
+
+   The cards themselves are left alone, since they are the part that works.
+   What changes is the air between them: enough dark ground between one
+   card and the next that each reads as its own object. It costs page
+   height, which is the right trade here, because the complaint about
+   these runs is that they feel relentless, not that they are long. */
+@media (max-width: 900px) {
+  .fcard + .fcard,
+  .tcard + .tcard,
+  .acard + .acard,
+  .lcard + .lcard,
+  .stepcard + .stepcard {
+    margin-top: var(--space-4);
+  }
+}
+
+/* ------------------------------------------------ breaking the card run ---
+   The link cards are cream, and on a wide screen they sit in a row with
+   the dark ground around them. Stacked on a phone they run four and five
+   deep, which measured 54% of one screen on /about and over 40% on three
+   screens of the home page. The cards are not the problem; the unbroken
+   run of them is, and it buries the dark the rest of the design is built
+   on.
+
+   Widening the gaps barely moved it, because the gap is small next to a
+   200px card. So every second card takes the dark treatment instead,
+   keeping the amber offset block that gives the card its shape. The run
+   becomes an alternating rhythm, the light cards are still there, and no
+   screen is a wall of cream.
+
+   The arrow carries stroke="var(--ground)" as a presentation attribute,
+   which is invisible on a dark card, so it is switched to currentColor
+   here. Presentation attributes lose to any CSS rule, so this needs no
+   !important. */
+@media (max-width: 900px) {
+  .lcard:nth-of-type(even) {
+    background: var(--surface-2);
+    color: var(--text);
+    border: 1px solid var(--line-strong);
+    box-shadow: 5px 5px 0 var(--ac), 0 18px 40px rgba(0, 0, 0, 0.45);
+  }
+
+  .lcard:nth-of-type(even) .lcard-desc { color: var(--text-3); }
+  .lcard:nth-of-type(even) .lcard-open { color: var(--ac); }
+  .lcard:nth-of-type(even) .lcard-open svg { stroke: currentColor; }
+}
+
+/* ----------------------------------------------- focus beats the reveal ---
+   Content that rises in as it scrolls into view starts at opacity 0 and
+   only finishes once it is well inside the viewport. Tabbing to a link
+   makes the browser scroll it just inside the bottom edge, which is where
+   its reveal has barely begun, so a keyboard user landed on links and
+   buttons that were still invisible: a focus ring around nothing. It
+   showed on phones, where the screen is tall and narrow, at 98 focus
+   stops across the site.
+
+   So once focus is inside a revealing block, its reveal is switched off.
+   That is safe because every one of these blocks is fully visible in its
+   own base style; the animation is only ever the way in. It lives here
+   rather than in a sheet of its own because it re-declares the home
+   page's classes (.rv, .ld), which is this file's job, and it is not
+   wrapped in a breakpoint because nothing about the cause is
+   phone-specific; only the geometry made it show up there. */
+:where(.rise, .rv, .panel, .step, .node, .gauge, .ld):focus-within {
+  animation: none !important;
+}

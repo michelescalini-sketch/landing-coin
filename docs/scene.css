@@ -1,0 +1,317 @@
+/* ==========================================================================
+   LANDING: the world
+   The home page is one continuous illustrated landscape. Interior pages
+   can't carry that much drawing, so they inherit the parts that make it
+   recognisable: the hatched sky, the star field, a horizon ridge, and the
+   dotted trail that runs between landing sites.
+   ========================================================================== */
+
+/* ---- Page canvas -------------------------------------------------------
+   The illustrated scenes are drawn wider than the viewport on purpose, so
+   the landscape runs off the edges rather than stopping at them. Clip the
+   horizontal axis at the page level so that never becomes a scrollbar.
+   `clip` rather than `hidden`: hidden on body would break the sticky
+   header, clip does not.                                                 */
+
+html { overflow-x: clip; }
+body { overflow-x: clip; position: relative; }
+
+/* ---- Sky ---------------------------------------------------------------
+   Fixed behind everything. It does not scroll, so a long page feels like
+   it is descending through one atmosphere rather than past many.         */
+
+.sky {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-scene);
+  pointer-events: none;
+  background:
+    radial-gradient(120% 80% at 78% 6%, rgba(255, 196, 79, 0.07), transparent 58%),
+    radial-gradient(90% 60% at 10% 100%, rgba(255, 196, 79, 0.04), transparent 60%),
+    linear-gradient(180deg, var(--well-deep) 0%, var(--ground) 42%, var(--well) 100%);
+}
+
+/* The diagonal hatch the illustration uses for shaded ground, pulled up
+   over the whole sky at very low contrast. */
+.sky::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+  background-image: repeating-linear-gradient(
+    58deg,
+    rgba(255, 255, 255, 0.016) 0 1px,
+    transparent 1px 7px);
+}
+
+/* A slow vignette so the edges of long pages don't flatten out. */
+.sky::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(130% 100% at 50% 50%, transparent 52%, rgba(0, 0, 0, 0.5));
+}
+
+.starfield { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+.starfield circle {
+  fill: var(--text);
+  animation: starpulse var(--dur-ambient) var(--ease-soft) infinite;
+}
+
+/* Not called "twinkle". The home page's own motion.css already has a
+   keyframe by that name, built for its stars to brighten from 0.15 to
+   full. Keyframe names are global and the later sheet wins, so while this
+   one shared the name it replaced the home page's: every star there
+   pulsed between 0.4 and 0.12 instead, dimmer and flatter than designed.
+   build.py now refuses a keyframe name the home page sheets already own. */
+@keyframes starpulse {
+  0%, 100% { opacity: var(--o, 0.4); }
+  50%      { opacity: calc(var(--o, 0.4) * 0.3); }
+}
+
+/* ---- Orbit diagram -----------------------------------------------------
+   The dashed ring from the home page hero, reused as a corner motif. It is
+   decorative, so it is hidden from assistive tech and from narrow screens
+   where it would crowd the headline.                                      */
+
+.radar {
+  overflow: hidden;
+  position: absolute;
+  top: -40px;
+  right: -60px;
+  width: min(480px, 38vw);
+  aspect-ratio: 1;
+  z-index: -1;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.radar-ring {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 1;
+}
+
+.radar-dash {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.2;
+  stroke-dasharray: 2 9;
+  opacity: 0.5;
+  animation: orbitdrift 26s linear infinite;
+}
+
+@keyframes orbitdrift { to { stroke-dashoffset: -220; } }
+
+.radar-tick { stroke: var(--line-strong); stroke-width: 1; }
+
+.radar-blip {
+  fill: var(--accent);
+  animation: orbitmark 18s linear infinite;
+  transform-origin: 120px 120px;
+}
+
+@keyframes orbitmark { to { rotate: 360deg; } }
+
+@media (max-width: 860px) { .radar { display: none; } }
+
+/* ---- Horizon ridge -----------------------------------------------------
+   Sits at the foot of every page hero. Two layers at different opacities
+   give the landscape depth without drawing a second landscape.           */
+
+.ridge {
+  overflow: hidden;
+  position: absolute;
+  inset: auto 0 0 0;
+  width: 100%;
+  height: clamp(120px, 18vw, 230px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.ridge .far  { fill: var(--surface-1); }
+.ridge .near { fill: var(--well); }
+
+.ridge .hatch {
+  stroke: rgba(255, 255, 255, 0.07);
+  stroke-width: 1;
+}
+
+.ridge .rim {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 1.4;
+}
+
+/* ---- Trail -------------------------------------------------------------
+   The dotted amber path. On the home page it links the landing sites; on
+   interior pages it runs under the hero as the same visual signature.    */
+
+.trail {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-dasharray: 0.1 14;
+  opacity: 0.75;
+  animation: trailrun 3.4s linear infinite;
+}
+
+@keyframes trailrun { to { stroke-dashoffset: -28; } }
+
+/* A pod travelling the trail, so the path reads as a route rather than a
+   decoration. It follows the same curve via offset-path. */
+.pod {
+  fill: var(--accent);
+  offset-path: var(--path);
+  offset-rotate: 0deg;
+  animation: podrun 14s var(--ease-in-out) infinite;
+}
+
+@keyframes podrun {
+  0%        { offset-distance: 0%;   opacity: 0; }
+  8%, 88%   { opacity: 1; }
+  100%      { offset-distance: 100%; opacity: 0; }
+}
+
+/* ---- Page hero ---------------------------------------------------------
+   The common opening block. Pages vary in what sits inside it, not in how
+   it is framed.                                                           */
+
+.hero {
+  position: relative;
+  z-index: var(--z-content);
+  padding: clamp(var(--space-9), 12vh, var(--space-12)) 0 var(--space-10);
+  overflow: hidden;
+}
+
+.hero-inner { position: relative; z-index: 2; max-width: 980px; }
+
+.hero h1 {
+  margin: var(--space-5) 0 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(42px, 6.4vw, 92px);
+  line-height: 0.96;
+  letter-spacing: -0.04em;
+  max-width: 17ch;
+}
+
+/* The home page marks the turn in its headline with amber and a hand-drawn
+   underline. Every page hero uses the same device on its own key phrase. */
+.hero h1 mark {
+  background: none;
+  color: var(--accent);
+  position: relative;
+}
+
+.hero h1 mark::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.08em;
+  height: 0.06em;
+  border-radius: 2px;
+  background: var(--accent);
+  transform-origin: left;
+  animation: underdraw 0.8s var(--ease-out-hard) 0.9s backwards;
+}
+
+@keyframes underdraw { from { scale: 0 1; } to { scale: 1 1; } }
+
+.hero-lede {
+  margin: var(--space-6) 0 0;
+  max-width: 56ch;
+  font-size: clamp(16px, 1.3vw, 19px);
+  line-height: var(--leading-body);
+  color: var(--text-3);
+}
+
+/* Status chips above the headline: "independent memecoin on solana",
+   "mainnet live". */
+.chips {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 6px 6px 6px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  background: rgba(14, 17, 23, 0.6);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.chips .chips-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: lamppulse 2.6s var(--ease-soft) infinite;
+}
+
+.chips .pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  color: var(--ground);
+  font-weight: 700;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 52px;
+  padding: 0 var(--space-7);
+  /* Required, not cosmetic. This class is used on <a> and on <button>, and
+     a button with no background gets the browser's own light grey. With
+     cream text on it the control was invisible: the Wall's "Load more
+     marks" button rendered as bone-on-#EFEFEF. */
+  background: transparent;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--step-0);
+  color: var(--text);
+  transition: border-color var(--dur-fast) var(--ease),
+              translate var(--dur-fast) var(--ease);
+}
+
+.btn:hover { border-color: var(--accent); color: var(--text); translate: 0 -2px; }
+
+.btn-go {
+  border-color: transparent;
+  background: var(--accent);
+  color: var(--ground);
+  box-shadow: var(--glow-accent);
+}
+
+.btn-go:hover { color: var(--ground); box-shadow: 0 0 40px -4px rgba(255, 196, 79, 0.6); }
+
+.btn svg { transition: translate var(--dur-fast) var(--ease); }
+.btn:hover svg { translate: 3px 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .starfield circle, .radar-dash, .radar-blip, .trail, .pod,
+  .chips .chips-dot, .hero h1 mark::after { animation: none !important; }
+  .hero h1 mark::after { scale: 1 1; }
+  .trail { stroke-dasharray: 0.1 14; }
+}
+
