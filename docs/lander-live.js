@@ -199,7 +199,7 @@
     idInput.value = proof.id;
 
     card.dataset.certification = 'confirmed';
-    cardState.innerHTML = '<i aria-hidden="true"></i> ON-CHAIN VERIFIED';
+    cardState.innerHTML = '<i aria-hidden="true"></i><span>ON-CHAIN VERIFIED</span>';
     cardProof.textContent = 'FINALIZED / REGISTRY CONFIRMED';
     cardSignature.textContent = shortenSignature(proof.signature);
     cardSlot.textContent = new Intl.NumberFormat('en-US').format(proof.confirmedSlot);

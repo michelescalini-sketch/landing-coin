@@ -16,7 +16,8 @@ class Parser(HTMLParser):
  def handle_startendtag(self,t,a):self.nodes.append((t,dict(a)))
 titles=[];descriptions=[]
 manifest=json.loads((BASE.parent/'redesign/source-manifest.json').read_text())
-for f in [BASE/p for p in manifest['files'] if p.endswith('.html') and p != 'review.html']:
+redirects=set(manifest['redirects'])
+for f in sorted(f for f in BASE.rglob('*.html') if f.relative_to(BASE).as_posix() not in redirects):
  source=f.read_text();p=Parser();p.feed(source);ids=[a['id']for t,a in p.nodes if'id'in a]
  assert not p.errors and not p.stack,(f.name,p.errors,p.stack)
  assert len(ids)==len(set(ids)),(f.name,'duplicate IDs')

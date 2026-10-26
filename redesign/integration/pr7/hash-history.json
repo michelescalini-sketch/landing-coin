@@ -1,0 +1,614 @@
+[
+  {
+    "file": ".nojekyll",
+    "previous_sha256": null,
+    "integrated_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "404.html",
+    "previous_sha256": "432432e453f2748143c2788c2f42cd63a282bf9faf941af8c5d4add1aed5c683",
+    "integrated_sha256": "84411fa050c77e2ef265de80762ca90f9039c4fa15cab6f53229d1ace03d8564",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "BingSiteAuth.xml",
+    "previous_sha256": null,
+    "integrated_sha256": "2a8e60c1a8b5c6dab4401cbcc1ac3b091aaa6f2e18af31464aadf3407f93c346",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "CNAME",
+    "previous_sha256": null,
+    "integrated_sha256": "1356d8ea8838d946786a8cf3af1e152132b78bbc12a0904637a85ea9f3dc9aab",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "LANDING-Whitepaper-v1.0.pdf",
+    "previous_sha256": null,
+    "integrated_sha256": "4bd6d11ace06561aae41521c49753b5867751bb76d3416944477381d49f8537d",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "README.md",
+    "previous_sha256": null,
+    "integrated_sha256": "9149900e0050bd9b8e76754c782ae292be9143f8f28e1283c458acd7b5a5c001",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "about.html",
+    "previous_sha256": "8113786be4c6d1ca261c8733294e69f4d7f3680821e6c0cb41e38acb1d565f57",
+    "integrated_sha256": "be43cc83c0dabd397240a737d30a8cbe8f537593048df01ad527f0e06616b708",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "about/index.html",
+    "previous_sha256": null,
+    "integrated_sha256": "29bf6b28d27e113da6a55cd71a3e494cbf19b2d0797c37ac159e4b48c00412ad",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "apple-touch-icon.png",
+    "previous_sha256": null,
+    "integrated_sha256": "8a7d68ef5b4c382bc5ecd0cd5f09d4ba97bc99fe3caa9cf0a9931f235923f11b",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "assets/banners/landing-banner-1500x500.png",
+    "previous_sha256": null,
+    "integrated_sha256": "793b5c51ad57ae7dcc242b83aa55913a88b56d27b37c93e90d8672f82f5c16f3",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "assets/banners/landing-banner-preview.webp",
+    "previous_sha256": null,
+    "integrated_sha256": "b4e190e28bddee4e650b045a4ae393fccbf9735f58d3a18078fc1115e0945af2",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "assets/brand/landing-logo-2048.png",
+    "previous_sha256": null,
+    "integrated_sha256": "98c45f96f9cbdb9cecf2be669191132852b3dd14f0adcc7280c15259d23732f8",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "assets/brand/landing-logo-preview.webp",
+    "previous_sha256": null,
+    "integrated_sha256": "eb1b44c550ad93d04a670e81358d6c712f99e707eef12cac67da6cdd5868a60c",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "assets/fonts/dm-sans.ttf",
+    "previous_sha256": null,
+    "integrated_sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "assets/fonts/dm-sans.woff2",
+    "previous_sha256": null,
+    "integrated_sha256": "c153483945080fd71f46e72fe079d8a0928c52d2bd1fae6d3036a2df05046140",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "assets/fonts/space-grotesk.ttf",
+    "previous_sha256": null,
+    "integrated_sha256": "6c0346b8d297ebdc225832833e03e884a26ad99d265ecd3924d46e1ba285ea87",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "assets/fonts/space-grotesk.woff2",
+    "previous_sha256": null,
+    "integrated_sha256": "5bc5804c46c93936fa32492d8b0d9cd85772b924b0f02341519b151921cfb203",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "assets/landing-avatar-480.webp",
+    "previous_sha256": null,
+    "integrated_sha256": "937737a94cb96be39636383b4cb54598856400b21e03c3c2327d79c7a13376ab",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "assets/landing-avatar.webp",
+    "previous_sha256": null,
+    "integrated_sha256": "a8990c14b4c2a24956651dea243e4c7f48e28f53bf46cfd693da61762d2893a1",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "assets/landing-logo-200.webp",
+    "previous_sha256": null,
+    "integrated_sha256": "3337de403d9fbb94d4953f502a287196cffc6e57f7df240f7c4f41952234aa53",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "assets/landing-logo-96.webp",
+    "previous_sha256": null,
+    "integrated_sha256": "a5ecc2f63a967e38c6809d42d1c2ccfd18a35406565ae96c6a45c65bab364017",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "assets/manifesto-poster.webp",
+    "previous_sha256": null,
+    "integrated_sha256": "a6ca3a97cb137968fd20029e296e616d4a4e77b9e8a3a90adda9a21b37112219",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "assets/team/furqan.jpg",
+    "previous_sha256": null,
+    "integrated_sha256": "8110845b2463259d033f4215cdc5bae47bea3ba656c33e49e322771b3ed064dd",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "assets/team/michele-scalini.jpg",
+    "previous_sha256": null,
+    "integrated_sha256": "f8c5083c2929f6c8473c066b49b892c6af835d1bb322a4aa9d5b2443f9680c1d",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "assets/team/nova.jpg",
+    "previous_sha256": null,
+    "integrated_sha256": "02d8385fc20d51f719643e25c768e14d3b85543592d96f7f2d19211bab05310f",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "base.css",
+    "previous_sha256": null,
+    "integrated_sha256": "d9017e9219a8eb349e2593351518041c80e0fc3bc6aa222674d5b0a0e84b6b1f",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "buy-token.html",
+    "previous_sha256": null,
+    "integrated_sha256": "af7da3265f1c6a008087832cb4b9061185bad18b208229b6051d89ec4992ce24",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "buy/index.html",
+    "previous_sha256": "099ab4ecc4953540824fd722d7d6385a819e3ecc8eb770a51f04c3c776b8ea80",
+    "integrated_sha256": "9ec5ebb6faf53b28be34a1c8459114df244b5eb07b3a555832f74a8b0554ae44",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "chrome.css",
+    "previous_sha256": null,
+    "integrated_sha256": "f9abe8cfb5fc08b0adad2df089554def32420dc0d99a99859acccecfab4fc7a6",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "community.html",
+    "previous_sha256": "c936a97259929fd3cca3141065e03fa0806f6cc335cc78f819e2a1a29a75ed8b",
+    "integrated_sha256": "3260831d066c75c7199820ed6b2a5a5a5dfdc259cced14bf924cc5340cb1c525",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "community/index.html",
+    "previous_sha256": null,
+    "integrated_sha256": "81b824c8c4bfe705c4be63b03c7aaf95b5e8ea3c304e2a5ccb171cc6f4348cbe",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "cookie-policy.html",
+    "previous_sha256": "2059fbb5a47fe7b6ca5934f9b198b9294b766f7c84db6a20e5a49be774528b87",
+    "integrated_sha256": "d05eb1e23dea1e3b829bc2ffc63a57b89b2133b79813532d9a8e210a732add68",
+    "reason": "Approved legal layout, reconciled actual data/storage behavior and identifiable wallet wording"
+  },
+  {
+    "file": "cookie/index.html",
+    "previous_sha256": null,
+    "integrated_sha256": "444d59393a042e9deef9cad5f2cdcd026b798e698a84e3d1303ebca37dcbbf67",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "descent-pages.css",
+    "previous_sha256": null,
+    "integrated_sha256": "4a2392ae31aff433abc85984306774611fe21c37da553842d37026016edb1f35",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "descent.css",
+    "previous_sha256": null,
+    "integrated_sha256": "ae5c8dd3d9fe7397ed6bc87a538ecef6fd5a6c817a07583201c94dcc768fbb3a",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "descent.js",
+    "previous_sha256": null,
+    "integrated_sha256": "67e4047b10b6222587925d953b2025f990ef961add8ca7c103efc6e963510b51",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "faq.html",
+    "previous_sha256": "1e7e8ee3d2e2bdfffc0195b405a131ba68007ee7f1121b3b767b95593d66105c",
+    "integrated_sha256": "55784da5b713f8f88acfa0c73b4111bf4a1192eeb7752d692e35e83d77f35fdc",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "faq/index.html",
+    "previous_sha256": null,
+    "integrated_sha256": "8e50f575e177763648d56285d5fbec3b7bd3331481922a7f1b3e6e2b79b378b4",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "favicon.ico",
+    "previous_sha256": null,
+    "integrated_sha256": "ea7158ae0370851a38d1a1f16d2d892727ccb032586820070f0ffc3a4d4f78c5",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "favicon.svg",
+    "previous_sha256": null,
+    "integrated_sha256": "3d4c6b11a14d49fdccfadbe82bbb9670a2df6d617224b4c811d3e1da08b955f5",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "features.css",
+    "previous_sha256": null,
+    "integrated_sha256": "6d7098405f3ac51654c0404dba7f91b33733f40edacfe1586c06a3685784bda5",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "flight-plan.html",
+    "previous_sha256": "2f9f6eaf9240dcd2a3c027d86c2ce44a8a600a02b73ac274da6730303f42eaee",
+    "integrated_sha256": "0284d64498de91ae170fe2eaa97a1be896b5b4e6989d8d969e5b36fe92a84752",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "icon-192.png",
+    "previous_sha256": null,
+    "integrated_sha256": "40a24c17f923fc3e4fc381dfcf3591934d1818e609ca82c449c588a4fc2ff960",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "icon-512.png",
+    "previous_sha256": null,
+    "integrated_sha256": "5c33edc7f1627d54ac4621efa57cb4cd061f558157e3c641c3c6b0a2b477ca35",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "index.html",
+    "previous_sha256": "a21aa5aae47cdd10c443e1c6c77a802eef05dbdf82bc32a30d311f8f1fc6954d",
+    "integrated_sha256": "c8b29bb0c855cff29c64132b5d7dfcf17dea01f21174660eb03fa758a6065cb0",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "integration.css",
+    "previous_sha256": "b868cff3978591498a6424f0e1aea74b9f76e197d3a97c1c435d79fdc17e3593",
+    "integrated_sha256": "59b17571c1f5116d9991754bff50174e3d21d35cb4fadc04d9820e96367f5a62",
+    "reason": "Preserve latest main stylesheet as historical runtime source; new pages use features.css"
+  },
+  {
+    "file": "lander-live.js",
+    "previous_sha256": "a5f68f0ac882f059d8e98a908fa959582527337bb0121bbd1a8e62e059eccc88",
+    "integrated_sha256": "11a45b5841a817d2934d04df802ba83b76f84948736b5aa70a833f3f9c688301",
+    "reason": "Latest main proof validation, permanent ID, locked download and PNG export; status text span fixes canvas layout without changing behavior"
+  },
+  {
+    "file": "lander.html",
+    "previous_sha256": null,
+    "integrated_sha256": "f6567c1209584cf2de48f24cc6f68132dfc04d38e71e1bc1d13dd6daa263a775",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "lander/index.html",
+    "previous_sha256": "3424609ab4d9d270e6f74d199fcf0ed3b80fee7ae9e4f586ed35c86b1492ba3f",
+    "integrated_sha256": "d7aadef9664b22c473b7e36a175f5ab796a6aa2f90ba7682f06d29534de21684",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "landing-logo-cmc.png",
+    "previous_sha256": null,
+    "integrated_sha256": "ee0af9ffe17ac4a9c32df7c4488753e48eca21abf18898913d99eeff498589fb",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "landing-logo.jpg",
+    "previous_sha256": null,
+    "integrated_sha256": "01f22040a22970996c90e081a5afaccfaa3f297fbff94255f4325a68f7b8eedd",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "landing-logo.svg",
+    "previous_sha256": null,
+    "integrated_sha256": "f8900a80d3a79d454a526f36ac64f40b3c9799d1c484d338d495bf1839fb2cde",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "landing-social.jpg",
+    "previous_sha256": null,
+    "integrated_sha256": "3e1bd22996eafc50472d4b3cf0c0cda95091b7134f748066c1f7769826dce886",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "markets.html",
+    "previous_sha256": "8946b2d535be8bcd4954f8947e8e4a13e17726c5c52b8559d726f50279856510",
+    "integrated_sha256": "c9e803ee3f149f71ce4e0ea06c28a9d22c392985bae8770f760d87b401c334d6",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "markets/index.html",
+    "previous_sha256": null,
+    "integrated_sha256": "948942b06a105d9418b686269062efc23d3c8d645406d141a9fb117c4b08b788",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "media-kit.html",
+    "previous_sha256": "873a684a438bdeb17e975e1fc196ba1e3792f538590aaee7b9cd244b0f492d82",
+    "integrated_sha256": "99ab43820fad395157012bf6ba7c6cddf122a34d396a9536bb3175c4830379fc",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "media/lander.mp4",
+    "previous_sha256": null,
+    "integrated_sha256": "ab25844a7bea333c268b14ddc2186c62b8b3d085fa4d0528cc0b141c6ba53c1e",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "media/landing-manifesto.mp4",
+    "previous_sha256": null,
+    "integrated_sha256": "be47cf919ccc6dbf326bea3f58f39fe8488ddb08065611b44776d8966d8279db",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "mobile.css",
+    "previous_sha256": null,
+    "integrated_sha256": "06b9e16eb832e47abc9e814c7a8a801b1d4f4cec94638b44dfe15b7e92c783af",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "motion.css",
+    "previous_sha256": "8b67a75fb41e98f3a2c928af2bf490ddd66754d1bc2636d5be3330b21d3c082b",
+    "integrated_sha256": "4c262e658a9c13d24235edcbbfcc554e9ea5a352a80628112d4e221a3ea686af",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "news/index.html",
+    "previous_sha256": "439f03a2d9d4235398ec1ca5ff67eff7bbf818cb42a6df5ef60f317eacb8aafc",
+    "integrated_sha256": "9f8db183f6e20960920871a044813ce612e687772d1bed4d9076a74c635db8bb",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "news/landing-coin-discord-community.html",
+    "previous_sha256": "2da9f8467a35b37b524c5afee9fd21fd14ec2d445538784da7e80c82e71a1064",
+    "integrated_sha256": "d3af4773f5f39a46ed82604b41cd9f261c75dfcc1f5366c8327ea6e34477217d",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "news/landing-coin-poloniex-listing.html",
+    "previous_sha256": "29140fe66f72d2df9c30dd772216ec5d921f0d6c2840b4b27b8946d9e51b88ca",
+    "integrated_sha256": "d59ffc603b0cb48d572d8979af7a8dc8ae0d8d73f9d1155311e766585d87e697",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "news/landing-wall-and-future-merch-store.html",
+    "previous_sha256": "902b8ccd83a1c70d9053aa2984fefb64cf3ea55353a1b0f571e976928dfe04e3",
+    "integrated_sha256": "21b0ee237d285a5e06d73a7fc8c4be98a026b5508777299ed62eeb3b816e59f6",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "news/the-argument-behind-the-joke.html",
+    "previous_sha256": null,
+    "integrated_sha256": "17dc121acec5ec277e715e285661ccc9b1d35754dc82e1cd88e6db44e946fede",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "page-manifest.json",
+    "previous_sha256": "1a7d5557a4ae6f041afc3adf261842be505d754c2d3c9406c093e764353960ef",
+    "integrated_sha256": "edc3efa261f521f3d60cf708b38086a26bab89decdaaeb39e5094184297a1a28",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "page-styles/buy.css",
+    "previous_sha256": null,
+    "integrated_sha256": "5a4054eca95edc0f81afd739c2c10564511fc573f31254fee683966117c9cb87",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "page-styles/editorial.css",
+    "previous_sha256": null,
+    "integrated_sha256": "428e82afacbf30dcd613bf4dd21ee69938a321e65571fa69d1f5b0c457317448",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "page-styles/flight.css",
+    "previous_sha256": null,
+    "integrated_sha256": "399219e71cd91c9f572da6f977a8afb7ca84b4b2d68803725888d0bdb56fc729",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "page-styles/lander.css",
+    "previous_sha256": null,
+    "integrated_sha256": "9d9d6d05b99ea86c5ed792de9f84052d53b262a6f2e3c5402c25641063e253db",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "page-styles/media.css",
+    "previous_sha256": null,
+    "integrated_sha256": "202f70658e556632b506c50b94b7301f88c02a2686bdeedb88e3181c18ab705d",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "page-styles/news-article.css",
+    "previous_sha256": null,
+    "integrated_sha256": "7113d22e3a0c9a4935812f18a2599e49aa265f4230e3fcc3f9d6ce83ddfe9a00",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "page-styles/news.css",
+    "previous_sha256": null,
+    "integrated_sha256": "62983ee20069d3130dcd3c2ef8f400b48eccc3b841b9b1d35e082c25aace90b3",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "page-styles/team.css",
+    "previous_sha256": null,
+    "integrated_sha256": "533180838c08f5f32f486bb394cb942db08c8c6eaa198b6e86c204653eaabcf9",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "page-styles/transparency.css",
+    "previous_sha256": null,
+    "integrated_sha256": "f6854f46c1ff33509f314dc4592c004725bdc5b387867ddda1415d36d6832012",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "page-styles/wall.css",
+    "previous_sha256": null,
+    "integrated_sha256": "19981a545165d0de7a3a540fe5010a4956af47651d869c56ee1229d98605933b",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "pages.css",
+    "previous_sha256": null,
+    "integrated_sha256": "e075b10d07ce602e14e8b28ffa3df5953445e2d7818e49fe16eb46771050885c",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "privacy.html",
+    "previous_sha256": "90aff832c15e94783f0744a0c26ca965b9217f25ab1242523dd19b886a2a1cc8",
+    "integrated_sha256": "68d36c9fcb7c835d3f81600dee2a6115403d2f09c9ff02932344a615c31d78c4",
+    "reason": "Approved legal layout, reconciled actual data/storage behavior and identifiable wallet wording"
+  },
+  {
+    "file": "privacy/index.html",
+    "previous_sha256": null,
+    "integrated_sha256": "679f5351b1daa393ba8e6905d360b2eab71d6d2151d53df301b286850e5bdd04",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "robots.txt",
+    "previous_sha256": "eea5939602855b0db6ffd3278ed7aa100bb80c31bdd9788bf3599c9bde1911b8",
+    "integrated_sha256": "9202c1400661b262ffa0340125276ed92f58036dac4be5b792dfb51954da477a",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "routes/jupiter.html",
+    "previous_sha256": "4973405b9bb04954bbc454b2383f6e1bbe6af66425ebe5e6aa4c6cbbb5ba5f4a",
+    "integrated_sha256": "a22a313e956ba7ba501067b8724bf315cb75ccf13cd58715bd92a5065064d6c6",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "routes/poloniex.html",
+    "previous_sha256": "42c4cf80a9b6af7e56ba62db04f532be7eb29edc6e5007ca075d067d6753654a",
+    "integrated_sha256": "33950a0d5b2e16e13bb6a517f58f1d0be2d25a1a48e9232d7b587ee31cbd74cc",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "scene.css",
+    "previous_sha256": null,
+    "integrated_sha256": "04ad1a8db759c60919607b098edbd10f14431276c01d9f77ba5af04d4adcd2de",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "sections.css",
+    "previous_sha256": null,
+    "integrated_sha256": "83ec8ef901cc652b661c5163f564dff90a200a9fea7bc93ab94e6fc481b1fb63",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "seo.css",
+    "previous_sha256": null,
+    "integrated_sha256": "21e5d77e00ded3eb5cb794113e06a408ba98b16c3e27ac992d2bd2b80e9b4cc6",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "site.js",
+    "previous_sha256": "3b8617b55b70c1fef18fbf3d0e1af560c89369be0062f9ca78e7a3fe377a5f3d",
+    "integrated_sha256": "7a818007d90ec9e6f46d79bd962be0f6d8f1dffc2cea841d85222840fb98ae4d",
+    "reason": "Retain existing data renderers; guard removed navigation and avoid duplicate copy handlers"
+  },
+  {
+    "file": "site.webmanifest",
+    "previous_sha256": null,
+    "integrated_sha256": "a4c1beac748c52621ecc300cfb67f71f9b12c7da0291104ce56abcabc3914ea8",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "sitemap.xml",
+    "previous_sha256": "84dcc709b6d9499eb0dfc000d065e864d00e8a70952bb98c6ef4d426a905adf9",
+    "integrated_sha256": "15b95e07cd3a4aa926b479be02ae2a932ee6a32572d9e76eadc6da571c5f4e50",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "style.css",
+    "previous_sha256": "ddf5cf49b49c786c572d4e89de6b4394c3f08f7c3e0a41cad7c5dbc778cf7141",
+    "integrated_sha256": "c5478a51ec2ecb90d6d029139207a0fc008c1b34353ad6edeff849b99ab132ee",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "team.html",
+    "previous_sha256": "4ba672e3be71b30ad69fc8819679c8f65917f786f3fc1fa41209821b2a780b61",
+    "integrated_sha256": "c9062c449a0749671c702089111eb586cdcaa5aa1760e4579e306a5580ce336b",
+    "reason": "Approved redesign/Furqan role plus latest main Nova disclosures and all four planned collaborator areas"
+  },
+  {
+    "file": "team/michele-scalini-founder.jpg",
+    "previous_sha256": null,
+    "integrated_sha256": "cec8238584ac198a9c1392425f610ce2282e3245b05e181e57efcbba28a0c384",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "team/nova-executive-assistant.jpg",
+    "previous_sha256": null,
+    "integrated_sha256": "9fbc0f7fbb8c556a5face83d81f6d429e26d5f6cfb0067b2827ca568f4f6216a",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "terms-of-service.html",
+    "previous_sha256": "07ef80835f5cea6bf0f53e413d8697879e3f0317f51c95a6eeda26d58288b593",
+    "integrated_sha256": "17a6da4b3f73742eb5dc12bae31d95b0001a19b396e889f33ab8c60c9063e337",
+    "reason": "Approved legal layout, reconciled actual data/storage behavior and identifiable wallet wording"
+  },
+  {
+    "file": "terms/index.html",
+    "previous_sha256": null,
+    "integrated_sha256": "f468b9dfe02ffcbbea59a54e7aebd232d4d9002d33e7c1c653edaccdb9ee65b2",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "tokenomics.html",
+    "previous_sha256": "fe0ad9a594dd80e2cb374b6562c61544342796b3444567f947aea255f4210657",
+    "integrated_sha256": "f9a473c684b6eb83d353c8936cc3441767ddab5716e684e6649376b375d340bb",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "tokenomics/index.html",
+    "previous_sha256": null,
+    "integrated_sha256": "a442f8427cd97497049dbde25178ad3ac8fe2cede94e94dac290e87d96ab7329",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "tokens.css",
+    "previous_sha256": null,
+    "integrated_sha256": "9aabd85485a51b2e39f5198efca49beee8a556697ede304e60c3f42a6897dec7",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "transparency.css",
+    "previous_sha256": null,
+    "integrated_sha256": "ed23474c7fc995a54058323ef94353ab22da752cd757079e31ed4bdaf9d66a90",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "transparency.html",
+    "previous_sha256": "21e27fcf81f929263ca5afe5224139174bb506720877bcedfab2729e332cd069",
+    "integrated_sha256": "9098fa16a5c5325719473cee2cb3e19a921bf969c0a341ad9428d9da383d8971",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "ui.js",
+    "previous_sha256": null,
+    "integrated_sha256": "0d6daabff3906528fc742d884c5d11e23d9b1192da2bfac23f6308d4f88e05c1",
+    "reason": "Approved navigation plus drawer focus containment and initial live-reading synchronization; remove obsolete compatibility unlock so main owns certification"
+  },
+  {
+    "file": "wall.html",
+    "previous_sha256": "a78fd4f46c06ef253239af80b20133ada398793dde6a1103932c988f875b3a91",
+    "integrated_sha256": "7566fce4aeed26fa709c64866351d65b1ed1aeee309cca95256027fc8557c67c",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  },
+  {
+    "file": "why-landing-doesnt-promise-the-moon.html",
+    "previous_sha256": null,
+    "integrated_sha256": "29bf6b28d27e113da6a55cd71a3e494cbf19b2d0797c37ac159e4b48c00412ad",
+    "reason": "Approved PR #7 layout/assets and generated metadata; integrated source is pinned"
+  }
+]

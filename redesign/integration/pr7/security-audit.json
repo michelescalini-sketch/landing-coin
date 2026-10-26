@@ -1,0 +1,45 @@
+{
+  "status": "PASS",
+  "scope": "Static source review; heuristics do not prove absence of every possible secret",
+  "new_credential_patterns": [],
+  "introduced_public_base58_addresses": [],
+  "mint": "DLGLMB3imJqnAwKjxY8ZFXoF7CPfTbCNL3j3Ag5M5vGZ",
+  "wall_recipient": "F7Pio8v6YLwXbwRgQAH8Q7cMqsdaUX3mJeyFyTZbvhhT",
+  "wall_price_raw": "5000000000",
+  "decimals": 6,
+  "external_link_domains": [
+    "bitcointalk.org",
+    "coinranking.com",
+    "discord.gg",
+    "jup.ag",
+    "landing-lander-registry.michelescalini.workers.dev",
+    "landingcoin.fun",
+    "michelescalini.it",
+    "solscan.io",
+    "t.me",
+    "www.geckoterminal.com",
+    "www.linkedin.com",
+    "www.poloniex.com",
+    "www.reddit.com",
+    "x.com"
+  ],
+  "loaded_scripts": [
+    "../ui.js",
+    "/lander-live.js",
+    "/site.js",
+    "/wall-live.js",
+    "/wallet-standard.js",
+    "https://cdn.jsdelivr.net/npm/@solana/web3.js@1.98.4/lib/index.iife.min.js",
+    "https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js",
+    "https://plugin.jup.ag/plugin-v1.js",
+    "ui.js"
+  ],
+  "backend_and_orca_changes": false,
+  "notes": [
+    "No real wallet, private key, credential or blockchain transaction used.",
+    "Pinned libraries retained: web3 1.98.4, html2canvas 1.4.1, wallet-standard app 1.1.1.",
+    "Jupiter plugin-v1 is an existing mutable third-party dependency; availability tested, future contents not guaranteed.",
+    "Public wallet/transaction identifiers may constitute personal data; policy wording reconciled to source.",
+    "Public linking and live backend data are not promises of returns or complete holder coverage."
+  ]
+}

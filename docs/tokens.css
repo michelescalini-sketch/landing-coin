@@ -1,0 +1,186 @@
+/* ==========================================================================
+   LANDING: design tokens
+   Single source of truth for colour, type, space, motion and elevation.
+   Values are carried over unchanged from the v6 concept; this file only
+   gives them names so they can be changed in one place.
+   ========================================================================== */
+
+:root {
+  /* ---- Brand ----------------------------------------------------------- */
+  --accent: #FFC44F;          /* amber, the one accent */
+  --accent-soft: #FFE3A3;     /* hover and secondary accent text */
+  --accent-pale: #FFF6DA;     /* highest-contrast accent, used sparingly */
+
+  /* ---- Ground and surfaces --------------------------------------------- */
+  /* A ladder from the deepest well to the highest raised panel.            */
+  --well-deep: #05060A;
+  --well: #07080B;
+  --ground: #0B0D12;          /* page background */
+  --surface-0: #0B0E14;
+  --surface-1: #0E1117;       /* section panels */
+  --surface-2: #0E1219;
+  --surface-3: #0F131A;
+  --surface-4: #10131A;
+  --surface-5: #11151D;
+  --surface-6: #12151B;
+  --surface-7: #141922;
+  --surface-8: #161B24;
+  --surface-9: #171B23;
+  --surface-10: #1A1F2A;
+  --surface-11: #1B212C;      /* highest raised card */
+
+  /* ---- Lines ----------------------------------------------------------- */
+  --line: #2C3038;            /* default hairline */
+  --line-soft: #2B2F38;
+  --line-strong: #3A3F4A;
+  --line-strongest: #3F4450;
+
+  /* ---- Text ------------------------------------------------------------ */
+  --text: #F4F3EC;            /* bone, primary */
+  --text-2: #C9C7BB;          /* slightly receded */
+  --text-3: #A5A8B1;          /* secondary */
+  --text-4: #7C8291;          /* tertiary */
+  /* The bottom of the ladder is set by contrast, not by taste. On this
+     background there is only so far down you can go before text stops
+     being readable, and the old values went past it: captions sat at
+     3.9:1 and the footer risk line at 2.8:1, against the 4.5:1 that
+     normal-size text needs.
+
+     Each of the three below is now pinned to a rule, measured against the
+     lightest panel the site uses (--surface-10), so they hold on every
+     surface rather than only on the darkest one. */
+  --text-muted: #818793;      /* captions and labels. 4.5:1, safe for body copy */
+  --text-dim: #666B72;        /* 3:1, large or bold text only, never body copy */
+  --text-faint: #4A4F5B;      /* decorative only: hairlines, inactive marks, never text */
+
+  /* The ladder above is for dark surfaces. The cream cards need muted text
+     to go darker, not lighter, so they get their own token. Using
+     --text-muted on a cream card reads as 3.2:1, which is why this exists
+     rather than reaching for the dark-surface one. */
+  --ink-muted: #696D79;       /* muted text on cream surfaces. 4.6:1 */
+
+  /* ---- Type ------------------------------------------------------------ */
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-mono: ui-monospace, Menlo, Consolas, monospace;
+
+  --step--2: 0.6875rem;   /* 11px, micro labels, HUD text */
+  --step--1: 0.8125rem;   /* 13px, captions */
+  --step-0:  1rem;        /* 16px, body */
+  --step-1:  1.25rem;     /* 20px, lead */
+  --step-2:  1.75rem;     /* 28px, h3 */
+  --step-3:  2.5rem;      /* 40px, h2 */
+  --step-4:  4rem;        /* 64px, section display */
+  --step-5:  6.5rem;      /* 104px, hero */
+
+  --tracking-hud: 0.28em;     /* uppercase micro labels */
+  --tracking-label: 0.18em;
+  --tracking-tight: -0.02em;  /* large display type */
+
+  --leading-tight: 1.05;
+  --leading-snug: 1.25;
+  --leading-body: 1.7;
+
+  /* ---- Space ----------------------------------------------------------- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 2.5rem;
+  --space-8: 3.5rem;
+  --space-9: 4.5rem;
+  --space-10: 6rem;
+  --space-11: 9rem;
+  --space-12: 11rem;
+
+  --gutter: 40px;             /* page side padding, desktop */
+  --measure: 1160px;          /* content width: header, body and footer all read this */
+  --measure-wide: 1320px;     /* hero and full-bleed content */
+
+  /* ---- Radius ---------------------------------------------------------- */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+
+  /* ---- Motion ---------------------------------------------------------- */
+  /* One signature easing used across the site, with a short set of
+     alternates for specific jobs. Durations are named by intent.          */
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);        /* the house curve */
+  --ease-in-out: cubic-bezier(0.6, 0, 0.3, 1);   /* symmetrical moves */
+  --ease-out-hard: cubic-bezier(0.7, 0, 0.2, 1); /* arrivals that land */
+  --ease-soft: cubic-bezier(0.3, 0.7, 0.3, 1);   /* drifting, ambient */
+  --ease-accel: cubic-bezier(0.5, 0, 0.9, 0.4);  /* departures */
+
+  --dur-instant: 120ms;
+  --dur-fast: 240ms;
+  --dur-base: 420ms;
+  --dur-slow: 700ms;
+  --dur-entrance: 1100ms;     /* section reveals */
+  --dur-ambient: 9s;          /* looping background motion */
+
+  /* ---- Depth ----------------------------------------------------------- */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 18px 40px -24px rgba(0, 0, 0, 0.8);
+  --shadow-lg: 0 40px 90px -50px rgba(0, 0, 0, 0.9);
+  --glow-accent: 0 0 32px -6px rgba(255, 196, 79, 0.45);
+
+  /* The home page's stylesheet reads --ac in 43 rules as its "current
+     accent", expecting a wrapper to supply it. Nothing did, so those rules
+     resolved to nothing: the Mainnet live badge drew transparent with
+     near-black text, the step numbers went black on black and the LANDING
+     Wall animation had no colour at all. It is an alias for --accent, and
+     defining it at the root means a section can still override it locally
+     without any rule being left unresolved. */
+  --ac: var(--accent);
+
+  /* Allocation ramp: one amber descending into the ground, so a supply
+     chart reads as a single material rather than five unrelated colours. */
+  --seg-1: #FFC44F;
+  --seg-2: #E9B04A;
+  --seg-3: #CE9A44;
+  --seg-4: #B0813C;
+  --seg-5: #8E6730;
+
+  /* ---- Layering -------------------------------------------------------- */
+  --z-scene: 1;               /* background illustration */
+  --z-content: 4;
+  --z-rail: 40;
+  --z-header: 60;
+  --z-modal: 100;
+}
+
+/* Narrower gutters once the viewport can no longer afford 40px either side.
+   Matches the widths the project's browser QA renders at. */
+@media (max-width: 768px) {
+  :root {
+    --gutter: 24px;
+    --step-4: 2.75rem;
+    --step-5: 3.25rem;
+  }
+}
+
+@media (max-width: 430px) {
+  :root {
+    --gutter: 20px;
+    --step-3: 2rem;
+    --step-4: 2.25rem;
+    --step-5: 2.75rem;
+  }
+}
+
+/* Anyone who has asked their system to reduce motion gets the design
+   without the movement. Ambient loops stop, entrances resolve instantly. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-instant: 1ms;
+    --dur-fast: 1ms;
+    --dur-base: 1ms;
+    --dur-slow: 1ms;
+    --dur-entrance: 1ms;
+    --dur-ambient: 1ms;
+  }
+}
